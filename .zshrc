@@ -24,7 +24,7 @@ ZSH_THEME="prose"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment following line if you want red dots to be displayed while waiting for completion
- COMPLETION_WAITING_DOTS="true"
+# COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -33,8 +33,14 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+# -------
+# Options
+# -------
+
 eval $(dircolors ~/.dircolors)
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
+zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
 
 # List directory contents after a 'cd'
 function chpwd() {
@@ -42,17 +48,74 @@ function chpwd() {
     ls
 }
 
+setopt extendedglob
+setopt completeinword
+
+# zsh auto-completion
+autoload -U compinit
+compinit
+
+#Lets set some options
+setopt correctall
+
 # Insert sudo at start of line
 insert_sudo () { zle beginning-of-line; zle -U "sudo " }
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
 
+function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
+
+#{{{ History Stuff
+#
+# Where it gets saved
+HISTFILE=~/.history
+
+# Remember about a years worth of history (AWESOME)
+SAVEHIST=10000
+HISTSIZE=10000
+
+# Don't overwrite, append!
+setopt APPEND_HISTORY
+
+# Write after each command
+# setopt INC_APPEND_HISTORY
+
+# Killer: share history between multiple shells
+setopt SHARE_HISTORY
+
+# If I type cd and then cd again, only save the last one
+setopt HIST_IGNORE_DUPS
+
+# Even if there are commands inbetween commands that are the same, still only save the last one
+setopt HIST_IGNORE_ALL_DUPS
+
+# Pretty    Obvious.  Right?
+setopt HIST_REDUCE_BLANKS
+
+# If a line starts with a space, don't save it.
+setopt HIST_IGNORE_SPACE
+setopt HIST_NO_STORE
+
+# When using a hist thing, make a newline show the change before executing it.
+setopt HIST_VERIFY
+
+# Save the time and how long a command ran
+setopt EXTENDED_HISTORY
+
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
+#}}}
+
 # -------
 # Exports
 # -------
 export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
-export TERM=xterm-256color
-#export TERM=rxvt
+#export TERM=xterm-256color
+export PATH=$PATH:~/timaeus/bin
+export PATH=$PATH:/opt/node/bin
+export CHROOTS_DIR=~/timaeus/chroots
+export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
 # -------
 # Aliases
@@ -62,19 +125,18 @@ alias ld='ls -alFh --group-directories-first'
 alias la='ls -A'
 alias l='ls -CF'
 alias lstr='ls -lstr'
-
-alias open='nautilus'
-
-# Wolf aliases
-alias def='cd /home/srivers/chroots/default/home/srivers/'
-alias chr='chr -Xd /home/srivers/chroots/default/ bash'
-alias templates='cd home/srivers/chroots/default/home/srivers/web/templates'
-alias resources='cd home/srivers/chroots/default/home/srivers/web/resources'
-
-# misc
-alias psql_trunk='sudo /etc/init.d/postgresql stop && chr -Xd /home/srivers/chroots/trunk/ bash'
-alias trunk='chr -Xd /home/srivers/chroots/trunk/ bash'
 alias tail_syslog='tail -f /var/log/syslog'
+alias install='sudo apt-get install'
+alias search='sudo apt-cache search'
+alias upgrade='sudo apt-get update && sudo apt-get upgrade'
+alias open='nemo'
+
+# Timaeus aliases
+alias ti='chr -X ti'
+alias def='cd /home/srivers/timaeus/chroots/default/home/srivers/'
+alias templates='cd /home/srivers/timaeus/chroots/default/home/srivers/web/templates'
+alias resources='cd /home/srivers/timaeus/chroots/default/home/srivers/web/resources'
+alias trials='cd /home/srivers/timaeus/chroots/default/home/srivers/trial_releases'
 
 # Mercurial aliases
 alias hgmv='hg qpush --move'

@@ -57,7 +57,7 @@ function! SetupVAM()
 	exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
 	" Tell VAM which plugins to fetch & load:
-	call vam#ActivateAddons(['pydoc%910', 'AutoFenc', 'LycosaExplorer', 'SuperTab_continued.', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'python%790', 'unimpaired', 'Solarized', 'python_match', 'taglist', 'twilight', 'vim-less'], {'auto_install' : 0})
+	call vam#ActivateAddons(['python_pydoc', 'AutoFenc', 'LycosaExplorer', 'SuperTab%1643', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'python%790', 'unimpaired', 'Solarized', 'python_match', 'taglist', 'twilight', 'vim-less'], {'auto_install' : 0})
 	" sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
 	" Addons are put into vam_install_path/plugin-name directory
@@ -139,11 +139,10 @@ endfun
 
 augroup myStartup
   autocmd!
-  autocmd FileType xml,javascript,python,sh,css,less call <SID>CodingStyleFiletypes(4)
-  autocmd FileType htmldjango,html call <SID>CodingStyleFiletypes(2)
+  autocmd FileType javascript,python,sh,css,less call <SID>CodingStyleFiletypes(4)
+  autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2)
   autocmd BufWritePost ~/.vimrc source ~/.vimrc
   autocmd BufNewFile,BufRead *.tpml,*.vsml,*.vcml setfiletype xml
-  autocmd BufNewFile,BufRead *.djhtml setfiletype htmldjango
 augroup END
 
 " Colourscheme -----------------------------------------------------------
@@ -201,24 +200,26 @@ set modeline " Look for embedded modelines at the top of the file.
 set modelines=10 " Don't look any further than this number of lines
 set mousehide " Hide the mouse pointer while typing
 set noerrorbells " enough with the beeping already!
+set noshowmode " Hide mode text under powerbar
 set nostartofline " keep cursor's column
 set notextmode " Don't append bloody carriage returns.
+set rtp+=/usr/local/lib/python2.7/dist-packages/Powerline-beta-py2.7.egg/powerline/bindings/vim
 set ruler " Enable ruler on status line.
 set shiftround " Round indent to shiftwidth multiple, applies to < and >
 set shortmess=atI " Shorter status messages.
 set showcmd " Show (partial) command in status line.
 set showmatch " Show matching ()'s []'s {}'s
-set showmode " Show current input mode in status line.
 set smartcase " only search case sensitively when not doing al all-lowercase search
 set splitbelow " Split horizontally below.
 set splitright " Split vertically to the right.
-set statusline=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
 set title " better xterm titles
 set ttyfast " terminal connection is fast
 set whichwrap=b,s,h,l,<,>,[,],~ " Wrap to the previous/next line on all keys and ~ command
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
 set wildmenu " Better filename completion etc.
 set wildmode=longest:full,full " complete only up to the point of ambiguity (while still showing you what your options are)
+" Powerline management ---------------------------------------------------
+"g:powerline_theme_overrides__{Solarized}
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you
@@ -298,4 +299,7 @@ vmap <silent><C-j> ]egv
 cabbrev w!! w !sudo tee >/dev/null "%"
 
 nmap <F6> :TlistToggle<cr>
-nmap <F4> :setfiletype htmldjango<cr>
+nmap <F14> :setfiletype htmldjango<cr>
+nmap <S-F3> :setf less<cr>
+
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"

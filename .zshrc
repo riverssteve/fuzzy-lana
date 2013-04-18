@@ -33,8 +33,10 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# Load Xmodmap settings, if any.
+# Source aliases
+source $HOME/.aliases
 
+# Load Xmodmap settings, if any.
 xmodmap_rc=$HOME/.xmodmap
 
 if [[ -n $DISPLAY ]]; then
@@ -69,6 +71,7 @@ insert_sudo () { zle beginning-of-line; zle -U "sudo " }
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
 
+# Take me to my chroot!
 function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
 
 # History Stuff -----------------------------------------------------
@@ -119,25 +122,3 @@ export PATH=$PATH:~/timaeus/bin
 export PATH=$PATH:/opt/node/bin
 export CHROOTS_DIR=~/timaeus/chroots
 export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
-
-# Aliases -----------------------------------------------------------
-alias ll='ls -alFh'
-alias ld='ls -alFh --group-directories-first'
-alias la='ls -A'
-alias l='ls -CF'
-alias lstr='ls -lstr'
-alias tail_syslog='tail -f /var/log/syslog'
-alias install='sudo apt-get install'
-alias search='sudo apt-cache search'
-alias upgrade='sudo apt-get update && sudo apt-get upgrade'
-alias open='nemo'
-
-# Timaeus aliases
-alias ti='chr -X ti'
-alias def='cd /home/srivers/timaeus/chroots/default/home/srivers/'
-alias templates='cd /home/srivers/timaeus/chroots/default/home/srivers/web/templates'
-alias resources='cd /home/srivers/timaeus/chroots/default/home/srivers/web/resources'
-alias trials='cd /home/srivers/timaeus/chroots/default/home/srivers/trial_releases'
-
-# Mercurial aliases
-alias hgmv='hg qpush --move'

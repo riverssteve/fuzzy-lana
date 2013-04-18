@@ -57,7 +57,7 @@ function! SetupVAM()
 	exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
 	" Tell VAM which plugins to fetch & load:
-	call vam#ActivateAddons(['python_pydoc', 'AutoFenc', 'LycosaExplorer', 'SuperTab%1643', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'python%790', 'unimpaired', 'Solarized', 'python_match', 'taglist', 'twilight', 'vim-less'], {'auto_install' : 0})
+	call vam#ActivateAddons(['vim-multiple-cursors', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'SuperTab%1643', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
 	" sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
 	" Addons are put into vam_install_path/plugin-name directory
@@ -146,9 +146,9 @@ augroup myStartup
 augroup END
 
 " Colourscheme -----------------------------------------------------------
-if &term =~ '^\(xterm\|screen\|screen-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
+"if &term =~ '^\(xterm\|screen\|screen-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
 	set t_Co=256
-endif
+"endif
 set background=dark
 colorscheme solarized
 "let g:molokai_original=1 " only affects gvim
@@ -203,7 +203,7 @@ set noerrorbells " enough with the beeping already!
 set noshowmode " Hide mode text under powerbar
 set nostartofline " keep cursor's column
 set notextmode " Don't append bloody carriage returns.
-set rtp+=/usr/local/lib/python2.7/dist-packages/Powerline-beta-py2.7.egg/powerline/bindings/vim
+"set rtp+=/usr/local/lib/python2.7/dist-packages/Powerline-beta-py2.7.egg/powerline/bindings/vim " Path to powerline install folder
 set ruler " Enable ruler on status line.
 set shiftround " Round indent to shiftwidth multiple, applies to < and >
 set shortmess=atI " Shorter status messages.
@@ -298,8 +298,16 @@ vmap <silent><C-j> ]egv
 " sudo write
 cabbrev w!! w !sudo tee >/dev/null "%"
 
-nmap <F6> :TlistToggle<cr>
+nmap <F6> :TagbarToggle<cr>
 nmap <F14> :setfiletype htmldjango<cr>
 nmap <S-F3> :setf less<cr>
 
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+
+" Show the stack of syntax hilighting classes affecting whatever is under the
+" cursor.
+function! SynStack()
+    echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc
+
+nnoremap <F8> :call SynStack()<CR>

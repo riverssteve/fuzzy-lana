@@ -33,9 +33,15 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-# -------
-# Options
-# -------
+# Load Xmodmap settings, if any.
+
+xmodmap_rc=$HOME/.xmodmap
+
+if [[ -n $DISPLAY ]]; then
+  [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
+fi
+
+# Options -----------------------------------------------------------
 
 eval $(dircolors ~/.dircolors)
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
@@ -65,8 +71,8 @@ bindkey "^[s" insert-sudo
 
 function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
 
-#{{{ History Stuff
-#
+# History Stuff -----------------------------------------------------
+
 # Where it gets saved
 HISTFILE=~/.history
 
@@ -105,11 +111,8 @@ setopt EXTENDED_HISTORY
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
-#}}}
 
-# -------
-# Exports
-# -------
+# Exports -----------------------------------------------------------
 export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
 #export TERM=xterm-256color
 export PATH=$PATH:~/timaeus/bin
@@ -117,9 +120,7 @@ export PATH=$PATH:/opt/node/bin
 export CHROOTS_DIR=~/timaeus/chroots
 export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
-# -------
-# Aliases
-# -------
+# Aliases -----------------------------------------------------------
 alias ll='ls -alFh'
 alias ld='ls -alFh --group-directories-first'
 alias la='ls -A'

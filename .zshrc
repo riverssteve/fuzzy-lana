@@ -34,7 +34,7 @@ source $HOME/.aliases
 xmodmap_rc=$HOME/.xmodmap
 
 if [[ -n $DISPLAY ]]; then
-  [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
+    [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
 fi
 
 # List directory contents after a 'cd'
@@ -43,13 +43,17 @@ function chpwd() {
     ls
 }
 
-# M^s to insert sudo at start of line
-insert_sudo () { zle beginning-of-line; zle -U "sudo " }
-zle -N insert-sudo insert_sudo
-bindkey "^[s" insert-sudo
-
 # Take me to my chroot!
 function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
+
+# M^s to insert sudo at start of line
+insert_sudo () {
+    zle beginning-of-line;
+    zle -U "sudo "
+}
+
+zle -N insert-sudo insert_sudo
+bindkey "^[s" insert-sudo
 
 # ----------------------------------------------------------------------------
 # Options
@@ -107,8 +111,8 @@ autoload -U compinit && {
     zstyle ':completion:*' accept-exact-dirs true
 
     # Default colors for listings.
-    #zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-    zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+    #zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 
     zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
 

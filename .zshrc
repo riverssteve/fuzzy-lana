@@ -64,24 +64,28 @@ HISTFILE=~/.history
 SAVEHIST=10000
 HISTSIZE=10000
 
-setopt extendedglob \
-       completeinword \
-       correctall \
+setopt ALIASES \
+       AUTO_LIST \
+       COMPLETEINWORD \
+       CORRECTALL \
+       EQUALS \
+       EXTENDEDGLOB \
        HIST_SAVE_NO_DUPS \
        HIST_EXPIRE_DUPS_FIRST \
-       HIST_FIND_NO_DUPS
+       HIST_FIND_NO_DUPS \
+       LIST_TYPES
 
 # Don't overwrite, append!
 setopt APPEND_HISTORY
 
-# Killer: share history between multiple shells
-setopt SHARE_HISTORY
-
-# If I type cd and then cd again, only save the last one
-setopt HIST_IGNORE_DUPS
+# Save the time and how long a command ran
+setopt EXTENDED_HISTORY
 
 # Even if there are commands inbetween commands that are the same, still only save the last one
 setopt HIST_IGNORE_ALL_DUPS
+
+# If I type cd and then cd again, only save the last one
+setopt HIST_IGNORE_DUPS
 
 # Pretty    Obvious.  Right?
 setopt HIST_REDUCE_BLANKS
@@ -93,8 +97,11 @@ setopt HIST_NO_STORE
 # When using a hist thing, make a newline show the change before executing it.
 setopt HIST_VERIFY
 
-# Save the time and how long a command ran
-setopt EXTENDED_HISTORY
+# Killer: share history between multiple shells
+setopt SHARE_HISTORY
+
+# Display usage statistics for commands running > 5 sec.
+REPORTTIME=10
 
 # ----------------------------------------------------------------------------
 # Completion

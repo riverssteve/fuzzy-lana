@@ -1,0 +1,50 @@
+/* Stylish css */
+
+/* Feedbin */
+
+@import url(https://fonts.googleapis.com/css?family=Merriweather);
+@import url(https://fonts.googleapis.com/css?family=News+Cycle:700);
+
+blockquote {
+    margin: 20px 0 !important;
+}
+
+blockquote p {
+    line-height: 23px !important;
+}
+
+.entry-header a {
+    font-family: 'News Cycle', sans-serif;
+}
+
+.entry-content {
+    background-color: whitesmoke !important;
+}
+
+.entry-inner {
+    margin: 0 20% !important;
+    background-color: white !important;
+    box-shadow: 0 0 4px rgba(0,0,0,.3) !important;
+}
+
+.entry-inner div {
+    /*margin: 0 0 30px !important;*/
+    font-size: 14px !important;
+    line-height: 23px !important;
+    font-family: 'Merriweather', serif !important;
+    font-weight: 400 !important;
+}
+
+.entry-inner h1, .entry-inner h2, .entry-inner h3 {
+    font-family: 'News Cycle', sans-serif;
+}
+
+/* Hacker News */
+
+body, .pagetop, .title, .subtext, .comhead, input, textarea {
+    font: 500 16px/20px ubuntu, Helvetica, sans-serif !important;
+}
+
+.subtext {
+    font-size: 12px !important;
+}

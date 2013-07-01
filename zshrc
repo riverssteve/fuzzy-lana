@@ -1,3 +1,22 @@
+# ---------------------------------------------------------------------------
+# Environment
+# ---------------------------------------------------------------------------
+
+export TERM=xterm-256color
+
+# Personal Information
+source $HOME/.ldap_info
+
+# Path
+export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
+
+# Timaeus information
+export PATH=$PATH:~/timaeus/bin
+export PATH=$PATH:/opt/node/bin
+export PATH=$PATH:~/.local/bin
+export CHROOTS_DIR=~/timaeus/chroots
+export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
+
 # ----------------------------------------------------------------------------
 # ZSH Options
 # ----------------------------------------------------------------------------
@@ -73,13 +92,12 @@ setopt ALIASES \
        HIST_SAVE_NO_DUPS \
        HIST_EXPIRE_DUPS_FIRST \
        HIST_FIND_NO_DUPS \
-       LIST_TYPES
-
-# Don't overwrite, append!
-setopt APPEND_HISTORY
-
-# Save the time and how long a command ran
-setopt EXTENDED_HISTORY
+       LIST_TYPES \
+       INTERACTIVECOMMENTS \
+       SHARE_HISTORY \
+       APPEND_HISTORY \
+       EXTENDED_HISTORY \
+       HIST_REDUCE_BLANKS
 
 # Even if there are commands inbetween commands that are the same, still only save the last one
 setopt HIST_IGNORE_ALL_DUPS
@@ -87,18 +105,12 @@ setopt HIST_IGNORE_ALL_DUPS
 # If I type cd and then cd again, only save the last one
 setopt HIST_IGNORE_DUPS
 
-# Pretty    Obvious.  Right?
-setopt HIST_REDUCE_BLANKS
-
 # If a line starts with a space, don't save it.
 setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 
 # When using a hist thing, make a newline show the change before executing it.
 setopt HIST_VERIFY
-
-# Killer: share history between multiple shells
-setopt SHARE_HISTORY
 
 # Display usage statistics for commands running > 5 sec.
 REPORTTIME=10
@@ -109,13 +121,6 @@ REPORTTIME=10
 
 # Use Emacs line editing mode
 bindkey -e
-
-# Common key bindings
-bindkey '^[[3~' delete-char-or-list # <del> => delete next char
-bindkey '^[[1;5D' emacs-backward-word # <ctrl><left> => previous word
-bindkey '^[[1;5C' emacs-forward-word # <ctrl><right> => next word
-bindkey '^[[3;5~' backward-kill-word # <ctrl><del> => delete next word
-bindkey ' ' magic-space # <space> => perform history expansion
 
 # <up>/<down> => Fish style history substring search
 . /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh &>/dev/null || \
@@ -189,14 +194,3 @@ autoload -U compinit && {
     bindkey '^Xh' _complete_help
     bindkey '^X?' _complete_debug
 }
-
-# ----------------------------------------------------------------------------
-# Exports
-# ----------------------------------------------------------------------------
-
-export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
-#export TERM=xterm-256color
-export PATH=$PATH:~/timaeus/bin
-export PATH=$PATH:/opt/node/bin
-export CHROOTS_DIR=~/timaeus/chroots
-export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus

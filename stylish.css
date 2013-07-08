@@ -48,3 +48,43 @@ body, .pagetop, .title, .subtext, .comhead, input, textarea {
 .subtext {
     font-size: 12px !important;
 }
+
+/* Hacker News */
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+body, .pagetop, .title, .subtext, .comhead, input, textarea {
+    font: 500 14px/20px 'Open Sans', Helvetica, sans-serif !important;
+}
+
+.subtext {
+	font-size: 12px !important;
+}
+
+.comment p, .comment font {
+    font-family: 'Open Sans', sans-serif !important;
+    color: #34495e !important;
+}
+
+.comhead a, .comhead span, .comhead {
+    color: #1abc9c !important;
+    font-weight: 600;
+}
+  
+table {
+    width: 800px !important;
+    background-color: white;
+}
+
+.title a {
+    color: #e67e22 !important;
+    font-weight: 600;
+}
+
+.pagetop a {
+    color: #d35400 !important    
+}
+
+.subtext a, .subtext span, td.subtext {
+    color: #2c3e50 !important
+}

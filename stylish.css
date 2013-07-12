@@ -1,60 +1,63 @@
 /* Stylish css */
 
 /* Feedbin */
-
-@import url(https://fonts.googleapis.com/css?family=Merriweather);
-@import url(https://fonts.googleapis.com/css?family=News+Cycle:700);
+@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700);
+@import url(https://fonts.googleapis.com/css?family=Bitter:400,700);
 
 blockquote {
     margin: 20px 0 !important;
+    color: #555555 !important;
 }
 
 blockquote p {
     line-height: 23px !important;
+    font-size: 16px !important;
 }
 
 .entry-header a {
-    font-family: 'News Cycle', sans-serif;
+    font-family: 'PT Serif', sans-serif;
 }
 
-.entry-content {
-    background-color: whitesmoke !important;
+.entry-content img {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    padding: 0 !important;
 }
 
 .entry-inner {
     margin: 0 20% !important;
     background-color: white !important;
-    box-shadow: 0 0 4px rgba(0,0,0,.3) !important;
 }
 
 .entry-inner div {
     /*margin: 0 0 30px !important;*/
-    font-size: 14px !important;
+    font-size: 16px !important;
     line-height: 23px !important;
-    font-family: 'Merriweather', serif !important;
-    font-weight: 400 !important;
+    font-family: 'Bitter', serif !important;
 }
 
-.entry-inner h1, .entry-inner h2, .entry-inner h3 {
-    font-family: 'News Cycle', sans-serif;
+.entry-inner h1, .entry-inner h2, .entry-inner h3, .entry-inner h4 {
+    font-family: 'PT Serif', sans-serif;    
+}
+
+.entry-inner h6 {
+    /*margin: 0 0 30px !important;*/
+    font-size: 16px !important;
+    line-height: 23px !important;
+    font-family: 'Bitter', serif !important;
+    letter-spacing: 0px !important;
+}
+
+li {
+    line-height: 23px !important;
 }
 
 /* Hacker News */
 
-body, .pagetop, .title, .subtext, .comhead, input, textarea {
-    font: 500 16px/20px ubuntu, Helvetica, sans-serif !important;
-}
-
-.subtext {
-    font-size: 12px !important;
-}
-
-/* Hacker News */
-
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
 
 body, .pagetop, .title, .subtext, .comhead, input, textarea {
-    font: 500 14px/20px 'Open Sans', Helvetica, sans-serif !important;
+    font: 300 16px/20px 'Open Sans', Helvetica, sans-serif !important;
 }
 
 .subtext {
@@ -67,8 +70,8 @@ body, .pagetop, .title, .subtext, .comhead, input, textarea {
 }
 
 .comhead a, .comhead span, .comhead {
-    color: #1abc9c !important;
-    font-weight: 600;
+    color: #2c3e50 !important;
+    font-weight: 300;
 }
   
 table {
@@ -77,8 +80,12 @@ table {
 }
 
 .title a {
-    color: #e67e22 !important;
-    font-weight: 600;
+    color: #d35400 !important;
+    font-weight: 300;
+}
+
+.title a:visited {
+    color: #2c3e50 !important;  
 }
 
 .pagetop a {

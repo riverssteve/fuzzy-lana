@@ -54,7 +54,7 @@ function! SetupVAM()
     exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
     " Tell VAM which plugins to fetch & load:
-    call vam#ActivateAddons(['powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'SuperTab%1643', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
+    call vam#ActivateAddons(['syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
     " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
     " Addons are put into vam_install_path/plugin-name directory
@@ -73,15 +73,22 @@ endf
 
 call SetupVAM()
 
-" LycosaExplorer (http://www.vim.org/scripts/script.php?script_id=3659) ---
+" EasyMotion -------------------------------------------------------------
+" Type <Leader><Leader>w to trigger the word motion w. When the motion is
+" triggered, the text is updated (no braces are actually added, the text
+" is highlighted in red by default):
+"
+"    <cursor>Lorem {a}psum {b}olor {c}it {d}met.
+"
+" Press "c" to jump to the beginning of the word "sit":
+"
+"    Lorem ipsum dolor <cursor>sit amet.
+
+" LycosaExplorer (http://www.vim.org/scripts/script.php?script_id=3659) --
 "  <Leader>lf  - Opens the filesystem explorer.
 "  <Leader>lr  - Opens the filesystem explorer at the directory of the current file.
 "  <Leader>lb  - Opens the buffer explorer.
 let g:SuperTabDefaultCompletionType = "context"
-
-" Syntastic settings -----------------------------------------------------
-let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
-let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 
 " NERD Commenter ---------------------------------------------------------
 " ,cc |NERDComComment| Comments out the current line or text selected in
@@ -111,6 +118,13 @@ let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 "    except that the delimiters are aligned down the left side (,cl), the
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
+
+" Syntastic settings -----------------------------------------------------
+let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
+let g:syntastic_auto_loc_list=1 " Open location list if there are errors
+
+" YouCompleteMe ----------------------------------------------------------
+let g:ycm_autoclose_preview_window_after_completion=1
 
 " Syntax highlighting ----------------------------------------------------
 syntax on
@@ -144,8 +158,13 @@ augroup myStartup
     autocmd BufNewFile,BufRead *.tpml,*.vsml,*.vcml setfiletype xml
 augroup END
 
+au BufRead,BufNewFile *.md set filetype=markdown
+
+" Restrict mutt email width
+au BufRead /tmp/mutt-* set tw=72
+
 " Colourscheme -----------------------------------------------------------
-if &term =~ '^\(xterm\|screen\|screen-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
+if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
 set background=dark
@@ -172,9 +191,9 @@ endfunction
 nmap <c-n><c-n> :call <SID>ToggleColorColumn()<CR>
 
 " Toggling paste ---------------------------------------------------------
-nnoremap <F5> :set invpaste paste?<Enter>
-imap <F5> <C-O><F5>
-set pastetoggle=<F5>
+"nnoremap <F5> :set invpaste paste?<Enter>
+"imap <F5> <C-O><F5>
+"set pastetoggle=<F5>
 
 " Buffer non-specific ----------------------------------------------------
 set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert
@@ -216,6 +235,9 @@ set wildmode=longest:full,full " complete only up to the point of ambiguity (whi
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
+" Status bar --------------------------------------------------------------
+"set statusline=
+"set statusline+=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you
 "                  edited.

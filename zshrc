@@ -1,22 +1,32 @@
 # ---------------------------------------------------------------------------
-# Environment
+# Work Environment
 # ---------------------------------------------------------------------------
+if [[ $OSTYPE == "linux-gnu" ]]; then
+    export TERM=xterm-256color
 
-export TERM=xterm-256color
+    # Personal Information
+    source $HOME/.ldap_info
 
-# Personal Information
-source $HOME/.ldap_info
+    # Take me to my chroot!
+    function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
 
-# Path
-export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
+    # Path
+    export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
 
-# Timaeus information
-export PATH=$PATH:~/timaeus/bin
-export PATH=$PATH:/opt/node/bin
-export PATH=$PATH:~/.local/bin
-export CHROOTS_DIR=~/timaeus/chroots
-export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
+    # Timaeus information
+    export PATH=$PATH:~/timaeus/bin
+    export PATH=$PATH:/opt/node/bin
+    export PATH=$PATH:~/.local/bin
+    export CHROOTS_DIR=~/timaeus/chroots
+    export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
+    # Load Xmodmap settings, if any.
+    xmodmap_rc=$HOME/.xmodmap
+
+    if [[ -n $DISPLAY ]]; then
+        [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
+    fi
+fi
 # ----------------------------------------------------------------------------
 # ZSH Options
 # ----------------------------------------------------------------------------
@@ -49,21 +59,11 @@ source $HOME/.aliases
 # Functions
 # ----------------------------------------------------------------------------
 
-# Load Xmodmap settings, if any.
-xmodmap_rc=$HOME/.xmodmap
-
-if [[ -n $DISPLAY ]]; then
-    [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
-fi
-
 # List directory contents after a 'cd'
 function chpwd() {
     emulate -LR zsh
     ls
 }
-
-# Take me to my chroot!
-function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
 
 # M^s to insert sudo at start of line
 insert_sudo () {
@@ -94,8 +94,8 @@ setopt ALIASES \
        HIST_FIND_NO_DUPS \
        LIST_TYPES \
        INTERACTIVECOMMENTS \
-       SHARE_HISTORY \
        APPEND_HISTORY \
+       SHARE_HISTORY \
        EXTENDED_HISTORY \
        HIST_REDUCE_BLANKS
 
@@ -167,11 +167,6 @@ autoload -U compinit && {
     zstyle ':completion:*:descriptions' format $'\e[1m -- %d --\e[22m'
     zstyle ':completion:*:messages' format $'\e[1m -- %d --\e[22m'
     zstyle ':completion:*:warnings' format $'\e[1m -- No matches found --\e[22m'
-
-    # Ignore hidden files by default
-    zstyle ':completion:*:(all-|other-|)files' ignored-patterns '*/.*'
-    zstyle ':completion:*:(local-|)directories' ignored-patterns '*/.*'
-    zstyle ':completion:*:cd:*' ignored-patterns '*/.*'
 
     # Don't complete completion functions/widgets.
     zstyle ':completion:*:functions' ignored-patterns '_*'

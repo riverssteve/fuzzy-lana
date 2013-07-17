@@ -1,4 +1,8 @@
-/* Stylish css */
+/* Stylish css for Chrome. Firefox doesn't support @imports.
+   For more info see https://github.com/JasonBarnabe/stylish/issues/29.
+   
+   Each theme should be in a seperate stylish entry.
+ */
 
 /* Feedbin */
 @import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700);
@@ -37,7 +41,8 @@ blockquote p {
 }
 
 .entry-inner h1, .entry-inner h2, .entry-inner h3, .entry-inner h4 {
-    font-family: 'PT Serif', sans-serif;    
+    font-family: 'PT Serif', sans-serif !important;
+    margin: 20px 0 !important;
 }
 
 .entry-inner h6 {

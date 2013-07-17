@@ -1,11 +1,11 @@
 /* Stylish css for Chrome. Firefox doesn't support @imports.
    For more info see https://github.com/JasonBarnabe/stylish/issues/29.
-   
+
    Each theme should be in a seperate stylish entry.
  */
 
 /* Feedbin */
-@import url(https://fonts.googleapis.com/css?family=PT+Serif:400,700);
+@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
 @import url(https://fonts.googleapis.com/css?family=Bitter:400,700);
 
 blockquote {
@@ -15,11 +15,11 @@ blockquote {
 
 blockquote p {
     line-height: 23px !important;
-    font-size: 16px !important;
+    font-size: 14px !important;
 }
 
 .entry-header a {
-    font-family: 'PT Serif', sans-serif;
+    font-family: 'PT Sans Narrow', sans-serif;
 }
 
 .entry-content img {
@@ -29,25 +29,32 @@ blockquote p {
 }
 
 .entry-inner {
-    margin: 0 20% !important;
+    width: 600px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
     background-color: white !important;
 }
 
 .entry-inner div {
-    /*margin: 0 0 30px !important;*/
-    font-size: 16px !important;
+    margin-bottom: 10px !important;
+    font-size: 14px !important;
     line-height: 23px !important;
     font-family: 'Bitter', serif !important;
 }
 
 .entry-inner h1, .entry-inner h2, .entry-inner h3, .entry-inner h4 {
-    font-family: 'PT Serif', sans-serif !important;
+    font-family: 'PT Sans Narrow', sans-serif;
     margin: 20px 0 !important;
 }
 
+.entry-inner h1{font-size:36px !important;}
+.entry-inner h2{font-size:34px !important;}
+.entry-inner h3{font-size:32px !important;}
+.entry-inner h4{font-size:30px !important;}
+
 .entry-inner h6 {
     /*margin: 0 0 30px !important;*/
-    font-size: 16px !important;
+    font-size: 14px !important;
     line-height: 23px !important;
     font-family: 'Bitter', serif !important;
     letter-spacing: 0px !important;
@@ -61,7 +68,6 @@ li {
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
 
 body {
-    /*background-color: #3b4f67 !important;*/
     background-color: #f1f1ef !important;
 }
 
@@ -79,7 +85,7 @@ td {
 }
 
 .subtext {
-	font-size: 12px !important;
+    font-size: 12px !important;
 }
 
 .comment p, .comment font {
@@ -104,17 +110,17 @@ table {
 }
 
 .title a:visited {
-    color: #2c3e50 !important;  
+    color: #2c3e50 !important;
 }
 
 .pagetop a {
-    color: #d35400 !important    
+    color: #d35400 !important;
 }
 
 .subtext a, .subtext span, td.subtext {
-    color: #2c3e50 !important
+    color: #2c3e50 !important;
 }
 
 form {
- 	display: none !important; 
+    display: none !important;
 }

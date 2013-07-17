@@ -58,11 +58,24 @@ li {
 }
 
 /* Hacker News */
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400);
+body {
+    /*background-color: #3b4f67 !important;*/
+    background-color: #f1f1ef !important;
+}
 
 body, .pagetop, .title, .subtext, .comhead, input, textarea {
-    font: 300 16px/20px 'Open Sans', Helvetica, sans-serif !important;
+    font: 400 16px/20px 'Source Sans Pro', sans-serif !important;
+}
+
+table {
+    padding: 10px !important;  
+}
+
+td {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    color: #34495e !important;
 }
 
 .subtext {
@@ -70,23 +83,24 @@ body, .pagetop, .title, .subtext, .comhead, input, textarea {
 }
 
 .comment p, .comment font {
-    font-family: 'Open Sans', sans-serif !important;
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 13px !important;
     color: #34495e !important;
 }
 
 .comhead a, .comhead span, .comhead {
     color: #2c3e50 !important;
-    font-weight: 300;
+    font-weight: 400;
 }
   
 table {
     width: 800px !important;
-    background-color: white;
+    background-color: #f1f1ef;
 }
 
 .title a {
     color: #d35400 !important;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .title a:visited {
@@ -99,4 +113,8 @@ table {
 
 .subtext a, .subtext span, td.subtext {
     color: #2c3e50 !important
+}
+
+form {
+ 	display: none !important; 
 }

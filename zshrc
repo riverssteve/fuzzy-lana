@@ -1,6 +1,8 @@
 # ---------------------------------------------------------------------------
-# Work Environment
+# Environment
 # ---------------------------------------------------------------------------
+
+# Work
 if [[ $OSTYPE == "linux-gnu" ]]; then
     export TERM=xterm-256color
 
@@ -27,6 +29,14 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
         [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
     fi
 fi
+
+# Home
+if [[ $OSTYPE == "darwin12.0" ]]; then
+fi
+
+# Both
+export MYVIMRC="$HOME/.vimrc"
+
 # ----------------------------------------------------------------------------
 # ZSH Options
 # ----------------------------------------------------------------------------
@@ -73,6 +83,13 @@ insert_sudo () {
 
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
+
+function precmd() {
+    if [ "$(id -u)" -ne 0 ]; then
+        FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
+        echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
+    fi
+}
 
 # ----------------------------------------------------------------------------
 # Options

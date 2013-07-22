@@ -44,7 +44,7 @@ function! SetupVAM()
     " let g:vim_addon_manager = {}
     " let g:vim_addon_manager['key'] = value
 
-    " Example: drop git sources unless git is in PATH. Same plugins can
+    " Example: drop git sources unless git is in PATH.  Same plugins can
     " be installed from www.vim.org. Lookup MergeSources to get more control
     " let g:vim_addon_manager['drop_git_sources'] = !executable('git')
 
@@ -54,7 +54,7 @@ function! SetupVAM()
     exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
     " Tell VAM which plugins to fetch & load:
-    call vam#ActivateAddons(['syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
+    call vam#ActivateAddons(['repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
     " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
     " Addons are put into vam_install_path/plugin-name directory
@@ -74,7 +74,7 @@ endf
 call SetupVAM()
 
 " EasyMotion -------------------------------------------------------------
-" Type <Leader><Leader>w to trigger the word motion w. When the motion is
+" Type <Leader><Leader>w to trigger the word motion w.  When the motion is
 " triggered, the text is updated (no braces are actually added, the text
 " is highlighted in red by default):
 "
@@ -95,12 +95,12 @@ let g:SuperTabDefaultCompletionType = "context"
 "    visual mode.
 " ,cn |NERDComNestedComment| Same as |NERDComComment| but forces nesting.
 " ,c<space> |NERDComToggleComment| Toggles the comment state of the
-"    selected line(s). If the topmost selected line is commented, all
+"    selected line(s).  If the topmost selected line is commented, all
 "    selected lines are uncommented and vice versa.
 " ,cm |NERDComMinimalComment| Comments the given lines using only one set
 "    of multipart delimiters if possible.
 " ,ci |NERDComInvertComment| Toggles the comment state of the selected
-"    line(s) individually. Each selected line that is commented is
+"    line(s) individually.  Each selected line that is commented is
 "    uncommented and vice versa.
 " ,cs |NERDComSexyComment| Comments out the selected lines 'sexily'
 " ,cy |NERDComYankComment| Same as |NERDComComment| except that the
@@ -118,6 +118,16 @@ let g:SuperTabDefaultCompletionType = "context"
 "    except that the delimiters are aligned down the left side (,cl), the
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
+
+" Sparkup settings -------------------------------------------------------
+" <c-e>: expand sparkup string
+" <c-n>: jump to next empty tag
+" Typing div.content>h1.post-title+p{Sample Content} will expand to
+"     <div class="content">
+"         <h1 class="post-title"></h1>
+"         <p>Sample Content</p>
+"     </div>
+" See https://github.com/rstacruz/sparkup#examples for more.
 
 " Syntastic settings -----------------------------------------------------
 let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
@@ -197,6 +207,7 @@ nmap <c-n><c-n> :call <SID>ToggleColorColumn()<CR>
 
 " Buffer non-specific ----------------------------------------------------
 set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert
+set cpo+=J " Use double spacing after periods.
 set display=lastline,uhex " Show the last line instead of '@'; show non-printable chars as <hex>
 set esckeys " allow sane use of cursor keys in various modes, not a necessary change since it probably does the right thing in nocompatible mode anyway
 set hidden " unsaved buffers allowed in the buffer list without saving
@@ -238,9 +249,9 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Status bar --------------------------------------------------------------
 "set statusline=
 "set statusline+=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
+
 " VimInfo management -----------------------------------------------------
-" '50              Marks will be remembered for the last 50 files you
-"                  edited.
+" '50              Marks will be remembered for the last 50 files you edited.
 " <1000            Contents of registers (up to 1000 lines each) will be
 "                  remembered.
 " s100             Registers with more than 100 Kbyte text are skipped.
@@ -313,6 +324,17 @@ noremap <Down> <nop>
 noremap <Left> <nop>
 noremap <Right> <nop>
 
+" Disable the help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Select previously pasted text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" Open vimrc on the fly
+nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
 " Bubble lines of text (Uses Tim Pope's "unimpaired" script)
 " Bubble single lines
 nmap <silent><C-k> [e
@@ -323,4 +345,4 @@ vmap <silent><C-j> ]egv
 
 nmap <F6> :TagbarToggle<cr>
 "nmap <S-F3> :setf less<cr>
-nnoremap <F8> :call SynStack()<CR>
+"nnoremap <F8> :call SynStack()<CR>

@@ -68,6 +68,7 @@ li {
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
 
 body {
+    /*background-color: #3b4f67 !important;*/
     background-color: #f1f1ef !important;
 }
 
@@ -76,7 +77,7 @@ body, .pagetop, .title, .subtext, .comhead, input, textarea {
 }
 
 table {
-    padding: 10px !important;  
+    padding: 10px !important;
 }
 
 td {
@@ -98,9 +99,12 @@ td {
     color: #2c3e50 !important;
     font-weight: 400;
 }
-  
-table {
+
+center > table {
     width: 800px !important;
+}
+
+table {
     background-color: #f1f1ef;
 }
 
@@ -118,7 +122,7 @@ table {
 }
 
 .subtext a, .subtext span, td.subtext {
-    color: #2c3e50 !important;
+    color: #2c3e50 !important
 }
 
 form {

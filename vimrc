@@ -84,7 +84,8 @@ call SetupVAM()
 "
 "    Lorem ipsum dolor <cursor>sit amet.
 
-" LycosaExplorer (http://www.vim.org/scripts/script.php?script_id=3659) --
+" LycosaExplorer ---------------------------------------------------------
+" Link - (http://www.vim.org/scripts/script.php?script_id=3659)
 "  <Leader>lf  - Opens the filesystem explorer.
 "  <Leader>lr  - Opens the filesystem explorer at the directory of the current file.
 "  <Leader>lb  - Opens the buffer explorer.
@@ -332,7 +333,7 @@ vnoremap <F1> <ESC>
 " Select previously pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Open vimrc on the fly
+" Open vimrc on the fly <leader>ev
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Bubble lines of text (Uses Tim Pope's "unimpaired" script)

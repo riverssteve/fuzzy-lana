@@ -112,7 +112,7 @@ table {
 }
 
 .title a {
-    color: #384142 !important;
+    color: #00b693 !important;
     font-weight: 400;
     font-family: 'Bitter', serif !important;
 }
@@ -129,12 +129,25 @@ table {
     color: #00b693 !important;
 }
 
+.pagetop b a:hover {
+    border-bottom: 1px solid #ddd !important;
+}
+
 .pagetop > a {
     color: #384142 !important;
 }
 
+.pagetop > a:hover {
+    border-bottom: 1px solid #ddd !important;
+}
+
 .subtext a, .subtext span, td.subtext {
     color: #2B3233 !important;
+}
+
+.subtext a:hover {
+    text-decoration: none !important;
+    border-bottom: 1px solid #ddd !important;
 }
 
 .yclinks a {
@@ -167,4 +180,27 @@ body > center > table > tbody > tr:first-child > td > table > tbody > tr:first-c
 
 body > center > table > tbody > tr:nth-child(n+4) {
     display:none !important;
+}
+
+
+body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1) td {
+    height: 20px;
+    padding-top: 15px;
+    vertical-align: top;
+}
+
+body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1) > td:nth-child(2n) a {
+display: block;
+height: 15px;
+width: 11px;
+margin: 0px 8px 0px 5px;
+background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAANCAYAAABGkiVgAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDREI4OUYyQTZDNkQxMUUyQTI1QjhFNEY4NEQ3N0U5QyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDREI4OUYyQjZDNkQxMUUyQTI1QjhFNEY4NEQ3N0U5QyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkNEQjg5RjI4NkM2RDExRTJBMjVCOEU0Rjg0RDc3RTlDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkNEQjg5RjI5NkM2RDExRTJBMjVCOEU0Rjg0RDc3RTlDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+QXVLXAAAAI1JREFUeNpi/P//PwM+EBuYrAOkpgOxDRAfAeLMxevnXsGnhxGfoWgGwgBBg3EaisNAogzGaigBAwkajGEokQbiNRjFUCK8TFRQwA0lJgyJDWMmEiMlE8pHByB906HmMDDGBCSRFMvEOICJ1GRDjIuZyEmHhAxmwiJBVFbEY/ARJjQJogzEYzBYP0CAAQBbunn1YjjaRwAAAABJRU5ErkJggg==);
+background-repeat: no-repeat;
+background-position: 100% 50%;
+background-size: 11px 7px;
+opacity: 0.5;
+}
+
+body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1) > td:nth-child(2n) a img {
+    display: none !important;
 }

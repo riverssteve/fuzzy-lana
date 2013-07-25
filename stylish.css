@@ -146,3 +146,25 @@ table {
 a[href='http://ycombinator.com'] {
   display: none;
 }
+
+body > center > table > tbody > tr:first-child > td > table > tbody > tr:first-child > td > .pagetop {
+    display: block;
+    position: absolute;
+    top: -100px;
+}
+
+body > center > table > tbody > tr:first-child > td > table > tbody > tr:first-child > td > .pagetop a {
+    display: inline-block;
+    position: relative;
+    bottom: -123px;
+    color: rgba(0, 0, 0, 0.6);
+    font-style: italic;
+}
+
+body > center > table > tbody > tr:first-child > td > table > tbody > tr:first-child > td:nth-child(3n) > .pagetop {
+    right: 0px;
+}
+
+body > center > table > tbody > tr:nth-child(n+4) {
+    display:none !important;
+}

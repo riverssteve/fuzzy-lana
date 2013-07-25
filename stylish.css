@@ -66,10 +66,11 @@ li {
 
 /* Hacker News */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
+@import url(https://fonts.googleapis.com/css?family=Bitter);
 
 body {
     /*background-color: #3b4f67 !important;*/
-    background-color: #f1f1ef !important;
+    background-color: #384142 !important;
 }
 
 body, .pagetop, .title, .subtext, .comhead, input, textarea {
@@ -96,8 +97,10 @@ td {
 }
 
 .comhead a, .comhead span, .comhead {
-    color: #2c3e50 !important;
+    color: #384142 !important;
     font-weight: 400;
+    font-family: 'Bitter', serif !important;
+    font-style: italic !important;
 }
 
 center > table {
@@ -105,26 +108,41 @@ center > table {
 }
 
 table {
-    background-color: #f1f1ef;
+    background-color: #f5f4f0;
 }
 
 .title a {
-    color: #d35400 !important;
+    color: #384142 !important;
     font-weight: 400;
+    font-family: 'Bitter', serif !important;
+}
+
+.title a:hover {
+    border-bottom: 1px solid #ddd !important;
 }
 
 .title a:visited {
-    color: #2c3e50 !important;
+    color: #798C8E !important;
 }
 
-.pagetop a {
-    color: #d35400 !important;
+.pagetop b a {
+    color: #00b693 !important;
+}
+
+.pagetop > a {
+    color: #384142 !important;
 }
 
 .subtext a, .subtext span, td.subtext {
-    color: #2c3e50 !important
+    color: #2B3233 !important;
 }
 
-form {
-    display: none !important;
+.yclinks a {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-size: 12px !imporant;
+    color: #384142 !important;
+}
+
+a[href='http://ycombinator.com'] {
+  display: none;
 }

@@ -1,10 +1,11 @@
 # ---------------------------------------------------------------------------
-# Environment
+# Environments
 # ---------------------------------------------------------------------------
+
+export TERM=xterm-256color
 
 # Work
 if [[ $OSTYPE == "linux-gnu" ]]; then
-    export TERM=xterm-256color
 
     # Personal Information
     source $HOME/.ldap_info
@@ -32,11 +33,19 @@ fi
 
 # Home
 if [[ $OSTYPE == "darwin12.0" ]]; then
+
+    # Path
+    export PATH="$HOME/.bin:$PATH"
+
+    # Replace bsd utils with gnu equivalent and their manpages
+    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+
+    export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+
+    export BYOBU_PREFIX=$(brew --prefix)
+
 fi
-
-# Both
-export MYVIMRC="$HOME/.vimrc"
-
 # ----------------------------------------------------------------------------
 # ZSH Options
 # ----------------------------------------------------------------------------
@@ -89,6 +98,21 @@ function precmd() {
         FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
         echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
     fi
+}
+
+# Specify folder marks a la vim
+export MARKPATH=$HOME/.marks
+function jump {
+    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
+}
+function mark {
+    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
+}
+function unmark {
+    rm -i $MARKPATH/$1
+}
+function marks {
+    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
 }
 
 # ----------------------------------------------------------------------------

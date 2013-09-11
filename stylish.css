@@ -1,28 +1,89 @@
 /* Stylish css for Chrome. Firefox doesn't support @imports.
    For more info see https://github.com/JasonBarnabe/stylish/issues/29.
 
+   To work around, use greasemonkey to load fonts using Javascript.
+
    Each theme should be in a seperate stylish entry.
  */
 
-/* Feedbin */
-@import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700);
-@import url(https://fonts.googleapis.com/css?family=Bitter:400,700);
+/*
+ * FEEDBIN --------------------------------------------------------------------
+ */
+/*---[ Dark Layout ]---*/
+.content-styles {
+    color: #AAAAAA !important;
+}
 
+.entry-header h1 {
+    color: #777777 !important;
+}
+
+/* READ */
+.entries li[class=read] .title {
+    color: #444444 important;
+}
+
+.entry-buttons {
+    background-image: none !important;
+}
+
+.content-styles blockquote, .content-styles blockquote p {
+    color: #AAAAAA !important;
+}
+
+.content-styles pre code {
+    background-color: white !important;
+    overflow: auto !important;
+}
+/*- _ -*/
+
+.entry-toolbar {
+    background-color: #EFEFEF !important;
+    border-bottom: 1px solid #111111 !important;
+}
+
+.entry-content {
+    background-color: #272B30 !important;
+}
+
+.content-styles table {
+    border: 1px solid #1C1E22 !important;
+}
+
+.table-bordered > thead > tr > th,
+.content-styles table > thead > tr > th,
+.table-bordered > tbody > tr > th,
+.content-styles table > tbody > tr > th,
+.table-bordered > tfoot > tr > th,
+.content-styles table > tfoot > tr > th,
+.table-bordered > thead > tr > td,
+.content-styles table > thead > tr > td,
+.table-bordered > tbody > tr > td,
+.content-styles table > tbody > tr > td,
+.table-bordered > tfoot > tr > td,
+.content-styles table > tfoot > tr > td {
+    border: 1px solid #272B30 !important;
+}
+/*--[ End Dark Layout ]--*/
+
+/* Fix blockquote top margin */
 blockquote {
     margin: 20px 0 !important;
-    color: #555555 !important;
+    color: #AAAAAA !important;
+    font-style: italic !important;
 }
 
 blockquote p {
-    line-height: 23px !important;
-    font-size: 14px !important;
+    line-height: 24px !important;
+    /*font-size: 16px !important;*/
 }
 
-.entry-header a {
-    font-family: 'PT Sans Narrow', sans-serif;
+.entry-header {
+    font-family: 'Bitter', serif !important;
 }
 
-.entry-content img {
+/* Control Width */
+/*.entry-content img {
     margin-left: auto !important;
     margin-right: auto !important;
     padding: 0 !important;
@@ -32,30 +93,49 @@ blockquote p {
     width: 600px !important;
     margin-left: auto !important;
     margin-right: auto !important;
-    background-color: white !important;
-}
+}*/
 
 .entry-inner div {
+    /*margin: 0 0 30px !important;*/
     margin-bottom: 10px !important;
-    font-size: 14px !important;
-    line-height: 23px !important;
+    /*font-size: 16px !important;*/
+    line-height: 24px !important;
     font-family: 'Bitter', serif !important;
 }
 
 .entry-inner h1, .entry-inner h2, .entry-inner h3, .entry-inner h4 {
-    font-family: 'PT Sans Narrow', sans-serif;
     margin: 20px 0 !important;
 }
 
-.entry-inner h1{font-size:36px !important;}
-.entry-inner h2{font-size:34px !important;}
-.entry-inner h3{font-size:32px !important;}
-.entry-inner h4{font-size:30px !important;}
+.entry-inner h1 {
+    font-size: 34px !important;
+    line-height: 1.25em !important;
+}
+
+.entry-inner h2 {
+    font-size: 32px !important;
+    line-height: 1.25em !important;
+}
+
+.entry-inner h3 {
+    font-size: 30px !important;
+    line-height: 1.25em !important;
+}
+
+.entry-inner h4 {
+    font-size: 28px !important;
+    line-height: 1.25em !important;
+}
+
+.entry-inner h5 {
+    font-size: 26px !important;
+    line-height: 1.25em !important;
+}
 
 .entry-inner h6 {
     /*margin: 0 0 30px !important;*/
-    font-size: 14px !important;
-    line-height: 23px !important;
+    /*font-size: 16px !important;*/
+    line-height: 24px !important;
     font-family: 'Bitter', serif !important;
     letter-spacing: 0px !important;
 }
@@ -64,7 +144,29 @@ li {
     line-height: 23px !important;
 }
 
-/* Hacker News */
+/* Hide links at bottom of feedburner articles. */
+a[href^="http://feeds.feedburner.com"] {
+    display: none !important;
+}
+
+/* Hide Ars Technica feed links */
+a[href^="http://feeds.arstechnica.com/~ff/"] {
+    display: none !important;
+}
+
+/* Hide Ars Technica feed links */
+a[href^="http://feeds.macrumors.com/~ff/"] {
+    display: none !important;
+}
+
+/* Hide Ars Technica feed links */
+a[href^="http://da.feedsportal.com"] {
+    display: none !important;
+}
+
+/*
+ * HACKER NEWS ----------------------------------------------------------------
+ */
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
 @import url(https://fonts.googleapis.com/css?family=Bitter);
 
@@ -187,20 +289,4 @@ body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1
     height: 20px;
     padding-top: 15px;
     vertical-align: top;
-}
-
-body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1) > td:nth-child(2n) a {
-display: block;
-height: 15px;
-width: 11px;
-margin: 0px 8px 0px 5px;
-background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAANCAYAAABGkiVgAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpDREI4OUYyQTZDNkQxMUUyQTI1QjhFNEY4NEQ3N0U5QyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpDREI4OUYyQjZDNkQxMUUyQTI1QjhFNEY4NEQ3N0U5QyI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkNEQjg5RjI4NkM2RDExRTJBMjVCOEU0Rjg0RDc3RTlDIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkNEQjg5RjI5NkM2RDExRTJBMjVCOEU0Rjg0RDc3RTlDIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+QXVLXAAAAI1JREFUeNpi/P//PwM+EBuYrAOkpgOxDRAfAeLMxevnXsGnhxGfoWgGwgBBg3EaisNAogzGaigBAwkajGEokQbiNRjFUCK8TFRQwA0lJgyJDWMmEiMlE8pHByB906HmMDDGBCSRFMvEOICJ1GRDjIuZyEmHhAxmwiJBVFbEY/ARJjQJogzEYzBYP0CAAQBbunn1YjjaRwAAAABJRU5ErkJggg==);
-background-repeat: no-repeat;
-background-position: 100% 50%;
-background-size: 11px 7px;
-opacity: 0.5;
-}
-
-body > center > table > tbody > tr:nth-child(n+2) > td > table tr:nth-child(3n+1) > td:nth-child(2n) a img {
-    display: none !important;
 }

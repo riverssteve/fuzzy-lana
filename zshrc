@@ -2,8 +2,6 @@
 # Environments
 # ---------------------------------------------------------------------------
 
-export TERM=xterm-256color
-
 # Work
 if [[ $OSTYPE == "linux-gnu" ]]; then
 
@@ -22,6 +20,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     export PATH=$PATH:~/.local/bin
     export CHROOTS_DIR=~/timaeus/chroots
     export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
+    export PATH=$PATH:/opt/chef/embedded/bin
 
     # Load Xmodmap settings, if any.
     xmodmap_rc=$HOME/.xmodmap
@@ -46,6 +45,11 @@ if [[ $OSTYPE == "darwin12.0" ]]; then
     export BYOBU_PREFIX=$(brew --prefix)
 
 fi
+
+# Both
+export MYVIMRC="$HOME/.vimrc"
+export TERM=xterm-256color
+
 # ----------------------------------------------------------------------------
 # ZSH Options
 # ----------------------------------------------------------------------------
@@ -68,7 +72,7 @@ ZSH_THEME="prose"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 
 eval $(dircolors ~/.dircolors)
 source $ZSH/oh-my-zsh.sh
@@ -102,17 +106,21 @@ function precmd() {
 
 # Specify folder marks a la vim
 export MARKPATH=$HOME/.marks
+
 function jump {
     cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
 }
+
 function mark {
     mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
 }
+
 function unmark {
     rm -i $MARKPATH/$1
 }
+
 function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g' && echo
+    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g'
 }
 
 # ----------------------------------------------------------------------------
@@ -124,12 +132,14 @@ HISTFILE=~/.history
 SAVEHIST=10000
 HISTSIZE=10000
 
+# More info here: http://zsh.sourceforge.net/Doc/Release/Options.html
 setopt ALIASES \
        AUTO_LIST \
        COMPLETEINWORD \
        CORRECTALL \
        EQUALS \
        EXTENDEDGLOB \
+       GLOB_COMPLETE \
        HIST_SAVE_NO_DUPS \
        HIST_EXPIRE_DUPS_FIRST \
        HIST_FIND_NO_DUPS \
@@ -163,9 +173,10 @@ REPORTTIME=10
 # Use Emacs line editing mode
 bindkey -e
 
-# <up>/<down> => Fish style history substring search
-. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh &>/dev/null || \
-. $MAIN_USER_HOME/projects/zsh-history-substring-search/zsh-history-substring-search.zsh &>/dev/null
+# zsh-history substring - bind UP and DOWN arrow keys
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
 
 # ----------------------------------------------------------------------------
 # Completion
@@ -224,7 +235,7 @@ autoload -U compinit && {
     zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=39=32"
 
     # Use zsh-completions if available.
-    [[ -d $HOME/repositories/zsh-completions ]] && fpath=($HOME/repositories/zsh-completions/src $fpath)
+    [[ -d $HOME/repos/zsh-completions ]] && fpath=($HOME/repos/zsh-completions/src $fpath)
 
     # Completion debugging
     bindkey '^Xh' _complete_help

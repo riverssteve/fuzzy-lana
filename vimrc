@@ -319,6 +319,8 @@ endfunc
 
 " Mappings ---------------------------------------------------------------
 
+" To close syntastic window, :lcl
+
 " Disable cursor keys
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -335,6 +337,7 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Open vimrc on the fly <leader>ev
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+nnoremap <leader>r :registers<cr>
 
 " Bubble lines of text (Uses Tim Pope's "unimpaired" script)
 " Bubble single lines

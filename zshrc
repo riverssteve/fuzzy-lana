@@ -8,19 +8,17 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Personal Information
     source $HOME/.ldap_info
 
-    # Take me to my chroot!
-    function to(){ cd $HOME/timaeus/chroots/$1$HOME;}
-
     # Path
     export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
 
     # Timaeus information
-    export PATH=$PATH:~/timaeus/bin
-    export PATH=$PATH:/opt/node/bin
     export PATH=$PATH:~/.local/bin
-    export CHROOTS_DIR=~/timaeus/chroots
-    export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
     export PATH=$PATH:/opt/chef/embedded/bin
+    export PATH=$PATH:/opt/node/bin
+    export PATH=$PATH:~/timaeus/bin
+    export TIMAEUS_HOME=$HOME/timaeus
+    export CHROOTS_DIR=$TIMAEUS_HOME/chroots
+    export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
     # Load Xmodmap settings, if any.
     xmodmap_rc=$HOME/.xmodmap
@@ -28,6 +26,9 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     if [[ -n $DISPLAY ]]; then
         [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
     fi
+
+    # Take me to my chroot!
+    function to(){ cd $CHROOTS_DIR/$1$HOME;}
 fi
 
 # Home
@@ -43,7 +44,6 @@ if [[ $OSTYPE == "darwin12.0" ]]; then
     export PATH="$HOME/Library/Python/2.7/bin:$PATH"
 
     export BYOBU_PREFIX=$(brew --prefix)
-
 fi
 
 # Both

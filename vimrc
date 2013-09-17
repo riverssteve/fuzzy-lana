@@ -54,7 +54,7 @@ function! SetupVAM()
     exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
     " Tell VAM which plugins to fetch & load:
-    call vam#ActivateAddons(['repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
+    call vam#ActivateAddons(['Gundo', 'repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'powerline', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
     " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
     " Addons are put into vam_install_path/plugin-name directory
@@ -167,6 +167,7 @@ augroup myStartup
     autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2)
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
     autocmd BufNewFile,BufRead *.tpml,*.vsml,*.vcml setfiletype xml
+    autocmd BufEnter *.zsh-theme setfiletype zsh
 augroup END
 
 au BufRead,BufNewFile *.md set filetype=markdown
@@ -220,7 +221,7 @@ set lazyredraw " Don't redraw during macros etc.
 set list " display leading tabs as >· and trailing spaces as ·
 set listchars=tab:»·,trail:·
 "set listchars=tab:\|\ ,trail:·
-let mapleader = ","
+let mapleader = "," " Set <leader> to ,
 set modeline " Look for embedded modelines at the top of the file.
 set modelines=10 " Don't look any further than this number of lines
 set mousehide " Hide the mouse pointer while typing
@@ -319,8 +320,6 @@ endfunc
 
 " Mappings ---------------------------------------------------------------
 
-" To close syntastic window, :lcl
-
 " Disable cursor keys
 noremap <Up> <nop>
 noremap <Down> <nop>
@@ -332,12 +331,20 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+" To close syntastic window, :lcl
+
 " Select previously pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 " Open vimrc on the fly <leader>ev
 nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Open registers
 nnoremap <leader>r :registers<cr>
+
+" F5 to open Gundo window
+" http://sjl.bitbucket.org/gundo.vim/
+nnoremap <F5> :GundoToggle<CR>
 
 " Bubble lines of text (Uses Tim Pope's "unimpaired" script)
 " Bubble single lines

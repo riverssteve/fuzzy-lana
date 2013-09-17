@@ -29,6 +29,10 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
     # Take me to my chroot!
     function to(){ cd $CHROOTS_DIR/$1$HOME;}
+
+    function gitpw() {
+        cat $HOME/.netrc | grep password | cut -d " " -f 2 | xclip -selection clipboard;
+    }
 fi
 
 # Home

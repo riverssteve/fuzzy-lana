@@ -8,14 +8,12 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Personal Information
     source $HOME/.ldap_info
 
-    # Path
-    export PATH=/home/srivers/bin:/usr/lib/lightdm/lightdm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/srivers/bin:/opt/node/bin
-
-    # Timaeus information
+    # Path Information
     export PATH=$PATH:~/.local/bin
     export PATH=$PATH:/opt/chef/embedded/bin
-    export PATH=$PATH:/opt/node/bin
     export PATH=$PATH:~/timaeus/bin
+
+    # Timaeus Environment things
     export TIMAEUS_HOME=$HOME/timaeus
     export CHROOTS_DIR=$TIMAEUS_HOME/chroots
     export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
@@ -23,6 +21,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Load Xmodmap settings, if any.
     xmodmap_rc=$HOME/.xmodmap
 
+    # Keyboard settings
     if [[ -n $DISPLAY ]]; then
         [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
     fi
@@ -30,27 +29,27 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Take me to my chroot!
     function to(){ cd $CHROOTS_DIR/$1$HOME;}
 
+    # Problems with git ssh and our firewall means I need to use http to git push
     function gitpw() {
         cat $HOME/.netrc | grep password | cut -d " " -f 2 | xclip -selection clipboard;
     }
 fi
 
-# Home
-if [[ $OSTYPE == "darwin12.0" ]]; then
+# Home - darwin13.0 = OS X 10.9
+if [[ $OSTYPE == "darwin13.0" ]]; then
 
-    # Path
+    # Path Information
     export PATH="$HOME/.bin:$PATH"
+    export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 
     # Replace bsd utils with gnu equivalent and their manpages
-    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-
-    export PATH="$HOME/Library/Python/2.7/bin:$PATH"
+    export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
+    export MANPATH="$PATH:$(brew --prefix coreutils)/libexec/gnuman"
 
     export BYOBU_PREFIX=$(brew --prefix)
 fi
 
-# Both
+# Exports for both environments
 export MYVIMRC="$HOME/.vimrc"
 export TERM=xterm-256color
 

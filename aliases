@@ -1,0 +1,31 @@
+# ls aliases --------------------------------------------------------
+alias ll='ls -lFh'
+alias lld='ls -alFh'
+alias ld='ls -alFh --group-directories-first'
+alias la='ls -A'
+alias lh='ls -lh'
+alias l='ls -CF'
+alias lstr='ls -lstr'
+
+# apt aliases -------------------------------------------------------
+alias install='sudo apt-get install'
+alias remove='sudo apt-get remove'
+alias upgrade='sudo apt-get update && sudo apt-get upgrade'
+alias search='sudo apt-cache search'
+alias autoremove='sudo apt-get autoremove'
+
+# cd aliases --------------------------------------------------------
+alias cddb='cd /home/srivers/Dropbox'
+alias cdwork='cd /home/srivers/Dropbox/Work'
+
+# git aliases -------------------------------------------------------
+alias gpush='gitpw && git push && empty_clipboard'
+
+# Miscellaneous  ----------------------------------------------------
+alias tail_syslog='tail -f /var/log/syslog'
+alias hgmv='hg qpush --move'
+
+alias open='nautilus'
+alias mutt 'cd ~/Downloads && mutt'
+
+alias chr='chr -X bash'

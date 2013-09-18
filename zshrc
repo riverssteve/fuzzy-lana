@@ -33,6 +33,11 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     function gitpw() {
         cat $HOME/.netrc | grep password | cut -d " " -f 2 | xclip -selection clipboard;
     }
+
+    #... and subsequently empty the clipboard
+    function empty_clipboard() {
+        echo -n | xclip -selection clipboard;
+    }
 fi
 
 # Home - darwin13.0 = OS X 10.9

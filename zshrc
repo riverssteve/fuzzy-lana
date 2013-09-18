@@ -70,7 +70,7 @@ ZSH_THEME="prose"
 # CASE_SENSITIVE="true"
 
 # Comment this out to disable weekly auto-update checks
- DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/

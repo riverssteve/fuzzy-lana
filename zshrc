@@ -9,13 +9,14 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     source $HOME/.ldap_info
 
     # Path Information
-    export PATH=$PATH:~/.local/bin
-    export PATH=$PATH:/opt/chef/embedded/bin
-    export PATH=$PATH:~/timaeus/bin
+    export PATH="$PATH:$HOME/.local/bin"
+    export PATH="$PATH:/opt/chef/embedded/bin"
+    export PATH="$PATH:$HOME/.bin"
 
     # Timaeus Environment things
-    export TIMAEUS_HOME=$HOME/timaeus
-    export CHROOTS_DIR=$TIMAEUS_HOME/chroots
+    export TIMAEUS_HOME="$HOME/timaeus"
+    export CHROOTS_DIR="$TIMAEUS_HOME/chroots"
+    export PATH="$PATH:$TIMAEUS_HOME/bin"
     export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
     # Load Xmodmap settings, if any.

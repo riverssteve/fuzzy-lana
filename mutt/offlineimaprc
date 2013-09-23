@@ -1,0 +1,39 @@
+[general]
+accounts = Work
+ui = basic
+maxsyncaccounts = 1
+fsync = False
+
+[Account Work]
+localrepository = Local
+remoterepository = Remote
+# Minutes between syncs
+autorefresh = 5
+# Number of quick-syncs between autorefreshes. Quick-syncs do not update if the
+# only changes were to IMAP flags
+quick = 10
+
+[Repository Local]
+type = Maildir
+localfolders = ~/.mail/work
+
+[Repository Remote]
+type = IMAP
+remotehost = pod51015.outlook.com
+remoteuser = srivers@cmedtechnology.com
+remotepass = Tp=1.42e+32K
+ssl = yes
+port = 993
+cert_fingerprint = e499cfa19554e6227b58d10e48b2ee5e73399244
+folderfilter = lambda folder: folder in ['Drafts', 'INBOX', 'INBOX.IT', 'INBOX.Reviewboard', 'INBOX.SoftwareBuilds', 'INBOX.StaffEmail', 'INBOX.Technology', 'Sent Items']
+# Instead of closing the connection once a sync is complete, offlineimap will
+# send empty data to the server to hold the connection open. A value of 60
+# attempts to hold the connection for a minute between syncs (both quick and
+# autorefresh).This setting has no effect if autorefresh and holdconnectionopen
+# are not both set.
+keepalive = 60
+# OfflineIMAP normally closes IMAP server connections between refreshes if
+# the global option autorefresh is specified.  If you wish it to keep the
+# connection open, set this to true. This setting has no effect if autorefresh
+#is not set.
+holdconnectionopen = yes

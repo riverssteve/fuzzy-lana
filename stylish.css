@@ -13,8 +13,12 @@
 
   /* ---Fonts--- */
   
-  .font-serif-1 {
+  .font-sans-serif-1 {
     font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
+  }
+  
+  .content-styles {
     font-weight: 300 !important;
   }
   
@@ -25,7 +29,7 @@
   .content-styles h3, .content-styles h4,
   .content-styles h5
   {
-    font-family: 'Vollkorn', serif !important;
+    font-family: 'Open Sans', sans-serif !important;
     font-weight: 600 !important;
     font-style: italic !important;
   }
@@ -41,16 +45,29 @@
   /* ---Anchor--- */
   
   .content-styles a {
-    color: black !important;
-    background-color: rgba(51, 153, 255, 0.2) !important;
-    padding: 0 1px;
+    color:  rgb(0, 159, 218) !important;
+    transition: color .2s ease-in-out;
+    -moz-transition: color .2s ease-in-out;
+    -webkit-transition: color .2s ease-in-out;
   }
   
   .content-styles a:hover {
-    background-color: rgba(51, 153, 255, 1) !important;
+    color: rgb(0, 186, 255) !important;
     text-decoration: none !important;
   }
   /* -Anchor END- */
+
+  /* Mozilla based browsers */
+  ::-moz-selection {
+    background-color: rgb(51, 153, 255);
+    color: #fff;
+  }
+
+  /* Works in Safari */
+  ::selection {
+    background-color: rgb(51, 153, 255);
+    color: #fff;
+  }
 
   .table-bordered > thead > tr > th,
   .content-styles table > thead > tr > th,
@@ -75,12 +92,7 @@
   }
 
   blockquote p {
-    /*line-height: 24px !important;*/
-    /*font-size: 16px !important;*/
-  }
-
-  li {
-    /*line-height: 24px !important;*/
+    font-weight: 300 !important;
   }
 
   /* Hide links at bottom of feedburner articles. */
@@ -100,6 +112,11 @@
 
   /* Hide Ars Technica feed links */
   a[href^="http://da.feedsportal.com"] {
+    display: none !important;
+  }
+  
+  /* Hide share links */
+  a[href^="http://share.feedsportal.com/share/"] {
     display: none !important;
   }
 

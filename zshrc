@@ -28,7 +28,9 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     fi
 
     # Take me to my chroot!
-    function to(){ cd $CHROOTS_DIR/$1$HOME;}
+    function to(){ cd $CHROOTS_DIR/$1$HOME; }
+
+    function chroot(){ cd $CHROOTS_DIR/$1$HOME && clear && chr; }
 
     # Problems with git ssh and our firewall means I need to use http to git push
     function gitpw() {

@@ -1,30 +1,54 @@
 @-moz-document domain('feedbin.me') {
 
-    /* ---Fonts--- */
+    /*
+     * Import Source Sans Pro for this theme from Google Fonts
+     */
 
+    /* ---Fonts Sans Serif--- */
     .font-sans-serif-1 {
-        font-family: 'Open Sans', sans-serif !important;
+        font-family: 'Source Sans Pro', sans-serif !important;
         font-weight: 300 !important;
     }
 
-    .content-styles {
+    .entry-content-wrap.font-sans-serif-1 .content-styles,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h6 {
         font-weight: 300 !important;
     }
 
-    .entry-header h1, .entry-header h2,
-    .entry-header h3, .entry-header h4,
-    .entry-header h5,
-    .content-styles h1, .content-styles h2,
-    .content-styles h3, .content-styles h4,
-    .content-styles h5
+    .entry-content-wrap.font-sans-serif-1 .entry-header h1,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h1,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h2,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h3,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h4,
+    .entry-content-wrap.font-sans-serif-1 .content-styles h5
     {
-        font-family: 'Open Sans', sans-serif !important;
-        font-weight: 600 !important;
-        font-style: italic !important;
+        font-family: 'Source Sans Pro', sans-serif !important;
+        font-weight: 700 !important;
     }
 
-    .content-styles h6 {
-        font-weight: 300 !important;
+    /* -Fonts Sans Serif END- */
+
+    /* ---Fonts Serif--- */
+    .entry-content-wrap.font-serif-1 .entry-header h1,
+    .entry-content-wrap.font-serif-1 .content-styles h1,
+    .entry-content-wrap.font-serif-1 .content-styles h2,
+    .entry-content-wrap.font-serif-1 .content-styles h3,
+    .entry-content-wrap.font-serif-1 .content-styles h4,
+    .entry-content-wrap.font-serif-1 .content-styles h5
+    {
+        font-family: "Sentinel SSm A","Sentinel SSm B", serif !important;
+        font-size: 1.4em !important;
+        font-weight: 700 !important;
+    }
+
+    .font-serif-1 {
+        font-family: serif !important;
+    }
+    /* -Fonts Serif END- */
+
+    /* ---Font sizing--- */
+    .entry-header h1 {
+        font-size: 1.6em !important;
     }
 
     .entry-header .post-meta {
@@ -33,10 +57,24 @@
         font-size: 12px !important;
     }
 
-    /* -Fonts END- */
+    .content-styles h1,
+    .content-styles h2,
+    .content-styles h3,
+    .content-styles h4,
+    .content-styles h5 {
+        font-size: 1.2em !important;
+    }
+
+    .content-styles {
+        font-size: 1em !important;
+    }
+
+    .font-size-6 {
+        font-size: 16px !important;
+    }
+    /* -Font sizing END- */
 
     /* ---Anchor--- */
-
     .content-styles a {
         color:  rgb(0, 130, 218) !important;
         transition: color .2s ease-in-out;
@@ -62,6 +100,15 @@
         color: #fff;
     }
 
+    /*image captions*/
+    .content-styles > div:first-child div {
+        margin-bottom: 10px !important;
+        color: rgb(153, 153, 153) !important;
+        font-style: italic !important;
+        line-height: 1.4em !important;
+    }
+
+    /* Hide share links */
     .table-bordered > thead > tr > th,
     .content-styles table > thead > tr > th,
     .table-bordered > tbody > tr > th,
@@ -110,4 +157,3 @@
     }
 
 }
-

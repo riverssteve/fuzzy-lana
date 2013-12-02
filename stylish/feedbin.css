@@ -1,159 +1,120 @@
 @-moz-document domain('feedbin.me') {
 
-    /*
-     * Import Source Sans Pro for this theme from Google Fonts
-     */
+  /* ---Fonts Sans Serif--- */
+  .font-default {
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-weight: 400 !important;
+  }
+  
+  .font-default .content-styles,
+  .font-default .content-styles h6 {
+    font-weight: 400 !important;
+  }
+  
+  .font-default .entry-header h1,
+  .font-default .content-styles h1,
+  .font-default .content-styles h2,
+  .font-default .content-styles h3,
+  .font-default .content-styles h4,
+  .font-default .content-styles h5
+  {
+    font-weight: 700 !important;
+  }
+  
+  /* -Fonts Sans Serif END- */
 
-    /* ---Fonts Sans Serif--- */
-    .font-sans-serif-1 {
-        font-family: 'Source Sans Pro', sans-serif !important;
-        font-weight: 300 !important;
-    }
+  /* ---Font sizing--- */
+  .entry-header .post-meta {
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300 !important;
+    font-size: 12px !important;
+  }
+  /* -Font sizing END- */
+  
+  /* ---Anchor--- */
+  .content-styles a {
+    color:  rgb(0, 130, 218) !important;
+    transition: color .2s ease-in-out;
+    -moz-transition: color .2s ease-in-out;
+    -webkit-transition: color .2s ease-in-out;
+  }
+  
+  .content-styles a:hover {
+    color: rgb(0, 186, 255) !important;
+    text-decoration: none !important;
+  }
+  /* -Anchor END- */
 
-    .entry-content-wrap.font-sans-serif-1 .content-styles,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h6 {
-        font-weight: 300 !important;
-    }
+  /* Mozilla based browsers */
+  ::-moz-selection {
+    background-color: rgb(51, 153, 255);
+    color: #fff;
+  }
 
-    .entry-content-wrap.font-sans-serif-1 .entry-header h1,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h1,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h2,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h3,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h4,
-    .entry-content-wrap.font-sans-serif-1 .content-styles h5
-    {
-        font-family: 'Source Sans Pro', sans-serif !important;
-        font-weight: 700 !important;
-    }
+  /* Works in Safari */
+  ::selection {
+    background-color: rgb(51, 153, 255);
+    color: #fff;
+  }
 
-    /* -Fonts Sans Serif END- */
+  /*image captions*/
+  .content-styles > div:first-child > div div,
+  .content-styles > div:first-child > div {
+    margin-bottom: 10px !important;
+    line-height: 1.6em !important;
+  }
+  
+  .content-styles > p {
+    line-height: 1.6em !important;
+  }
 
-    /* ---Fonts Serif--- */
-    .entry-content-wrap.font-serif-1 .entry-header h1,
-    .entry-content-wrap.font-serif-1 .content-styles h1,
-    .entry-content-wrap.font-serif-1 .content-styles h2,
-    .entry-content-wrap.font-serif-1 .content-styles h3,
-    .entry-content-wrap.font-serif-1 .content-styles h4,
-    .entry-content-wrap.font-serif-1 .content-styles h5
-    {
-        font-family: "Sentinel SSm A","Sentinel SSm B", serif !important;
-        font-size: 1.4em !important;
-        font-weight: 700 !important;
-    }
+  /* Hide share links */
+  .table-bordered > thead > tr > th,
+  .content-styles table > thead > tr > th,
+  .table-bordered > tbody > tr > th,
+  .content-styles table > tbody > tr > th,
+  .table-bordered > tfoot > tr > th,
+  .content-styles table > tfoot > tr > th,
+  .table-bordered > thead > tr > td,
+  .content-styles table > thead > tr > td,
+  .table-bordered > tbody > tr > td,
+  .content-styles table > tbody > tr > td,
+  .table-bordered > tfoot > tr > td,
+  .content-styles table > tfoot > tr > td {
+    border: 1px solid white !important;
+  }
 
-    .font-serif-1 {
-        font-family: serif !important;
-    }
-    /* -Fonts Serif END- */
+  /* Fix blockquote top margin */
+  blockquote {
+    margin: 20px 0 !important;
+    font-style: italic !important;
+    font-weight: 300 !important;
+    margin-left: 3px solid #CCCCCC !important;
+  }
 
-    /* ---Font sizing--- */
-    .entry-header h1 {
-        font-size: 1.6em !important;
-    }
+  /* Hide links at bottom of feedburner articles. */
+  a[href^="http://feeds.feedburner.com"] {
+    display: none !important;
+  }
 
-    .entry-header .post-meta {
-        font-family: 'Open Sans', sans-serif !important;
-        font-weight: 300 !important;
-        font-size: 12px !important;
-    }
+  /* Hide Ars Technica feed links */
+  a[href^="http://feeds.arstechnica.com/~ff/"] {
+    display: none !important;
+  }
 
-    .content-styles h1,
-    .content-styles h2,
-    .content-styles h3,
-    .content-styles h4,
-    .content-styles h5 {
-        font-size: 1.2em !important;
-    }
+  /* Hide Ars Technica feed links */
+  a[href^="http://feeds.macrumors.com/~ff/"] {
+    display: none !important;
+  }
 
-    .content-styles {
-        font-size: 1em !important;
-    }
-
-    .font-size-6 {
-        font-size: 16px !important;
-    }
-    /* -Font sizing END- */
-
-    /* ---Anchor--- */
-    .content-styles a {
-        color:  rgb(0, 130, 218) !important;
-        transition: color .2s ease-in-out;
-        -moz-transition: color .2s ease-in-out;
-        -webkit-transition: color .2s ease-in-out;
-    }
-
-    .content-styles a:hover {
-        color: rgb(0, 186, 255) !important;
-        text-decoration: none !important;
-    }
-    /* -Anchor END- */
-
-    /* Mozilla based browsers */
-    ::-moz-selection {
-        background-color: rgb(51, 153, 255);
-        color: #fff;
-    }
-
-    /* Works in Safari */
-    ::selection {
-        background-color: rgb(51, 153, 255);
-        color: #fff;
-    }
-
-    /*image captions*/
-    .content-styles > div:first-child div {
-        margin-bottom: 10px !important;
-        color: rgb(153, 153, 153) !important;
-        font-style: italic !important;
-        line-height: 1.4em !important;
-    }
-
-    /* Hide share links */
-    .table-bordered > thead > tr > th,
-    .content-styles table > thead > tr > th,
-    .table-bordered > tbody > tr > th,
-    .content-styles table > tbody > tr > th,
-    .table-bordered > tfoot > tr > th,
-    .content-styles table > tfoot > tr > th,
-    .table-bordered > thead > tr > td,
-    .content-styles table > thead > tr > td,
-    .table-bordered > tbody > tr > td,
-    .content-styles table > tbody > tr > td,
-    .table-bordered > tfoot > tr > td,
-    .content-styles table > tfoot > tr > td {
-        border: 1px solid white !important;
-    }
-
-    /* Fix blockquote top margin */
-    blockquote {
-        margin: 20px 0 !important;
-        font-style: italic !important;
-        font-weight: 300 !important;
-    }
-
-    /* Hide links at bottom of feedburner articles. */
-    a[href^="http://feeds.feedburner.com"] {
-        display: none !important;
-    }
-
-    /* Hide Ars Technica feed links */
-    a[href^="http://feeds.arstechnica.com/~ff/"] {
-        display: none !important;
-    }
-
-    /* Hide Ars Technica feed links */
-    a[href^="http://feeds.macrumors.com/~ff/"] {
-        display: none !important;
-    }
-
-    /* Hide Ars Technica feed links */
-    a[href^="http://da.feedsportal.com"] {
-        display: none !important;
-    }
-
-    /* Hide share links */
-    a[href^="http://share.feedsportal.com/share/"] {
-        display: none !important;
-    }
+  /* Hide Ars Technica feed links */
+  a[href^="http://da.feedsportal.com"] {
+    display: none !important;
+  }
+  
+  /* Hide share links */
+  a[href^="http://share.feedsportal.com/share/"] {
+    display: none !important;
+  }
 
 }

@@ -9,9 +9,8 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     source $HOME/.ldap_info
 
     # Path Information
-    export PATH="$PATH:$HOME/.local/bin"
     export PATH="$PATH:/opt/chef/embedded/bin"
-    export PATH="$PATH:$HOME/.bin"
+    export PATH="$PATH:$HOME/.local/bin"
 
     # Timaeus Environment things
     export TIMAEUS_HOME="$HOME/timaeus"
@@ -20,7 +19,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
 
     # Load Xmodmap settings, if any.
-    xmodmap_rc=$HOME/.xmodmap
+    xmodmap_rc=$HOME/.Xmodmap
 
     # Keyboard settings
     if [[ -n $DISPLAY ]]; then
@@ -29,8 +28,6 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
     # Take me to my chroot!
     function to(){ cd $CHROOTS_DIR/$1$HOME; }
-
-    function chroot(){ cd $CHROOTS_DIR/$1$HOME && clear && chr; }
 
     # Problems with git ssh and our firewall means I need to use http to git push
     function gitpw() {

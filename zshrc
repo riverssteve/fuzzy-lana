@@ -90,10 +90,42 @@ source $HOME/.aliases
 # Functions
 # ----------------------------------------------------------------------------
 
-# List directory contents after a 'cd'
-function chpwd() {
+# Preserve cd - across sessions. Saves dirstack to ~/.zdirs.
+# Also prints directory content after cd.
+DIRSTACKSIZE=9
+DIRSTACKFILE=~/.zdirs
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+
+chpwd() {
+    local -a dirs; dirs=( "$PWD" ${(f)"$(< $DIRSTACKFILE)"} )
+    print -l ${${(u)dirs}[0,$DIRSTACKSIZE]} >$DIRSTACKFILE
     emulate -LR zsh
     ls
+}
+
+# dirstack search ~[name]
+_mydirstack() {
+    local -a lines list
+    for d in $dirstack; do
+        lines+="$(($#lines+1)) -- $d"
+        list+="$#lines"
+    done
+    _wanted -V directory-stack expl 'directory stack' \
+        compadd "$@" -ld lines -S']/' -Q -a list
+}
+
+zsh_directory_name() {
+    case $1 in
+        c) _mydirstack;;
+        n) case $2 in
+            <0-9>) reply=($dirstack[$2]);;
+            *) reply=($dirstack[(r)*$2*]);;
+           esac;;
+        d) false;;
+    esac
 }
 
 # M^s to insert sudo at start of line
@@ -105,6 +137,7 @@ insert_sudo () {
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
 
+# Preserve history
 function precmd() {
     if [ "$(id -u)" -ne 0 ]; then
         FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
@@ -130,6 +163,10 @@ function unmark {
 function marks {
     ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g'
 }
+
+# mcd -- mkdir and cd at once
+mcd() { mkdir -p "$1" && cd "$1" }
+compdef mcd=mkdir
 
 # ----------------------------------------------------------------------------
 # Options

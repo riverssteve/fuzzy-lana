@@ -1,11 +1,12 @@
 # ls aliases --------------------------------------------------------
+alias l='ls -CF'
+alias la='ls -A'
+alias ld='ls -alFh --group-directories-first'
+alias lh='ls -lh'
 alias ll='ls -lFh'
 alias lld='ls -alFh'
-alias ld='ls -alFh --group-directories-first'
-alias la='ls -A'
-alias lh='ls -lh'
-alias l='ls -CF'
 alias lstr='ls -lstr'
+alias lt='ls -lht'
 
 # apt aliases -------------------------------------------------------
 alias install='sudo apt-get install'
@@ -29,3 +30,8 @@ alias open='nautilus'
 alias mutt 'cd ~/Downloads && mutt'
 
 alias chr='chr -X bash'
+
+alias vimrc='vim ~/.vimrc'
+
+alias bindmount-precise='python $HOME/repos/ProjectLegoPrecise/timaeus/utils/tp-env/make_chroot.py -d $HOME/timaeus/chroots/lego_precise/ --release release_ProjectLego --branch ProjectLegoPrecise --base-os=precise --svn-root-url=bind:$HOME/repos/ProjectLegoPrecise 20'
+alias unmount-precise='python $HOME/repos/ProjectLegoPrecise/timaeus/utils/tp-env/make_chroot.py -d $HOME/timaeus/chroots/lego_precise/ --release release_ProjectLego --branch ProjectLegoPrecise --base-os=precise --svn-root-url=bind:$HOME/repos/ProjectLegoPrecise 3'

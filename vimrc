@@ -141,14 +141,16 @@ let g:ycm_autoclose_preview_window_after_completion=1
 syntax on
 
 " Auto-reload .vimrc on changes ------------------------------------------
-function! s:CodingStyleFiletypes(tabstop_length)
+function! s:CodingStyleFiletypes(tabstop_length, show_col)
     " Let filetype indentation do its own thing
     setlocal nocindent
     setlocal nosmartindent
 
     " mark the 80th col to avoid overstepping programming style
-    setlocal colorcolumn=80
-    setlocal textwidth=80
+    if a:show_col == 'on'
+        setlocal colorcolumn=80
+        setlocal textwidth=80
+    endif
 
     " Set 'formatoptions' to break comment lines but not other lines,
     " and insert the comment leader when hitting <CR> or using 'o'.
@@ -163,8 +165,10 @@ endfun
 
 augroup myStartup
     autocmd!
-    autocmd FileType javascript,python,sh,css,less call <SID>CodingStyleFiletypes(4)
-    autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2)
+    autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
+    autocmd FileType css,less call <SID>CodingStyleFiletypes(4, 'off')
+    autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
     autocmd BufNewFile,BufRead *.tpml,*.vsml,*.vcml setfiletype xml
     autocmd BufEnter *.zsh-theme setfiletype zsh

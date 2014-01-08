@@ -54,7 +54,7 @@ function! SetupVAM()
     exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
 
     " Tell VAM which plugins to fetch & load:
-    call vam#ActivateAddons(['powerline', 'Gundo', 'repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
+    call vam#ActivateAddons(['breeze', 'powerline', 'Gundo', 'repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
     " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
 
     " Addons are put into vam_install_path/plugin-name directory
@@ -72,6 +72,41 @@ function! SetupVAM()
 endf
 
 call SetupVAM()
+
+" ------------------------------------------------------------------------
+"                                                          PLUGIN SETTINGS
+" ------------------------------------------------------------------------
+
+" Airline -----------------------------------------------------------------
+
+"Better than default
+"let g:airline_theme='base16'
+
+"if !exists('g:airline_symbols')
+    "let g:airline_symbols = {}
+"endif
+
+" unicode symbols
+" None
+
+" powerline symbols
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.linenr = '¶'
+"let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.paste = 'ρ'
+
+"let g:airline#extensions#syntastic#enabled = 1
+
+" Breeze -----------------------------------------------------------------
+"let g:breeze_highlight_curr_element = 0
+"hi htmlTagHighlightGroup gui=NONE cterm=NONE ctermbg=4 ctermfg=16
+"let g:breeze_hl_color_darkbg = "htmlTagHighlightGroup"
 
 " EasyMotion -------------------------------------------------------------
 " Type <Leader><Leader>w to trigger the word motion w.  When the motion is
@@ -170,11 +205,13 @@ augroup myStartup
     autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
-    autocmd BufNewFile,BufRead *.tpml,*.vsml,*.vcml setfiletype xml
-    autocmd BufEnter *.zsh-theme setfiletype zsh
 augroup END
 
-au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tpml,*.vsml,*.vcml set filetype=xml
+au BufRead,BufNewFile *.zsh-theme          set filetype=zsh
+au BufRead,BufNewFile *.less               set filetype=less
+au BufRead,BufNewFile *.html               set filetype=htmldjango
+au BufRead,BufNewFile *.md                 set filetype=markdown
 
 " Restrict mutt email width
 au BufRead /tmp/mutt-* set tw=72
@@ -256,32 +293,6 @@ nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 " Status bar --------------------------------------------------------------
 "set statusline=
 "set statusline+=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
-
-" Airline -----------------------------------------------------------------
-
-"Better than default
-let g:airline_theme='base16'
-
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
-
-" unicode symbols
-" None
-
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline_symbols.branch = ''
-"let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
-let g:airline_symbols.paste = 'ρ'
-
-let g:airline#extensions#syntastic#enabled = 1
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you edited.
@@ -387,4 +398,4 @@ vmap <silent><C-j> ]egv
 
 nmap <F6> :TagbarToggle<cr>
 "nmap <S-F3> :setf less<cr>
-"nnoremap <F8> :call SynStack()<CR>
+nnoremap <F8> :call SynStack()<CR>

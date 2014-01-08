@@ -11,6 +11,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Path Information
     export PATH="$PATH:/opt/chef/embedded/bin"
     export PATH="$PATH:$HOME/.local/bin"
+    export PATH="$PATH:$HOME/.bin"
 
     # Timaeus Environment things
     export TIMAEUS_HOME="$HOME/timaeus"

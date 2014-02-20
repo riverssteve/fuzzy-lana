@@ -1,107 +1,106 @@
-set nocompatible
+set nocompatible | filetype indent plugin on | syn on
 let g:skip_loading_mswin=1
 
 set fileencoding=utf-8
 set encoding=utf-8
+set shell=/bin/zsh
 
-" Filetype autohandling --------------------------------------------------
-filetype plugin indent on
+" ------------------------------------------------------------------------------
+"                                                                            VAM
+" ------------------------------------------------------------------------------
 
-let g:vim_addon_manager={'scms': {'git': {}, 'svn': {}, 'hg': {}}}
-let g:vim_addon_manager.scms.git.clone=['MyGitCheckout']
-let g:vim_addon_manager.scms.hg.clone =['vcs_checkouts#MercurialCheckout']
-let g:vim_addon_manager.scms.svn.clone=['vcs_checkouts#SubversionCheckout']
-
-function! MyGitCheckout(repository, targetDir)
-    " overwriting in place should not hurt:
-    if a:repository.url =~ 'git://github'
-        let a:repository.url = substitute(a:repository.url, '^git:', 'http:', '')
-        call vam#utils#RunShell('git clone --depth=1 $.url $p', a:repository, a:targetDir)
-    else
-        call vcs_checkouts#GitCheckout(repository, targetDir)
+fun! EnsureVamIsOnDisk(plugin_root_dir)
+  " windows users may want to use http://mawercer.de/~marc/vam/index.php
+  " to fetch VAM, VAM-known-repositories and the listed plugins
+  " without having to install curl, 7-zip and git tools first
+  " -> BUG [4] (git-less installation)
+  let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
+  if isdirectory(vam_autoload_dir)
+    return 1
+  else
+    if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
+      " I'm sorry having to add this reminder. Eventually it'll pay off.
+      call confirm("Remind yourself that most plugins ship with ".
+                  \"documentation (README*, doc/*.txt). It is your ".
+                  \"first source of knowledge. If you can't find ".
+                  \"the info you're looking for in reasonable ".
+                  \"time ask maintainers to improve documentation")
+      call mkdir(a:plugin_root_dir, 'p')
+      execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
+                  \ shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
+      " VAM runs helptags automatically when you install or update
+      " plugins
+      exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
     endif
-endf
+    return isdirectory(vam_autoload_dir)
+  endif
+endfun
 
-function! EnsureVamIsOnDisk(vam_install_path)
-    " -> BUG [4] (git-less installation)
-    if !filereadable(a:vam_install_path.'/vim-addon-manager/.git/config')
-            \&& 1 == confirm("Clone VAM into ".a:vam_install_path."?","&Y\n&N")
-        " I'm sorry having to add this reminder. Eventually it'll pay off.
-        call confirm("Remind yourself that most plugins ship with ".
-                    \"documentation (README*, doc/*.txt). It is your ".
-                    \"first source of knowledge. If you can't find ".
-                    \"the info you're looking for in reasonable ".
-                    \"time ask maintainers to improve documentation")
-        call mkdir(a:vam_install_path, 'p')
-        execute '!git clone --depth=1 http://github.com/MarcWeber/vim-addon-manager '.shellescape(a:vam_install_path, 1).'/vim-addon-manager'
-        " VAM runs helptags automatically when you install or update plugins
-        exec 'helptags '.fnameescape(a:vam_install_path.'/vim-addon-manager/doc')
-    endif
-endf
+fun! SetupVAM()
+  " Set advanced options like this:
+  " let g:vim_addon_manager = {}
+  " let g:vim_addon_manager.key = value
+  " Pipe all output into a buffer which gets written to disk
+  " let g:vim_addon_manager.log_to_buf =1
 
-function! SetupVAM()
-    " Set advanced options like this:
-    " let g:vim_addon_manager = {}
-    " let g:vim_addon_manager['key'] = value
+  " Example: drop git sources unless git is in PATH. Same plugins can
+  " be installed from www.vim.org. Lookup MergeSources to get more control
+  " let g:vim_addon_manager.drop_git_sources = !executable('git')
+  " let g:vim_addon_manager.debug_activation = 1
 
-    " Example: drop git sources unless git is in PATH.  Same plugins can
-    " be installed from www.vim.org. Lookup MergeSources to get more control
-    " let g:vim_addon_manager['drop_git_sources'] = !executable('git')
+  " VAM install location:
+  let c = get(g:, 'vim_addon_manager', {})
+  let g:vim_addon_manager = c
+  let c.plugin_root_dir = expand('$HOME/.vim/vim-addons', 1)
+  if !EnsureVamIsOnDisk(c.plugin_root_dir)
+    echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
+    return
+  endif
+  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
 
-    " VAM install location:
-    let vam_install_path = expand('$HOME') . '/.vim/vim-addons'
-    call EnsureVamIsOnDisk(vam_install_path)
-    exec 'set runtimepath+='.vam_install_path.'/vim-addon-manager'
+  " Tell VAM which plugins to fetch & load:
+  call vam#ActivateAddons([])
+  "ActivateAddons python_match
+  "ActivateAddons python_pydoc
+  ActivateAddons AutoFenc
+  ActivateAddons EasyMotion
+  ActivateAddons Emmet
+  ActivateAddons Gundo
+  ActivateAddons LycosaExplorer
+  ActivateAddons Python-mode-klen
+  ActivateAddons Solarized
+  ActivateAddons Solarized
+  ActivateAddons Syntastic
+  ActivateAddons Tagbar
+  ActivateAddons The_NERD_Commenter
+  ActivateAddons VimOutliner
+  ActivateAddons breeze
+  ActivateAddons powerline
+  ActivateAddons powerline
+  ActivateAddons repeat
+  ActivateAddons surround
+  ActivateAddons unimpaired
+  ActivateAddons vim-less
+  ActivateAddons vim-pi
 
-    " Tell VAM which plugins to fetch & load:
-    call vam#ActivateAddons(['breeze', 'powerline', 'Gundo', 'repeat', 'sparkup', 'syntaxconkyrc', 'EasyMotion', 'YouCompleteMe', 'python_pydoc', 'AutoFenc', 'LycosaExplorer', 'surround', 'Syntastic', 'The_NERD_Commenter', 'VimOutliner', 'indentpython%3461', 'unimpaired', 'Solarized', 'python_match', 'Tagbar', 'twilight', 'vim-less'], {'auto_install' : 0})
-    " sample: call vam#ActivateAddons(['pluginA','pluginB', ...], {'auto_install' : 0})
+  " Addons are put into plugin_root_dir/plugin-name directory
+  " unless those directories exist. Then they are activated.
+  " Activating means adding addon dirs to rtp and do some additional
+  " magic
 
-    " Addons are put into vam_install_path/plugin-name directory
-    " unless those directories exist. Then they are activated.
-    " Activating means adding addon dirs to rtp and do some additional
-    " magic
-
-    " How to find addon names?
-    " - look up source from pool
-    " - (<c-x><c-p> complete plugin names):
-    " You can use name rewritings to point to sources:
-    " ..ActivateAddons(["github:foo", .. => github://foo/vim-addon-foo
-    " ..ActivateAddons(["github:user/repo", .. => github://user/repo
-    " Also see section "2.2. names of addons and addon sources" in VAM's documentation
-endf
-
+  " How to find addon names?
+  " - look up source from pool
+  " - (<c-x><c-p> complete plugin names):
+  " You can use name rewritings to point to sources:
+  " ..ActivateAddons(["github:foo", .. => github://foo/vim-addon-foo
+  " ..ActivateAddons(["github:user/repo", .. => github://user/repo
+  " Also see section "2.2. names of addons and addon sources" in VAM's documentation
+endfun
 call SetupVAM()
 
 " ------------------------------------------------------------------------
 "                                                          PLUGIN SETTINGS
 " ------------------------------------------------------------------------
-
-" Airline -----------------------------------------------------------------
-
-"Better than default
-"let g:airline_theme='base16'
-
-"if !exists('g:airline_symbols')
-    "let g:airline_symbols = {}
-"endif
-
-" unicode symbols
-" None
-
-" powerline symbols
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.linenr = '¶'
-"let g:airline_symbols.branch = '⎇'
-"let g:airline_symbols.paste = 'ρ'
-
-"let g:airline#extensions#syntastic#enabled = 1
 
 " Breeze -----------------------------------------------------------------
 "let g:breeze_highlight_curr_element = 0
@@ -118,6 +117,10 @@ call SetupVAM()
 " Press "c" to jump to the beginning of the word "sit":
 "
 "    Lorem ipsum dolor <cursor>sit amet.
+
+" Emmet ------------------------------------------------------------------
+" Only run on HTML, CSS and LESS files
+let g:user_emmet_install_global = 0
 
 " LycosaExplorer ---------------------------------------------------------
 " Link - (http://www.vim.org/scripts/script.php?script_id=3659)
@@ -155,22 +158,13 @@ let g:SuperTabDefaultCompletionType = "context"
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
 
-" Sparkup settings -------------------------------------------------------
-" <c-e>: expand sparkup string
-" <c-n>: jump to next empty tag
-" Typing div.content>h1.post-title+p{Sample Content} will expand to
-"     <div class="content">
-"         <h1 class="post-title"></h1>
-"         <p>Sample Content</p>
-"     </div>
-" See https://github.com/rstacruz/sparkup#examples for more.
-
 " Syntastic settings -----------------------------------------------------
+let g:syntastic_python_checkers=['flake8']
 let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
 let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 
 " YouCompleteMe ----------------------------------------------------------
-let g:ycm_autoclose_preview_window_after_completion=1
+"let g:ycm_autoclose_preview_window_after_completion=1
 
 " Syntax highlighting ----------------------------------------------------
 syntax on
@@ -202,7 +196,9 @@ augroup myStartup
     autocmd!
     autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType css,less call <SID>CodingStyleFiletypes(4, 'off')
-    autocmd FileType htmldjango,html,xml call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType html,xml,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
+    autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
     autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
 augroup END

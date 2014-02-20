@@ -82,6 +82,7 @@ fun! SetupVAM()
   ActivateAddons unimpaired
   ActivateAddons vim-less
   ActivateAddons vim-pi
+  ActivateAddons jsonvim
 
   " Addons are put into plugin_root_dir/plugin-name directory
   " unless those directories exist. Then they are activated.

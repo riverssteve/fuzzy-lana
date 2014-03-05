@@ -5,9 +5,11 @@ set fileencoding=utf-8
 set encoding=utf-8
 set shell=/bin/zsh
 
-" ------------------------------------------------------------------------------
-"                                                                            VAM
-" ------------------------------------------------------------------------------
+" Syntax highlighting
+syntax on
+
+" ==============================================================================
+" VAM
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
   " windows users may want to use http://mawercer.de/~marc/vam/index.php
@@ -60,29 +62,38 @@ fun! SetupVAM()
 
   " Tell VAM which plugins to fetch & load:
   call vam#ActivateAddons([])
-  "ActivateAddons python_match
-  "ActivateAddons python_pydoc
+  ActivateAddons github:scrooloose/nerdtree
+  "ActivateAddons powerline
+  ActivateAddons vim-airline
   ActivateAddons AutoFenc
-  ActivateAddons EasyMotion
   ActivateAddons Emmet
   ActivateAddons Gundo
   ActivateAddons LycosaExplorer
-  ActivateAddons Python-mode-klen
-  ActivateAddons Solarized
-  ActivateAddons Solarized
   ActivateAddons Syntastic
   ActivateAddons Tagbar
   ActivateAddons The_NERD_Commenter
   ActivateAddons VimOutliner
   ActivateAddons breeze
-  ActivateAddons powerline
-  ActivateAddons powerline
   ActivateAddons repeat
   ActivateAddons surround
   ActivateAddons unimpaired
-  ActivateAddons vim-less
+  ActivateAddons neocomplete
+  ActivateAddons github:nathanaelkane/vim-indent-guides
   ActivateAddons vim-pi
-  ActivateAddons jsonvim
+  " Python
+  ActivateAddons Python-mode-klen
+  " CSS
+  ActivateAddons vim-css3-syntax
+  ActivateAddons vim-less
+  " Javascript
+  " Themes
+  "ActivateAddons vilight
+  "ActivateAddons jellybeans
+  "ActivateAddons github:marcelbeumer/twilight.vim
+  "ActivateAddons xoria256
+  "ActivateAddons github:jonathanfilip/vim-lucius
+  "ActivateAddons github:sickill/vim-monokai
+  ActivateAddons Solarized
 
   " Addons are put into plugin_root_dir/plugin-name directory
   " unless those directories exist. Then they are activated.
@@ -99,9 +110,45 @@ fun! SetupVAM()
 endfun
 call SetupVAM()
 
-" ------------------------------------------------------------------------
-"                                                          PLUGIN SETTINGS
-" ------------------------------------------------------------------------
+" ===========================================================================
+" THEME
+
+if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+colorscheme solarized
+set background=dark
+"let g:solarized_termcolors=256
+"let g:solarized_italic=1
+
+" ===========================================================================
+" PLUGIN SETTINGS
+
+" Airline ----------------------------------------------------------------
+
+" Airline Theme
+let g:airline_theme='solarized'
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols
+" None
+
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+
+let g:airline#extensions#syntastic#enabled = 1
 
 " Breeze -----------------------------------------------------------------
 "let g:breeze_highlight_curr_element = 0
@@ -129,6 +176,14 @@ let g:user_emmet_install_global = 0
 "  <Leader>lr  - Opens the filesystem explorer at the directory of the current file.
 "  <Leader>lb  - Opens the buffer explorer.
 let g:SuperTabDefaultCompletionType = "context"
+
+" neocomplcache ----------------------------------------------------------
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " NERD Commenter ---------------------------------------------------------
 " ,cc |NERDComComment| Comments out the current line or text selected in
@@ -159,6 +214,24 @@ let g:SuperTabDefaultCompletionType = "context"
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
 
+" NERDtree ---------------------------------------------------------------
+let NERDTreeIgnore=['\.swp$', '\.pyc$', '\.orig$']
+
+" Open NERDtree with
+silent! nmap <leader>lt :NERDTreeToggle<CR>
+silent! map <leader>lf :NERDTreeFind<CR>
+
+" Python-mode-klen -------------------------------------------------------
+let g:pymode_doc = 0
+let g:pymode_folding = 0
+let g:pymode_lint = 0
+let g:pymode_rope = 0 
+let g:pymode_rope_completion = 0
+let g:pymode_run = 0
+let g:pymode_trim_whitespaces = 0
+let g:pymode_quickfix_minheight = 3
+let g:pymode_quickfix_maxheight = 6
+
 " Syntastic settings -----------------------------------------------------
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
@@ -167,10 +240,15 @@ let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 " YouCompleteMe ----------------------------------------------------------
 "let g:ycm_autoclose_preview_window_after_completion=1
 
-" Syntax highlighting ----------------------------------------------------
-syntax on
+" VIM-inden-guide --------------------------------------------------------
+"let g:indent_guides_guide_size = 1
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=8
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=0
 
-" Auto-reload .vimrc on changes ------------------------------------------
+" ------------------------------------------------------------------------
+"                                                             CODING STYLE
+" ------------------------------------------------------------------------
 function! s:CodingStyleFiletypes(tabstop_length, show_col)
     " Let filetype indentation do its own thing
     setlocal nocindent
@@ -197,10 +275,11 @@ augroup myStartup
     autocmd!
     autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType css,less call <SID>CodingStyleFiletypes(4, 'off')
-    autocmd FileType html,xml,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
-    autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
+    " Auto-reload .vimrc on changes
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
 augroup END
 
@@ -209,20 +288,6 @@ au BufRead,BufNewFile *.zsh-theme          set filetype=zsh
 au BufRead,BufNewFile *.less               set filetype=less
 au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
-
-" Restrict mutt email width
-au BufRead /tmp/mutt-* set tw=72
-
-" Colourscheme -----------------------------------------------------------
-if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
-    set t_Co=256
-endif
-set background=dark
-colorscheme solarized
-"let g:molokai_original=1 " only affects gvim
-"colorscheme molokai
-" --- set transparency
-"highlight Normal ctermfg=252 ctermbg=NONE
 
 " Line numbering ---------------------------------------------------------
 set relativenumber " have line numbers show as relative to current line
@@ -381,6 +446,9 @@ nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
 " Open registers
 nnoremap <leader>r :registers<cr>
 
+" NERDtree toggle ,lt
+" NERDtree find current file ,lf
+
 " F5 to open Gundo window
 " http://sjl.bitbucket.org/gundo.vim/
 nnoremap <F5> :GundoToggle<CR>
@@ -396,3 +464,7 @@ vmap <silent><C-j> ]egv
 nmap <F6> :TagbarToggle<cr>
 "nmap <S-F3> :setf less<cr>
 nnoremap <F8> :call SynStack()<CR>
+
+map <leader><leader>s :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

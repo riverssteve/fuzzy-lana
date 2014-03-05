@@ -1,17 +1,37 @@
-# ---------------------------------------------------------------------------
-# Environments
-# ---------------------------------------------------------------------------
+# ===========================================================================
+# CONTENTS
+#
+#   Environment ........................................... zsh-environment
+#   oh-my-zsh Options ................................... oh-my-zsh-options
+#   Functions ............................................... zsh-functions
+#   Options ................................................... zsh-options
+#   Key Bindings ......................................... zsh-key-bindings
+#   Completion ............................................. zsh-completion
+
+# ===========================================================================
+# Environments                                                zsh-environment
+
+
+# Exports for both environments
+export PATH="$PATH:$HOME/.bin"
+export MYVIMRC="$HOME/.vimrc"
+export TERM=xterm-256color
+export EDITOR=/usr/bin/vim
 
 # Work
 if [[ $OSTYPE == "linux-gnu" ]]; then
 
+    synclient TapButton3=2
+
     # Personal Information
     source $HOME/.ldap_info
+
+    # Fix pidgin-sipe
+    export NSS_SSL_CBC_RANDOM_IV=0
 
     # Path Information
     export PATH="$PATH:/opt/chef/embedded/bin"
     export PATH="$PATH:$HOME/.local/bin"
-    export PATH="$PATH:$HOME/.bin"
 
     # Timaeus Environment things
     export TIMAEUS_HOME="$HOME/timaeus"
@@ -30,22 +50,12 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     # Take me to my chroot!
     function to(){ cd $CHROOTS_DIR/$1$HOME; }
 
-    # Problems with git ssh and our firewall means I need to use http to git push
-    function gitpw() {
-        cat $HOME/.netrc | grep password | cut -d " " -f 2 | xclip -selection clipboard;
-    }
-
-    #... and subsequently empty the clipboard
-    function empty_clipboard() {
-        echo -n | xclip -selection clipboard;
-    }
 fi
 
 # Home - darwin13.0 = OS X 10.9
 if [[ $OSTYPE == "darwin13.0" ]]; then
 
     # Path Information
-    export PATH="$HOME/.bin:$PATH"
     export PATH="$PATH:$HOME/Library/Python/2.7/bin"
 
     # Replace bsd utils with gnu equivalent and their manpages
@@ -55,13 +65,8 @@ if [[ $OSTYPE == "darwin13.0" ]]; then
     export BYOBU_PREFIX=$(brew --prefix)
 fi
 
-# Exports for both environments
-export MYVIMRC="$HOME/.vimrc"
-export TERM=xterm-256color
-
-# ----------------------------------------------------------------------------
-# ZSH Options
-# ----------------------------------------------------------------------------
+# ============================================================================
+# ZSH Options                                                oh-my-zsh-options
 
 # Path to your oh-my-zsh configuration.
 ZSH=$HOME/.oh-my-zsh
@@ -81,15 +86,18 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
+#plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
+plugins=(git zsh-history-substring-search)
 
 eval $(dircolors ~/.dircolors)
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
 
-# ----------------------------------------------------------------------------
-# Functions
-# ----------------------------------------------------------------------------
+# Plugin settings
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
+# ============================================================================
+# Functions                                                      zsh-functions
 
 # Preserve cd - across sessions. Saves dirstack to ~/.zdirs.
 # Also prints directory content after cd.
@@ -138,12 +146,16 @@ insert_sudo () {
 zle -N insert-sudo insert_sudo
 bindkey "^[s" insert-sudo
 
-# Preserve history
-function precmd() {
-    if [ "$(id -u)" -ne 0 ]; then
-        FULL_CMD_LOG="$HOME/.logs/zsh-history-$(date -u "+%Y-%m-%d").log"
-        echo "$USER@`hostname`:`pwd` [$(date -u)] `\history -1`" >> ${FULL_CMD_LOG}
-    fi
+man() {
+  env \
+    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_me=$(printf "\e[0m") \
+    LESS_TERMCAP_se=$(printf "\e[0m") \
+    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_ue=$(printf "\e[0m") \
+    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    man "$@"
 }
 
 # Specify folder marks a la vim
@@ -169,9 +181,8 @@ function marks {
 mcd() { mkdir -p "$1" && cd "$1" }
 compdef mcd=mkdir
 
-# ----------------------------------------------------------------------------
-# Options
-# ----------------------------------------------------------------------------
+# ============================================================================
+# Options                                                          zsh-options
 
 # History Settings
 HISTFILE=~/.history
@@ -179,10 +190,12 @@ SAVEHIST=10000
 HISTSIZE=10000
 
 # More info here: http://zsh.sourceforge.net/Doc/Release/Options.html
+unsetopt CORRECT_ALL
+
 setopt ALIASES \
        AUTO_LIST \
        COMPLETEINWORD \
-       CORRECTALL \
+       CORRECT \
        EQUALS \
        EXTENDEDGLOB \
        GLOB_COMPLETE \
@@ -196,7 +209,8 @@ setopt ALIASES \
        EXTENDED_HISTORY \
        HIST_REDUCE_BLANKS
 
-# Even if there are commands inbetween commands that are the same, still only save the last one
+# Even if there are commands inbetween commands that are the same,
+# still only save the last one
 setopt HIST_IGNORE_ALL_DUPS
 
 # If I type cd and then cd again, only save the last one
@@ -212,21 +226,23 @@ setopt HIST_VERIFY
 # Display usage statistics for commands running > 5 sec.
 REPORTTIME=10
 
-# ------------------------------------------------------------------------------
-# Key bindings / ZLE configuration
-# ------------------------------------------------------------------------------
+# ==============================================================================
+# Key bindings                                                   zsh-keybindings
 
 # Use Emacs line editing mode
 bindkey -e
 
 # zsh-history substring - bind UP and DOWN arrow keys
 zmodload zsh/terminfo
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
 
-# ----------------------------------------------------------------------------
-# Completion
-# ----------------------------------------------------------------------------
+
+# bind UP and DOWN arrow keys
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+
+
+# ==============================================================================
+# Completion                                                      zsh-completion
 
 # zsh auto-completion
 autoload -U compinit && {
@@ -239,8 +255,7 @@ autoload -U compinit && {
     zstyle ':completion:*' accept-exact-dirs true
 
     # Default colors for listings.
-    zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-    #zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
+    zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
     zstyle ':completion:*:killall:*' command 'ps -u $USER -o cmd'
 

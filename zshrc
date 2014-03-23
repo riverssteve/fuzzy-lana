@@ -18,7 +18,7 @@ export MYVIMRC="$HOME/.vimrc"
 export TERM=xterm-256color
 export EDITOR=/usr/bin/vim
 
-# Work
+# Dell XPS
 if [[ $OSTYPE == "linux-gnu" ]]; then
 
     synclient TapButton3=2
@@ -52,7 +52,7 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
 fi
 
-# Home - darwin13.0 = OS X 10.9
+# Macbook Pro - darwin13.0 = OS X 10.9
 if [[ $OSTYPE == "darwin13.0" ]]; then
 
     # Path Information
@@ -86,8 +86,10 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-#plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 plugins=(git zsh-history-substring-search)
+
+# zsh-syntax-highlighting doesn't work with Precise
+#plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 
 eval $(dircolors ~/.dircolors)
 source $ZSH/oh-my-zsh.sh
@@ -148,33 +150,14 @@ bindkey "^[s" insert-sudo
 
 man() {
   env \
-    LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-    LESS_TERMCAP_md=$(printf "\e[1;31m") \
+    LESS_TERMCAP_mb=$(printf "\e[0;34m") \
+    LESS_TERMCAP_md=$(printf "\e[0;34m") \
     LESS_TERMCAP_me=$(printf "\e[0m") \
     LESS_TERMCAP_se=$(printf "\e[0m") \
-    LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+    LESS_TERMCAP_so=$(printf "\e[0;44;37m") \
     LESS_TERMCAP_ue=$(printf "\e[0m") \
-    LESS_TERMCAP_us=$(printf "\e[1;32m") \
+    LESS_TERMCAP_us=$(printf "\e[2;32m") \
     man "$@"
-}
-
-# Specify folder marks a la vim
-export MARKPATH=$HOME/.marks
-
-function jump {
-    cd -P $MARKPATH/$1 2>/dev/null || echo "No such mark: $1"
-}
-
-function mark {
-    mkdir -p $MARKPATH; ln -s $(pwd) $MARKPATH/$1
-}
-
-function unmark {
-    rm -i $MARKPATH/$1
-}
-
-function marks {
-    ls -l $MARKPATH | sed 's/  / /g' | cut -d' ' -f9- | sed 's/ -/\t-/g'
 }
 
 # mcd -- mkdir and cd at once
@@ -288,7 +271,9 @@ autoload -U compinit && {
     zstyle '*' single-ignored show
 
     # cd style.
-    zstyle ':completion:*:cd:*' ignore-parents parent pwd # cd never selects the parent directory (e.g.: cd ../<TAB>)
+    zstyle ':completion:*:cd:*' ignore-parents parent pwd
+
+    # cd never selects the parent directory (e.g.: cd ../<TAB>)
     zstyle ':completion:*:*:cd:*' tag-order local-directories path-directories
 
     # kill style.

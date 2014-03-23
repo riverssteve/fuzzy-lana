@@ -12,101 +12,102 @@ syntax on
 " VAM
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
-  " windows users may want to use http://mawercer.de/~marc/vam/index.php
-  " to fetch VAM, VAM-known-repositories and the listed plugins
-  " without having to install curl, 7-zip and git tools first
-  " -> BUG [4] (git-less installation)
-  let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
-  if isdirectory(vam_autoload_dir)
-    return 1
-  else
-    if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
-      " I'm sorry having to add this reminder. Eventually it'll pay off.
-      call confirm("Remind yourself that most plugins ship with ".
-                  \"documentation (README*, doc/*.txt). It is your ".
-                  \"first source of knowledge. If you can't find ".
-                  \"the info you're looking for in reasonable ".
-                  \"time ask maintainers to improve documentation")
-      call mkdir(a:plugin_root_dir, 'p')
-      execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
-                  \ shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
-      " VAM runs helptags automatically when you install or update
-      " plugins
-      exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
+    " windows users may want to use http://mawercer.de/~marc/vam/index.php
+    " to fetch VAM, VAM-known-repositories and the listed plugins
+    " without having to install curl, 7-zip and git tools first
+    " -> BUG [4] (git-less installation)
+    let vam_autoload_dir = a:plugin_root_dir.'/vim-addon-manager/autoload'
+    if isdirectory(vam_autoload_dir)
+        return 1
+    else
+        if 1 == confirm("Clone VAM into ".a:plugin_root_dir."?","&Y\n&N")
+            " I'm sorry having to add this reminder. Eventually it'll pay off.
+            call confirm("Remind yourself that most plugins ship with ".
+                        \"documentation (README*, doc/*.txt). It is your ".
+                        \"first source of knowledge. If you can't find ".
+                        \"the info you're looking for in reasonable ".
+                        \"time ask maintainers to improve documentation")
+            call mkdir(a:plugin_root_dir, 'p')
+            execute '!git clone --depth=1 git://github.com/MarcWeber/vim-addon-manager '.
+                        \ shellescape(a:plugin_root_dir, 1).'/vim-addon-manager'
+            " VAM runs helptags automatically when you install or update
+            " plugins
+            exec 'helptags '.fnameescape(a:plugin_root_dir.'/vim-addon-manager/doc')
+        endif
+        return isdirectory(vam_autoload_dir)
     endif
-    return isdirectory(vam_autoload_dir)
-  endif
 endfun
 
 fun! SetupVAM()
-  " Set advanced options like this:
-  " let g:vim_addon_manager = {}
-  " let g:vim_addon_manager.key = value
-  " Pipe all output into a buffer which gets written to disk
-  " let g:vim_addon_manager.log_to_buf =1
+    " Set advanced options like this:
+    " let g:vim_addon_manager = {}
+    " let g:vim_addon_manager.key = value
+    " Pipe all output into a buffer which gets written to disk
+    " let g:vim_addon_manager.log_to_buf =1
 
-  " Example: drop git sources unless git is in PATH. Same plugins can
-  " be installed from www.vim.org. Lookup MergeSources to get more control
-  " let g:vim_addon_manager.drop_git_sources = !executable('git')
-  " let g:vim_addon_manager.debug_activation = 1
+    " Example: drop git sources unless git is in PATH. Same plugins can
+    " be installed from www.vim.org. Lookup MergeSources to get more control
+    " let g:vim_addon_manager.drop_git_sources = !executable('git')
+    " let g:vim_addon_manager.debug_activation = 1
 
-  " VAM install location:
-  let c = get(g:, 'vim_addon_manager', {})
-  let g:vim_addon_manager = c
-  let c.plugin_root_dir = expand('$HOME/.vim/vim-addons', 1)
-  if !EnsureVamIsOnDisk(c.plugin_root_dir)
-    echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
-    return
-  endif
-  let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
+    " VAM install location:
+    let c = get(g:, 'vim_addon_manager', {})
+    let g:vim_addon_manager = c
+    let c.plugin_root_dir = expand('$HOME/.vim/vim-addons', 1)
+    if !EnsureVamIsOnDisk(c.plugin_root_dir)
+        echohl ErrorMsg | echomsg "No VAM found!" | echohl NONE
+        return
+    endif
+    let &rtp.=(empty(&rtp)?'':',').c.plugin_root_dir.'/vim-addon-manager'
 
-  " Tell VAM which plugins to fetch & load:
-  call vam#ActivateAddons([])
-  ActivateAddons github:scrooloose/nerdtree
-  "ActivateAddons powerline
-  ActivateAddons vim-airline
-  ActivateAddons AutoFenc
-  ActivateAddons Emmet
-  ActivateAddons Gundo
-  ActivateAddons LycosaExplorer
-  ActivateAddons Syntastic
-  ActivateAddons Tagbar
-  ActivateAddons The_NERD_Commenter
-  ActivateAddons VimOutliner
-  ActivateAddons breeze
-  ActivateAddons repeat
-  ActivateAddons surround
-  ActivateAddons unimpaired
-  ActivateAddons neocomplete
-  ActivateAddons github:nathanaelkane/vim-indent-guides
-  ActivateAddons vim-pi
-  " Python
-  ActivateAddons Python-mode-klen
-  " CSS
-  ActivateAddons vim-css3-syntax
-  ActivateAddons vim-less
-  " Javascript
-  " Themes
-  "ActivateAddons vilight
-  "ActivateAddons jellybeans
-  "ActivateAddons github:marcelbeumer/twilight.vim
-  "ActivateAddons xoria256
-  "ActivateAddons github:jonathanfilip/vim-lucius
-  "ActivateAddons github:sickill/vim-monokai
-  ActivateAddons Solarized
+    " Tell VAM which plugins to fetch & load:
+    call vam#ActivateAddons([])
+    ActivateAddons github:scrooloose/nerdtree
+    "ActivateAddons powerline
+    ActivateAddons vim-airline
+    ActivateAddons AutoFenc
+    ActivateAddons Emmet
+    ActivateAddons Gundo
+    ActivateAddons LycosaExplorer
+    ActivateAddons Syntastic
+    ActivateAddons Tagbar
+    ActivateAddons The_NERD_Commenter
+    ActivateAddons VimOutliner
+    ActivateAddons breeze
+    ActivateAddons repeat
+    ActivateAddons surround
+    ActivateAddons unimpaired
+    ActivateAddons neocomplete
+    ActivateAddons github:nathanaelkane/vim-indent-guides
+    ActivateAddons vim-pi
+    " Python
+    ActivateAddons Python-mode-klen
+    " CSS
+    ActivateAddons vim-css3-syntax
+    ActivateAddons vim-less
+    " Javascript
+    " Themes
+    "ActivateAddons vilight
+    "ActivateAddons jellybeans
+    "ActivateAddons github:marcelbeumer/twilight.vim
+    "ActivateAddons xoria256
+    "ActivateAddons github:jonathanfilip/vim-lucius
+    "ActivateAddons github:sickill/vim-monokai
+    ActivateAddons molokai
+    ActivateAddons Solarized
 
-  " Addons are put into plugin_root_dir/plugin-name directory
-  " unless those directories exist. Then they are activated.
-  " Activating means adding addon dirs to rtp and do some additional
-  " magic
+    " Addons are put into plugin_root_dir/plugin-name directory
+    " unless those directories exist. Then they are activated.
+    " Activating means adding addon dirs to rtp and do some additional
+    " magic
 
-  " How to find addon names?
-  " - look up source from pool
-  " - (<c-x><c-p> complete plugin names):
-  " You can use name rewritings to point to sources:
-  " ..ActivateAddons(["github:foo", .. => github://foo/vim-addon-foo
-  " ..ActivateAddons(["github:user/repo", .. => github://user/repo
-  " Also see section "2.2. names of addons and addon sources" in VAM's documentation
+    " How to find addon names?
+    " - look up source from pool
+    " - (<c-x><c-p> complete plugin names):
+    " You can use name rewritings to point to sources:
+    " ..ActivateAddons(["github:foo", .. => github://foo/vim-addon-foo
+    " ..ActivateAddons(["github:user/repo", .. => github://user/repo
+    " Also see section "2.2. names of addons and addon sources" in VAM's documentation
 endfun
 call SetupVAM()
 
@@ -120,6 +121,22 @@ colorscheme solarized
 set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_italic=1
+
+" ===========================================================================
+" GVIM SETTINGS
+if has("gui_running")
+    set guioptions-=m  "remove menu bar
+    set guioptions-=T  "remove toolbar
+    set guioptions-=r  "remove right-hand scroll bar
+    set guioptions-=L  "remove left-hand scroll bar
+    if has("gui_gtk2")
+        set guifont=CosmicSansNeueMono\ 12
+    elseif has("gui_macvim")
+    elseif has("gui_win32")
+    endif
+
+    set lines=55 columns=190
+endif
 
 " ===========================================================================
 " PLUGIN SETTINGS
@@ -274,7 +291,7 @@ endfun
 augroup myStartup
     autocmd!
     autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
-    autocmd FileType css,less call <SID>CodingStyleFiletypes(4, 'off')
+    autocmd FileType css,less,vim call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"

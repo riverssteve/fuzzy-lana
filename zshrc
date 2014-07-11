@@ -23,15 +23,11 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
 
     synclient TapButton3=2
 
-    # Personal Information
-    #source $HOME/.ldap_info
-
     # Fix pidgin-sipe
     export NSS_SSL_CBC_RANDOM_IV=0
 
     # Path Information
     export PATH="$PATH:/opt/chef/embedded/bin"
-    #export PATH="$PATH:$HOME/.local"
 
     # Timaeus Environment things
     export TIMAEUS_HOME="$HOME/timaeus"
@@ -216,11 +212,9 @@ bindkey -e
 # zsh-history substring - bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 
-
 # bind UP and DOWN arrow keys
 #bindkey "$terminfo[kcuu1]" history-substring-search-up
 #bindkey "$terminfo[kcud1]" history-substring-search-down
-
 
 # ==============================================================================
 # Completion                                                      zsh-completion

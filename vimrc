@@ -62,30 +62,36 @@ fun! SetupVAM()
 
     " Tell VAM which plugins to fetch & load:
     call vam#ActivateAddons([])
-    ActivateAddons github:scrooloose/nerdtree
+    " UI
+    "ActivateAddons github:scrooloose/nerdtree
     "ActivateAddons powerline
-    ActivateAddons vim-airline
-    ActivateAddons AutoFenc
-    ActivateAddons Emmet
+    "ActivateAddons neocomplete
     ActivateAddons Gundo
     ActivateAddons LycosaExplorer
     ActivateAddons Syntastic
     ActivateAddons Tagbar
+    ActivateAddons vim-airline
+    ActivateAddons YouCompleteMe
+
+    " VIM movement addons
+    ActivateAddons AutoFenc
+    ActivateAddons Emmet
     ActivateAddons The_NERD_Commenter
     ActivateAddons VimOutliner
     ActivateAddons breeze
     ActivateAddons repeat
     ActivateAddons surround
     ActivateAddons unimpaired
-    ActivateAddons neocomplete
     ActivateAddons github:nathanaelkane/vim-indent-guides
     ActivateAddons vim-pi
-    " Python
+
+    " Language Addons
     ActivateAddons Python-mode-klen
-    " CSS
     ActivateAddons vim-css3-syntax
     ActivateAddons vim-less
-    " Javascript
+    ActivateAddons vim-javascript
+    ActivateAddons github:dag/vim-fish
+
     " Themes
     "ActivateAddons vilight
     "ActivateAddons jellybeans
@@ -93,7 +99,7 @@ fun! SetupVAM()
     "ActivateAddons xoria256
     "ActivateAddons github:jonathanfilip/vim-lucius
     "ActivateAddons github:sickill/vim-monokai
-    ActivateAddons molokai
+    "ActivateAddons molokai
     ActivateAddons Solarized
 
     " Addons are put into plugin_root_dir/plugin-name directory
@@ -125,12 +131,14 @@ set background=dark
 " ===========================================================================
 " GVIM SETTINGS
 if has("gui_running")
+    set background=light
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
     set guioptions-=L  "remove left-hand scroll bar
+    set mouse=         "Disable mouse
     if has("gui_gtk2")
-        set guifont=CosmicSansNeueMono\ 12
+        set guifont=Fantasque\ Sans\ Mono\ 12
     elseif has("gui_macvim")
     elseif has("gui_win32")
     endif
@@ -294,6 +302,7 @@ augroup myStartup
     autocmd FileType css,less,vim call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
+    autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
     " Auto-reload .vimrc on changes
@@ -305,6 +314,7 @@ au BufRead,BufNewFile *.zsh-theme          set filetype=zsh
 au BufRead,BufNewFile *.less               set filetype=less
 au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
+au BufRead,BufNewFile *.fish               set filetype=fish
 
 " Line numbering ---------------------------------------------------------
 set relativenumber " have line numbers show as relative to current line

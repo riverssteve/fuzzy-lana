@@ -24,20 +24,20 @@ if [[ $OSTYPE == "linux-gnu" ]]; then
     synclient TapButton3=2
 
     # Personal Information
-    source $HOME/.ldap_info
+    #source $HOME/.ldap_info
 
     # Fix pidgin-sipe
     export NSS_SSL_CBC_RANDOM_IV=0
 
     # Path Information
     export PATH="$PATH:/opt/chef/embedded/bin"
-    export PATH="$PATH:$HOME/.local/bin"
+    #export PATH="$PATH:$HOME/.local"
 
     # Timaeus Environment things
     export TIMAEUS_HOME="$HOME/timaeus"
     export CHROOTS_DIR="$TIMAEUS_HOME/chroots"
     export PATH="$PATH:$TIMAEUS_HOME/bin"
-    export SVNROOT=hg:http://hg.devel.cmedltd.com/timaeus
+    export SVNROOT=bind:/home/srivers/timaeus/repos
 
     # Load Xmodmap settings, if any.
     xmodmap_rc=$HOME/.Xmodmap
@@ -75,7 +75,7 @@ ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="prose"
+ZSH_THEME="terse"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -86,17 +86,15 @@ DISABLE_AUTO_UPDATE="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git zsh-history-substring-search)
+plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 
-# zsh-syntax-highlighting doesn't work with Precise
-#plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 
 eval $(dircolors ~/.dircolors)
 source $ZSH/oh-my-zsh.sh
 source $HOME/.aliases
 
 # Plugin settings
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 # ============================================================================
 # Functions                                                      zsh-functions
@@ -287,3 +285,6 @@ autoload -U compinit && {
     bindkey '^Xh' _complete_help
     bindkey '^X?' _complete_debug
 }
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"

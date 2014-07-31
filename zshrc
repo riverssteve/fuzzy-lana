@@ -87,7 +87,7 @@ plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
 
 eval $(dircolors ~/.dircolors)
 source $ZSH/oh-my-zsh.sh
-source $HOME/.aliases
+[[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
 
 # Plugin settings
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)

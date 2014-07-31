@@ -90,7 +90,7 @@ fun! SetupVAM()
     ActivateAddons vim-css3-syntax
     ActivateAddons vim-less
     ActivateAddons vim-javascript
-    ActivateAddons github:dag/vim-fish
+    ActivateAddons vim-coffee-script
 
     " Themes
     "ActivateAddons vilight
@@ -300,7 +300,7 @@ augroup myStartup
     autocmd!
     autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType css,less,vim call <SID>CodingStyleFiletypes(4, 'off')
-    autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType html,htmldjango,coffee call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"

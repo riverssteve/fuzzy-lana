@@ -1,52 +1,99 @@
-# Load aliases
-[ -e "${HOME}/.aliases" ] && source "${HOME}/.aliases"
+# ===========================================================================
+# CONTENTS
+#
+#   Environment ........................................... zsh-environment
+#   oh-my-zsh Options ................................... oh-my-zsh-options
+#   Functions ............................................... zsh-functions
+#   Options ................................................... zsh-options
+#   Key Bindings ......................................... zsh-key-bindings
+#   Completion ............................................. zsh-completion
 
-# Load dircolors
+# ===========================================================================
+# Environments                                                zsh-environment
+
+
+# Exports for both environments
+export PATH="$PATH:$HOME/.bin"
+export MYVIMRC="$HOME/.vimrc"
+export TERM=xterm-256color
+export EDITOR=/usr/bin/vim
+
+# Dell XPS
+if [[ $OSTYPE == "linux-gnu" ]]; then
+
+    synclient TapButton3=2
+
+    # Fix pidgin-sipe
+    export NSS_SSL_CBC_RANDOM_IV=0
+
+    # Path Information
+    export PATH="$PATH:/opt/chef/embedded/bin"
+
+    # Timaeus Environment things
+    export TIMAEUS_HOME="$HOME/timaeus"
+    export CHROOTS_DIR="$TIMAEUS_HOME/chroots"
+    export PATH="$PATH:$TIMAEUS_HOME/bin"
+    export SVNROOT=bind:/home/srivers/timaeus/repos
+
+    # Load Xmodmap settings, if any.
+    xmodmap_rc=$HOME/.Xmodmap
+
+    # Keyboard settings
+    if [[ -n $DISPLAY ]]; then
+        [[ -f $xmodmap_rc ]] && xmodmap $xmodmap_rc
+    fi
+
+    # Take me to my chroot!
+    function to(){ cd $CHROOTS_DIR/$1$HOME; }
+
+fi
+
+# Macbook Pro - darwin13.0 = OS X 10.9
+if [[ $OSTYPE == "darwin13.0" ]]; then
+
+    # Path Information
+    export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+
+    # Replace bsd utils with gnu equivalent and their manpages
+    export PATH="$PATH:$(brew --prefix coreutils)/libexec/gnubin"
+    export MANPATH="$PATH:$(brew --prefix coreutils)/libexec/gnuman"
+
+    export BYOBU_PREFIX=$(brew --prefix)
+fi
+
+# ============================================================================
+# ZSH Options                                                oh-my-zsh-options
+
+# Path to your oh-my-zsh configuration.
+ZSH=$HOME/.oh-my-zsh
+
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+ZSH_THEME="terse"
+
+# Set to this to use case-sensitive completion
+# CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+DISABLE_AUTO_UPDATE="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git zsh-syntax-highlighting zsh-history-substring-search)
+
+
 eval $(dircolors ~/.dircolors)
+source $ZSH/oh-my-zsh.sh
+[[ -f "$HOME/.aliases" ]] && source $HOME/.aliases
 
-# You have to use npm to install npm, and that will give you the
-# completion.sh file you need.
-source /usr/lib/node_modules/npm/lib/utils/completion.sh
-
-# ============================================================================
-# Antigen
-
-source "$HOME/.antigen/antigen.zsh"
-
-antigen use oh-my-zsh
-
-# Has to come after oh-my-zsh is loaded
-antigen theme st-rive/dotfiles themes/terse
-
-# Bundles from oh-my-zsh
-antigen bundles <<EOBUNDLES
-
-git
-mercurial
-
-python
-pip
-virtualenvwrapper
-
-coffee
-
-zsh-users/zsh-completions src
-zsh-users/zsh-syntax-highlighting
-zsh-users/zsh-history-substring-search
-
-command-not-found
-history
-rsync
-node
-npm
-
-EOBUNDLES
-
-# Tell antigen that you're done.
-antigen apply
+# Plugin settings
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 # ============================================================================
-# Functions
+# Functions                                                      zsh-functions
 
 # Preserve cd - across sessions. Saves dirstack to ~/.zdirs.
 # Also prints directory content after cd.
@@ -112,7 +159,7 @@ mcd() { mkdir -p "$1" && cd "$1" }
 compdef mcd=mkdir
 
 # ============================================================================
-# Options
+# Options                                                          zsh-options
 
 # History Settings
 HISTFILE=~/.history
@@ -150,14 +197,27 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 
+# When using a hist thing, make a newline show the change before executing it.
+setopt HIST_VERIFY
+
+# Display usage statistics for commands running > 5 sec.
+REPORTTIME=10
+
 # ==============================================================================
-# Key bindings
+# Key bindings                                                   zsh-keybindings
+
+# Use Emacs line editing mode
+bindkey -e
 
 # zsh-history substring - bind UP and DOWN arrow keys
 zmodload zsh/terminfo
 
+# bind UP and DOWN arrow keys
+#bindkey "$terminfo[kcuu1]" history-substring-search-up
+#bindkey "$terminfo[kcud1]" history-substring-search-down
+
 # ==============================================================================
-# Completion
+# Completion                                                      zsh-completion
 
 # zsh auto-completion
 autoload -U compinit && {

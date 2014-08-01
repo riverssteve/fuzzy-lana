@@ -19,19 +19,25 @@ alias autoremove='sudo apt-get autoremove'
 alias cddb='cd /home/srivers/Dropbox'
 alias cdwork='cd /home/srivers/Dropbox/Work'
 
-# git aliases -------------------------------------------------------
-alias gpush='gitpw && git push && empty_clipboard'
+# hg aliases -------------------------------------------------------
+alias hgmv='hg qpush --move'
+alias hgpop='hg qpop -a'
 
 # Miscellaneous  ----------------------------------------------------
 alias tail_syslog='tail -f /var/log/syslog'
-alias hgmv='hg qpush --move'
-
 alias open='nautilus'
-alias mutt 'cd ~/Downloads && mutt'
-
-alias chr='chr -X bash'
-
+alias ack=ack-grep
 alias vimrc='vim ~/.vimrc'
+alias proxyrm='export http_proxy= && export https_proxy= && export HTTP_PROXY= && export HTTPS_PROXY='
+alias proxyset='export http_proxy=http://proxy.localoffice:3128 && export https_proxy=http://proxy.localoffice:3128'
+alias pp="ps axuf | pager"
+alias tmux="TERM=xterm-256color /usr/bin/tmux"
 
-alias bindmount-precise='python $HOME/repos/ProjectLegoPrecise/timaeus/utils/tp-env/make_chroot.py -d $HOME/timaeus/chroots/lego_precise/ --release release_ProjectLego --branch ProjectLegoPrecise --base-os=precise --svn-root-url=bind:$HOME/repos/ProjectLegoPrecise 20'
-alias unmount-precise='python $HOME/repos/ProjectLegoPrecise/timaeus/utils/tp-env/make_chroot.py -d $HOME/timaeus/chroots/lego_precise/ --release release_ProjectLego --branch ProjectLegoPrecise --base-os=precise --svn-root-url=bind:$HOME/repos/ProjectLegoPrecise 3'
+
+# Chroot ------------------------------------------------------------
+alias chr='chr -X bash'
+alias mnt-default='make_chroot -d /home/srivers/timaeus/chroots/trunk checkout'
+alias umt-default='make_chroot -d /home/srivers/timaeus/chroots/trunk unmount_below'
+
+# Mercurial
+alias fetchall="find . -maxdepth 3 -name '.hg' -type d -prune -printf '******** %h\n' -a -execdir hg pull --rebase \;"

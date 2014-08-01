@@ -6,17 +6,12 @@
 # clamps: ~
 #    »
 
-# Are we using Mercurial?
-if [ "x$OH_MY_ZSH_HG" = "x" ]; then
-    OH_MY_ZSH_HG="hg"
-fi
-
 # Display return code
 local return_code="%(?..%{$R%}[%?] %{$RESET%})"
 
 # Display my patches and the state of my Mercurial repository
 function hg_prompt_info {
-    $OH_MY_ZSH_HG prompt --angle-brackets "\
+    hg prompt --angle-brackets "\
 < hg[%{$FG[002]%}<branch>>%{$reset_color%}%{$FG[001]%}<status|modified|unknown><update>%{$reset_color%}\
 <:%{$FG[003]%}<patch>%{$reset_color%}>]" 2>/dev/null
 }

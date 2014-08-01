@@ -15,9 +15,6 @@ source "$HOME/.antigen/antigen.zsh"
 
 antigen use oh-my-zsh
 
-# Has to come after oh-my-zsh is loaded
-antigen theme st-rive/dotfiles themes/terse
-
 # Bundles from oh-my-zsh
 antigen bundles <<EOBUNDLES
 
@@ -41,6 +38,9 @@ node
 npm
 
 EOBUNDLES
+
+# Has to come after oh-my-zsh is loaded
+antigen theme $HOME/repos/dotfiles/themes/terse.zsh-theme
 
 # Tell antigen that you're done.
 antigen apply

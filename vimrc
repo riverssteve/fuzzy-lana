@@ -263,7 +263,7 @@ let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
 let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 
 " YouCompleteMe ----------------------------------------------------------
-"let g:ycm_autoclose_preview_window_after_completion=1
+let g:ycm_autoclose_preview_window_after_completion=1
 
 " VIM-inden-guide --------------------------------------------------------
 "let g:indent_guides_guide_size = 1
@@ -300,8 +300,8 @@ augroup myStartup
     autocmd!
     autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType css,less,vim call <SID>CodingStyleFiletypes(4, 'off')
-    autocmd FileType html,htmldjango,coffee call <SID>CodingStyleFiletypes(2, 'off')
-    autocmd FileType xml call <SID>CodingStyleFiletypes(2, 'on')
+    autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"

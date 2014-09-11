@@ -3,7 +3,7 @@ let g:skip_loading_mswin=1
 
 set fileencoding=utf-8
 set encoding=utf-8
-set shell=/bin/zsh
+set shell=/bin/bash
 
 " Syntax highlighting
 syntax on
@@ -89,6 +89,7 @@ fun! SetupVAM()
     ActivateAddons Python-mode-klen
     ActivateAddons vim-css3-syntax
     ActivateAddons vim-less
+    ActivateAddons github:dag/vim-fish
     ActivateAddons vim-javascript
     ActivateAddons vim-coffee-script
 
@@ -298,8 +299,8 @@ endfun
 
 augroup myStartup
     autocmd!
-    autocmd FileType javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
-    autocmd FileType css,less,vim call <SID>CodingStyleFiletypes(4, 'off')
+    autocmd FileType css,less,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
+    autocmd FileType vim call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')

@@ -1,5 +1,6 @@
 set nocompatible | filetype indent plugin on | syn on
 let g:skip_loading_mswin=1
+let mapleader = "," " Set <leader> to ,
 
 set fileencoding=utf-8
 set encoding=utf-8
@@ -8,7 +9,7 @@ set shell=/bin/bash
 " Syntax highlighting
 syntax on
 
-" ==============================================================================
+" =============================================================================
 " VAM
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
@@ -62,46 +63,42 @@ fun! SetupVAM()
 
     " Tell VAM which plugins to fetch & load:
     call vam#ActivateAddons([])
+
     " UI
-    "ActivateAddons github:scrooloose/nerdtree
-    "ActivateAddons powerline
-    "ActivateAddons neocomplete
-    ActivateAddons Gundo
-    ActivateAddons LycosaExplorer
-    ActivateAddons Syntastic
-    ActivateAddons Tagbar
-    ActivateAddons vim-airline
-    ActivateAddons YouCompleteMe
+    "call vam#ActivateAddons('powerline')
+    call vam#ActivateAddons('Gundo')
+    call vam#ActivateAddons('LycosaExplorer')
+    call vam#ActivateAddons('github:valloric/MatchTagAlways')
+    call vam#ActivateAddons('Syntastic')
+    call vam#ActivateAddons('YouCompleteMe')
+    call vam#ActivateAddons('github:nathanaelkane/vim-indent-guides')
+    call vam#ActivateAddons('vim-airline')
 
     " VIM movement addons
-    ActivateAddons AutoFenc
-    ActivateAddons Emmet
-    ActivateAddons The_NERD_Commenter
-    ActivateAddons VimOutliner
-    ActivateAddons breeze
-    ActivateAddons repeat
-    ActivateAddons surround
-    ActivateAddons unimpaired
-    ActivateAddons github:nathanaelkane/vim-indent-guides
-    ActivateAddons vim-pi
+    call vam#ActivateAddons('AutoFenc')
+    call vam#ActivateAddons('The_NERD_Commenter')
+    call vam#ActivateAddons('VimOutliner')
+    call vam#ActivateAddons('breeze')
+    call vam#ActivateAddons('repeat')
+    call vam#ActivateAddons('surround')
+    call vam#ActivateAddons('unimpaired')
+    call vam#ActivateAddons('vim-pi')
 
     " Language Addons
-    ActivateAddons Python-mode-klen
-    ActivateAddons vim-css3-syntax
-    ActivateAddons vim-less
-    ActivateAddons github:dag/vim-fish
-    ActivateAddons vim-javascript
-    ActivateAddons vim-coffee-script
+    call vam#ActivateAddons('editorconfig-vim')
+    call vam#ActivateAddons('Python-mode-klen')
+    call vam#ActivateAddons('github:dag/vim-fish')
+    call vam#ActivateAddons('vim-coffee-script')
+    call vam#ActivateAddons('vim-css3-syntax')
+    call vam#ActivateAddons('vim-javascript')
+    call vam#ActivateAddons('vim-less')
+
+    " Tools
+    "call vam#ActivateAddons('css_color')
+    call vam#ActivateAddons('xterm-color-table')
 
     " Themes
-    "ActivateAddons vilight
-    "ActivateAddons jellybeans
-    "ActivateAddons github:marcelbeumer/twilight.vim
-    "ActivateAddons xoria256
-    "ActivateAddons github:jonathanfilip/vim-lucius
-    "ActivateAddons github:sickill/vim-monokai
-    "ActivateAddons molokai
-    ActivateAddons Solarized
+    call vam#ActivateAddons('Solarized')
 
     " Addons are put into plugin_root_dir/plugin-name directory
     " unless those directories exist. Then they are activated.
@@ -118,9 +115,10 @@ fun! SetupVAM()
 endfun
 call SetupVAM()
 
-" ===========================================================================
-" THEME
+" =============================================================================
+" UI
 
+" Theme
 if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
     set t_Co=256
 endif
@@ -129,8 +127,14 @@ set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_italic=1
 
-" ===========================================================================
-" GVIM SETTINGS
+" Matching brackets
+:hi MatchParen cterm=none ctermbg=5 ctermfg=7
+
+" Status bar
+"set statusline=
+"set statusline+=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
+
+" GVIM ------------------------------------------------------------------
 if has("gui_running")
     set background=light
     set guioptions-=m  "remove menu bar
@@ -147,7 +151,7 @@ if has("gui_running")
     set lines=55 columns=190
 endif
 
-" ===========================================================================
+" =============================================================================
 " PLUGIN SETTINGS
 
 " Airline ----------------------------------------------------------------
@@ -192,9 +196,10 @@ let g:airline#extensions#syntastic#enabled = 1
 "
 "    Lorem ipsum dolor <cursor>sit amet.
 
-" Emmet ------------------------------------------------------------------
-" Only run on HTML, CSS and LESS files
-let g:user_emmet_install_global = 0
+" indent-guides ----------------------------------------------------------
+let g:indent_guides_guide_size = 2
+:nmap <silent> <Leader>g <Plug>IndentGuidesToggle
+hi IndentGuidesEven ctermbg=234
 
 " LycosaExplorer ---------------------------------------------------------
 " Link - (http://www.vim.org/scripts/script.php?script_id=3659)
@@ -202,14 +207,6 @@ let g:user_emmet_install_global = 0
 "  <Leader>lr  - Opens the filesystem explorer at the directory of the current file.
 "  <Leader>lb  - Opens the buffer explorer.
 let g:SuperTabDefaultCompletionType = "context"
-
-" neocomplcache ----------------------------------------------------------
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" <TAB>: completion.
-inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 
 " NERD Commenter ---------------------------------------------------------
 " ,cc |NERDComComment| Comments out the current line or text selected in
@@ -240,13 +237,6 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
 
-" NERDtree ---------------------------------------------------------------
-let NERDTreeIgnore=['\.swp$', '\.pyc$', '\.orig$']
-
-" Open NERDtree with
-silent! nmap <leader>lt :NERDTreeToggle<CR>
-silent! map <leader>lf :NERDTreeFind<CR>
-
 " Python-mode-klen -------------------------------------------------------
 let g:pymode_doc = 0
 let g:pymode_folding = 0
@@ -260,6 +250,8 @@ let g:pymode_quickfix_maxheight = 6
 
 " Syntastic settings -----------------------------------------------------
 let g:syntastic_python_checkers=['flake8']
+let g:syntastic_coffee_checkers=['coffeelint']
+let g:syntastic_coffee_coffeelint_args = '--file $HOME/ice/config/coffeelint.json'
 let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
 let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 
@@ -272,9 +264,13 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=8
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=0
 
-" ------------------------------------------------------------------------
-"                                                             CODING STYLE
-" ------------------------------------------------------------------------
+" =============================================================================
+" CODING STYLE
+
+function! s:AddKeyword()
+    setlocal iskeyword+=-
+endfun
+
 function! s:CodingStyleFiletypes(tabstop_length, show_col)
     " Let filetype indentation do its own thing
     setlocal nocindent
@@ -299,15 +295,20 @@ endfun
 
 augroup myStartup
     autocmd!
-    autocmd FileType css,less,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
+
+    autocmd FileType css,less,scss,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType vim call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
+
     " Auto-reload .vimrc on changes
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
+
+    " * should match - as well as _ when searching under the cursor
+    autocmd FileType css,less,scss,vim,html call <SID>AddKeyword()
 augroup END
 
 au BufRead,BufNewFile *.tpml,*.vsml,*.vcml set filetype=xml
@@ -316,6 +317,24 @@ au BufRead,BufNewFile *.less               set filetype=less
 au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
 au BufRead,BufNewFile *.fish               set filetype=fish
+
+" =============================================================================
+" OTHER
+
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher --
+if executable("ag")
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
+
+" bind K to grep word under cursor
+nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Line numbering ---------------------------------------------------------
 set relativenumber " have line numbers show as relative to current line
@@ -333,11 +352,6 @@ function! s:ToggleColorColumn()
 endfunction
 nmap <c-n><c-n> :call <SID>ToggleColorColumn()<CR>
 
-" Toggling paste ---------------------------------------------------------
-"nnoremap <F5> :set invpaste paste?<Enter>
-"imap <F5> <C-O><F5>
-"set pastetoggle=<F5>
-
 " Buffer non-specific ----------------------------------------------------
 set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert
 set cpo+=J " Use double spacing after periods.
@@ -351,8 +365,6 @@ set laststatus=2 " Always show a status line.
 set lazyredraw " Don't redraw during macros etc.
 set list " display leading tabs as >· and trailing spaces as ·
 set listchars=tab:»·,trail:·
-"set listchars=tab:\|\ ,trail:·
-let mapleader = "," " Set <leader> to ,
 set modeline " Look for embedded modelines at the top of the file.
 set modelines=10 " Don't look any further than this number of lines
 set mousehide " Hide the mouse pointer while typing
@@ -376,13 +388,6 @@ set whichwrap=b,s,h,l,<,>,[,],~ " Wrap to the previous/next line on all keys and
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
 set wildmenu " Better filename completion etc.
 set wildmode=longest:full,full " complete only up to the point of ambiguity (while still showing you what your options are)
-
-" Press Space to turn off highlighting and clear any message already displayed.
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
-" Status bar --------------------------------------------------------------
-"set statusline=
-"set statusline+=%<%y\ %f%=\ [%1*%M%*%n%R%H]\ %-19(L%l,C%c%03V%)
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you edited.
@@ -431,24 +436,14 @@ augroup JumpCursorOnEdit
     \ endif
 augroup END
 
-" tab management ---------------------------------------------------------
-"map <silent><M-Up> :tabnew<CR>
-"map <silent><M-Down> :tabclose<CR>
-"map <silent><M-Right> :tabnext<CR>
-"map <silent><M-Left> :tabprevious<CR>
-
 " Nifty tricks -----------------------------------------------------------
 " [I - list all matches for word found under the cursor
 
 " sudo write
 cabbrev w!! w !sudo tee >/dev/null "%"
 
-" Show the stack of syntax highlighting classes affecting whatever is under the
-" cursor.
-function! SynStack()
-    echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
-endfunc
-
+" Press Space to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
 
 " Mappings ---------------------------------------------------------------
 
@@ -488,11 +483,3 @@ nmap <silent><C-j> ]e
 " Bubble visual lines
 vmap <silent><C-k> [egv
 vmap <silent><C-j> ]egv
-
-nmap <F6> :TagbarToggle<cr>
-"nmap <S-F3> :setf less<cr>
-nnoremap <F8> :call SynStack()<CR>
-
-map <leader><leader>s :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>

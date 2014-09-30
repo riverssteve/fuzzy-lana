@@ -387,7 +387,8 @@ set ttimeoutlen=50              " Faster exit from insert mode
 set whichwrap=b,s,h,l,<,>,[,],~ " Wrap to the previous/next line on all keys and ~ command
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
 set wildmenu                    " Better filename completion etc.
-set wildmode=longest:full,full  " Complete only up to the point of ambiguity (while still showing you what your options are)
+set wildmode=longest:full,full  " Complete only up to the point of ambiguity
+                                " (while still showing you what your options are)
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you edited.

@@ -353,41 +353,41 @@ endfunction
 nmap <c-n><c-n> :call <SID>ToggleColorColumn()<CR>
 
 " Buffer non-specific ----------------------------------------------------
-set backspace=indent,eol,start " Allow backspacing over autoindent, line breaks and start of insert
-set cpo+=J " Use double spacing after periods.
-set display=lastline,uhex " Show the last line instead of '@'; show non-printable chars as <hex>
-set esckeys " allow sane use of cursor keys in various modes, not a necessary change since it probably does the right thing in nocompatible mode anyway
-set hidden " unsaved buffers allowed in the buffer list without saving
-set hlsearch " highlight the current search
-set ignorecase " Usually I don't care about case when searching
-set incsearch " Show matches as you type
-set laststatus=2 " Always show a status line.
-set lazyredraw " Don't redraw during macros etc.
-set list " display leading tabs as >· and trailing spaces as ·
+set backspace=indent,eol,start  " Allow backspacing over autoindent, line breaks and start of insert
+set cpo+=J                      " Use double spacing after periods.
+set display=lastline,uhex       " Show the last line instead of '@'; show non-printable chars as <hex>
+set esckeys                     " Allow sane use of cursor keys in various modes
+set hidden                      " unsaved buffers allowed in the buffer list without saving
+set hlsearch                    " Highlight the current search
+set ignorecase                  " Usually I don't care about case when searching
+set incsearch                   " Show matches as you type
+set laststatus=2                " Always show a status line.
+set lazyredraw                  " Don't redraw during macros etc.
+set list                        " display leading tabs as >· and trailing spaces as ·
 set listchars=tab:»·,trail:·
-set modeline " Look for embedded modelines at the top of the file.
-set modelines=10 " Don't look any further than this number of lines
-set mousehide " Hide the mouse pointer while typing
-set noerrorbells " enough with the beeping already!
-set noshowmode " Hide mode text under powerbar
-set nostartofline " keep cursor's column
-set notextmode " Don't append bloody carriage returns.
-set ruler " Enable ruler on status line.
-set shiftround " Round indent to shiftwidth multiple, applies to < and >
-set shortmess=atI " Shorter status messages.
-set showcmd " Show (partial) command in status line.
-set showmatch " Show matching ()'s []'s {}'s
-set smartcase " only search case sensitively when not doing al all-lowercase search
-set splitbelow " Split horizontally below.
-set splitright " Split vertically to the right.
+set modeline                    " Look for embedded modelines at the top of the file.
+set modelines=10                " Don't look any further than this number of lines
+set mousehide                   " Hide the mouse pointer while typing
+set noerrorbells                " enough with the beeping already!
+set noshowmode                  " Hide mode text under powerbar
+set nostartofline               " keep cursor's column
+set notextmode                  " Don't append bloody carriage returns.
+set ruler                       " Enable ruler on status line.
+set shiftround                  " Round indent to shiftwidth multiple, applies to < and >
+set shortmess=atI               " Shorter status messages.
+set showcmd                     " Show (partial) command in status line.
+set showmatch                   " Show matching ()'s []'s {}'s
+set smartcase                   " only search case sensitively when not doing al all-lowercase search
+set splitbelow                  " Split horizontally below.
+set splitright                  " Split vertically to the right.
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-set title " better xterm titles
-set ttyfast " terminal connection is fast
-set ttimeoutlen=50 " faster exit from insert mode"
+set title                       " Better xterm titles
+set ttyfast                     " Terminal connection is fast
+set ttimeoutlen=50              " Faster exit from insert mode
 set whichwrap=b,s,h,l,<,>,[,],~ " Wrap to the previous/next line on all keys and ~ command
 set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
-set wildmenu " Better filename completion etc.
-set wildmode=longest:full,full " complete only up to the point of ambiguity (while still showing you what your options are)
+set wildmenu                    " Better filename completion etc.
+set wildmode=longest:full,full  " Complete only up to the point of ambiguity (while still showing you what your options are)
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you edited.

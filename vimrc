@@ -9,6 +9,105 @@ set shell=/bin/bash
 " Syntax highlighting
 syntax on
 
+" Options
+set backspace=indent,eol,start    " Allow backspacing over autoindent, line breaks and start of insert
+set backup                        " enable backups
+set cpo+=J                        " Use double spacing after periods.
+set display=lastline,uhex         " Show the last line instead of '@'; show non-printable chars as <hex>
+set esckeys                       " Allow sane use of cursor keys in various modes
+set hidden                        " unsaved buffers allowed in the buffer list without saving
+set hlsearch                      " Highlight the current search
+set ignorecase                    " Usually I don't care about case when searching
+set incsearch                     " Show matches as you type
+set laststatus=2                  " Always show a status line.
+set lazyredraw                    " Don't redraw during macros etc.
+set list                          " display leading tabs as >· and trailing spaces as ·
+set listchars=tab:»·,trail:·
+set modeline                      " Look for embedded modelines at the top of the file.
+set modelines=10                  " Don't look any further than this number of lines
+set mousehide                     " Hide the mouse pointer while typing
+set noerrorbells                  " enough with the beeping already!
+set noshowmode                    " Hide mode text under powerbar
+set nostartofline                 " keep cursor's column
+set noswapfile                    " it's 2013, Vim.
+set notextmode                    " Don't append bloody carriage returns.
+set ruler                         " Enable ruler on status line.
+set shiftround                    " Round indent to shiftwidth multiple, applies to < and >
+set shortmess=atI                 " Shorter status messages.
+set showcmd                       " Show (partial) command in status line.
+set showmatch                     " Show matching ()'s []'s {}'s
+set smartcase                     " only search case sensitively when not doing al all-lowercase search
+set splitbelow                    " Split horizontally below.
+set splitright                    " Split vertically to the right.
+let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+set title                         " Better xterm titles
+set ttyfast                       " Terminal connection is fast
+set ttimeoutlen=50                " Faster exit from insert mode
+set whichwrap=b,s,h,l,<,>,[,],~   " Wrap to the previous/next line on all keys and ~ command
+set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
+set wildmenu                      " Better filename completion etc.
+set wildmode=longest:full,full    " Complete only up to the point of ambiguity
+                                  " (while still showing you what your options are)
+
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+
+" Make those folders automatically if they don't already exist.
+if !isdirectory(expand(&undodir))
+    call mkdir(expand(&undodir), "p")
+endif
+if !isdirectory(expand(&backupdir))
+    call mkdir(expand(&backupdir), "p")
+endif
+if !isdirectory(expand(&directory))
+    call mkdir(expand(&directory), "p")
+endif
+
+" Key Mappings ---------------------------------------------------------------
+
+" Backslash maps
+nmap \d :BD<CR>
+nmap \e :NERDTreeToggle<CR>
+nmap <silent> \g <Plug>IndentGuidesToggle
+nmap \s :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+nmap \v <C-w><C-v><C-l>:e $MYVIMRC<cr>
+
+" Leader maps
+nmap <leader>g :GundoToggle<CR>
+nmap <leader>n :bnext
+nmap <leader>p :bprevious
+nmap <leader>r :registers<cr>
+
+" Last used buffer
+nmap <C-e> :e#<CR>
+
+" Bubble lines of text (Uses Tim Pope's "unimpaired" script)
+" Bubble single lines
+nmap <silent><C-k> [e
+nmap <silent><C-j> ]e
+" Bubble visual lines
+vmap <silent><C-j> ]egv
+vmap <silent><C-k> [egv
+
+" Select previously pasted text
+nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
+
+" To close syntastic window, :lcl
+
+" Disable cursor keys
+noremap <Up> <nop>
+noremap <Down> <nop>
+noremap <Left> <nop>
+noremap <Right> <nop>
+
+" Disable the help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
 " =============================================================================
 " VAM
 
@@ -68,10 +167,13 @@ fun! SetupVAM()
     "call vam#ActivateAddons('powerline')
     call vam#ActivateAddons('Gundo')
     call vam#ActivateAddons('LycosaExplorer')
-    call vam#ActivateAddons('github:valloric/MatchTagAlways')
     call vam#ActivateAddons('Syntastic')
+    call vam#ActivateAddons('The_NERD_tree')
     call vam#ActivateAddons('YouCompleteMe')
+    call vam#ActivateAddons('bufkill')
+    call vam#ActivateAddons('ctrlp')
     call vam#ActivateAddons('github:nathanaelkane/vim-indent-guides')
+    call vam#ActivateAddons('github:valloric/MatchTagAlways')
     call vam#ActivateAddons('vim-airline')
 
     " VIM movement addons
@@ -79,23 +181,27 @@ fun! SetupVAM()
     call vam#ActivateAddons('The_NERD_Commenter')
     call vam#ActivateAddons('VimOutliner')
     call vam#ActivateAddons('breeze')
+    call vam#ActivateAddons('closetag')
     call vam#ActivateAddons('repeat')
     call vam#ActivateAddons('surround')
     call vam#ActivateAddons('unimpaired')
     call vam#ActivateAddons('vim-pi')
 
     " Language Addons
+    call vam#ActivateAddons('html5')
     call vam#ActivateAddons('editorconfig-vim')
     call vam#ActivateAddons('Python-mode-klen')
     call vam#ActivateAddons('github:dag/vim-fish')
     call vam#ActivateAddons('vim-coffee-script')
     call vam#ActivateAddons('vim-css3-syntax')
-    call vam#ActivateAddons('vim-javascript')
+    "call vam#ActivateAddons('vim-javascript')
+    call vam#ActivateAddons('github:JulesWang/css.vim')
     call vam#ActivateAddons('vim-less')
 
     " Tools
-    "call vam#ActivateAddons('css_color')
-    call vam#ActivateAddons('xterm-color-table')
+    "call vam#ActivateAddons('github:ap/vim-css-color')
+    "call vam#ActivateAddons('xterm-color-table')
+    "call vam#ActivateAddons('HiLinkTrace@drchip')
 
     " Themes
     call vam#ActivateAddons('Solarized')
@@ -179,11 +285,15 @@ let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 
 let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 
 " Breeze -----------------------------------------------------------------
 "let g:breeze_highlight_curr_element = 0
 "hi htmlTagHighlightGroup gui=NONE cterm=NONE ctermbg=4 ctermfg=16
 "let g:breeze_hl_color_darkbg = "htmlTagHighlightGroup"
+
+" Ctrl-p -----------------------------------------------------------------
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
 
 " EasyMotion -------------------------------------------------------------
 " Type <Leader><Leader>w to trigger the word motion w.  When the motion is
@@ -198,7 +308,6 @@ let g:airline#extensions#syntastic#enabled = 1
 
 " indent-guides ----------------------------------------------------------
 let g:indent_guides_guide_size = 2
-:nmap <silent> <Leader>g <Plug>IndentGuidesToggle
 hi IndentGuidesEven ctermbg=234
 
 " LycosaExplorer ---------------------------------------------------------
@@ -241,7 +350,7 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:pymode_doc = 0
 let g:pymode_folding = 0
 let g:pymode_lint = 0
-let g:pymode_rope = 0 
+let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 let g:pymode_run = 0
 let g:pymode_trim_whitespaces = 0
@@ -297,24 +406,25 @@ augroup myStartup
     autocmd!
 
     autocmd FileType css,less,scss,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
-    autocmd FileType vim call <SID>CodingStyleFiletypes(4, 'off')
+    autocmd FileType vim,zsh call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
+    au Filetype html,xml,xsl source ~/.vim/vim-addons/closetag/plugin/closetag.vim
 
     " Auto-reload .vimrc on changes
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
 
     " * should match - as well as _ when searching under the cursor
-    autocmd FileType css,less,scss,vim,html call <SID>AddKeyword()
+    autocmd FileType css,less,scss,vim,html,coffee call <SID>AddKeyword()
 augroup END
 
 au BufRead,BufNewFile *.tpml,*.vsml,*.vcml set filetype=xml
 au BufRead,BufNewFile *.zsh-theme          set filetype=zsh
 au BufRead,BufNewFile *.less               set filetype=less
-au BufRead,BufNewFile *.html               set filetype=htmldjango
+"au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
 au BufRead,BufNewFile *.fish               set filetype=fish
 
@@ -351,44 +461,6 @@ function! s:ToggleColorColumn()
     endif
 endfunction
 nmap <c-n><c-n> :call <SID>ToggleColorColumn()<CR>
-
-" Buffer non-specific ----------------------------------------------------
-set backspace=indent,eol,start  " Allow backspacing over autoindent, line breaks and start of insert
-set cpo+=J                      " Use double spacing after periods.
-set display=lastline,uhex       " Show the last line instead of '@'; show non-printable chars as <hex>
-set esckeys                     " Allow sane use of cursor keys in various modes
-set hidden                      " unsaved buffers allowed in the buffer list without saving
-set hlsearch                    " Highlight the current search
-set ignorecase                  " Usually I don't care about case when searching
-set incsearch                   " Show matches as you type
-set laststatus=2                " Always show a status line.
-set lazyredraw                  " Don't redraw during macros etc.
-set list                        " display leading tabs as >· and trailing spaces as ·
-set listchars=tab:»·,trail:·
-set modeline                    " Look for embedded modelines at the top of the file.
-set modelines=10                " Don't look any further than this number of lines
-set mousehide                   " Hide the mouse pointer while typing
-set noerrorbells                " enough with the beeping already!
-set noshowmode                  " Hide mode text under powerbar
-set nostartofline               " keep cursor's column
-set notextmode                  " Don't append bloody carriage returns.
-set ruler                       " Enable ruler on status line.
-set shiftround                  " Round indent to shiftwidth multiple, applies to < and >
-set shortmess=atI               " Shorter status messages.
-set showcmd                     " Show (partial) command in status line.
-set showmatch                   " Show matching ()'s []'s {}'s
-set smartcase                   " only search case sensitively when not doing al all-lowercase search
-set splitbelow                  " Split horizontally below.
-set splitright                  " Split vertically to the right.
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-set title                       " Better xterm titles
-set ttyfast                     " Terminal connection is fast
-set ttimeoutlen=50              " Faster exit from insert mode
-set whichwrap=b,s,h,l,<,>,[,],~ " Wrap to the previous/next line on all keys and ~ command
-set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
-set wildmenu                    " Better filename completion etc.
-set wildmode=longest:full,full  " Complete only up to the point of ambiguity
-                                " (while still showing you what your options are)
 
 " VimInfo management -----------------------------------------------------
 " '50              Marks will be remembered for the last 50 files you edited.
@@ -445,42 +517,3 @@ cabbrev w!! w !sudo tee >/dev/null "%"
 
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
-" Mappings ---------------------------------------------------------------
-
-" Disable cursor keys
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
-
-" Disable the help key
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
-
-" To close syntastic window, :lcl
-
-" Select previously pasted text
-nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" Open vimrc on the fly <leader>ev
-nnoremap <leader>ev <C-w><C-v><C-l>:e $MYVIMRC<cr>
-
-" Open registers
-nnoremap <leader>r :registers<cr>
-
-" NERDtree toggle ,lt
-" NERDtree find current file ,lf
-
-" F5 to open Gundo window
-" http://sjl.bitbucket.org/gundo.vim/
-nnoremap <F5> :GundoToggle<CR>
-
-" Bubble lines of text (Uses Tim Pope's "unimpaired" script)
-" Bubble single lines
-nmap <silent><C-k> [e
-nmap <silent><C-j> ]e
-" Bubble visual lines
-vmap <silent><C-k> [egv
-vmap <silent><C-j> ]egv

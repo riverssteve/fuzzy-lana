@@ -44,7 +44,7 @@ set title                         " Better xterm titles
 set ttyfast                       " Terminal connection is fast
 set ttimeoutlen=50                " Faster exit from insert mode
 set whichwrap=b,s,h,l,<,>,[,],~   " Wrap to the previous/next line on all keys and ~ command
-set wildignore=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo
+set wildignore+=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,*.orig
 set wildmenu                      " Better filename completion etc.
 set wildmode=longest:full,full    " Complete only up to the point of ambiguity
                                   " (while still showing you what your options are)
@@ -77,8 +77,8 @@ nmap \v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
 " Leader maps
 nmap <leader>g :GundoToggle<CR>
-nmap <leader>n :bnext
-nmap <leader>p :bprevious
+nmap <leader>n :bnext<CR>
+nmap <leader>p :bprevious<CR>
 nmap <leader>r :registers<cr>
 
 " Last used buffer
@@ -294,6 +294,7 @@ let g:airline#extensions#tabline#enabled = 1
 
 " Ctrl-p -----------------------------------------------------------------
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
+let g:ctrlp_custom_ignore = '\v\.(pyc|orig)'
 
 " EasyMotion -------------------------------------------------------------
 " Type <Leader><Leader>w to trigger the word motion w.  When the motion is
@@ -307,7 +308,7 @@ let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
 "    Lorem ipsum dolor <cursor>sit amet.
 
 " indent-guides ----------------------------------------------------------
-let g:indent_guides_guide_size = 2
+"let g:indent_guides_guide_size = 2
 hi IndentGuidesEven ctermbg=234
 
 " LycosaExplorer ---------------------------------------------------------

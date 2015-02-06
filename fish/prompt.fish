@@ -60,8 +60,8 @@ function fish_right_prompt
 
         while test $dir != "/"
             if test -f $dir'/.hg/dirstate'
-            set -g HG_ROOT $dir"/.hg"
-            return 0
+                set -g HG_ROOT $dir"/.hg"
+                return 0
             end
 
             set -l dir (dirname $dir)
@@ -88,15 +88,26 @@ function fish_right_prompt
 
         printf '@'
 
-        set -l patch (cat "$HG_ROOT/patches/status")
-        # show 7 digits of commit hash (like git)
-        if test -z $patch
-            set_color green
-        else
-            set_color black --background red
+        if test -e $HG_ROOT/patches/status
+            set -l patch_info (cat $HG_ROOT/patches/status)
+            if test -z $patch_info
+                set_color green
+            else
+                set_color black --background red
+            end
         end
+        # show 7 digits of commit hash (like git)
         printf '%s' (hexdump -n 4 -e '1/1 "%02x"' "$HG_ROOT/dirstate" | cut -c-7)
         set_color normal
+
+        # Patch name
+        set -l patch (hg qapplied)
+        if test (count (hg qapplied)) != 0
+            printf "+"
+            set_color yellow
+            printf "%s" $patch
+            set_color normal
+        end
 
         printf ']'
     end

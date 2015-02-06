@@ -1,5 +1,6 @@
 # Fish Config
 set TERM xterm-256color
+set PATH $HOME/.bin $HOME/.local/bin $PATH
 set -l fish_config $HOME/.config/fish
 
 if [ -e $fish_config/prompt.fish ]

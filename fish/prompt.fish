@@ -45,11 +45,21 @@ function __hg_prompt
     end
 end
 
+function __pew
+    set -g __fish_prompt_venv (basename "$VIRTUAL_ENV")
+    if test -n $__fish_prompt_venv
+        set_color --bold -b blue white
+        printf "$__fish_prompt_venv"
+        set_color normal
+        printf " "
+    end
+end
+
 function fish_prompt --description 'Write out the prompt'
     printf "\n"
     __user_host
+    __pew
     __prompt_pwd
-    #printf "\n"
     printf " » "
 end
 

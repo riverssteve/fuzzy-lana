@@ -449,6 +449,7 @@ nnoremap K :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 
 " Line numbering ---------------------------------------------------------
 set relativenumber " have line numbers show as relative to current line
+set number         " also show current line number
 let s:color_column_old = 0
 function! s:ToggleColorColumn()
     set invrelativenumber relativenumber?

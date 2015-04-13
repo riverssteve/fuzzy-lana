@@ -193,10 +193,11 @@ fun! SetupVAM()
     call vam#ActivateAddons('Python-mode-klen')
     call vam#ActivateAddons('github:dag/vim-fish')
     call vam#ActivateAddons('vim-coffee-script')
-    call vam#ActivateAddons('vim-css3-syntax')
-    "call vam#ActivateAddons('vim-javascript')
+    call vam#ActivateAddons('vim-javascript')
+    call vam#ActivateAddons('github:tpope/vim-haml')
     call vam#ActivateAddons('github:JulesWang/css.vim')
-    call vam#ActivateAddons('vim-less')
+    call vam#ActivateAddons('vim-css3-syntax')
+    call vam#ActivateAddons('github:genoma/vim-less')
 
     " Tools
     "call vam#ActivateAddons('github:ap/vim-css-color')
@@ -231,7 +232,7 @@ endif
 colorscheme solarized
 set background=dark
 "let g:solarized_termcolors=256
-"let g:solarized_italic=1
+let g:solarized_italic=1
 
 " Matching brackets
 :hi MatchParen cterm=none ctermbg=5 ctermfg=7

@@ -1,0 +1,24 @@
+"*":
+  "exception-reporting":
+    userId: "4f3187e9-31e7-c0a6-390e-8d04bf6a6257"
+  welcome:
+    showOnStartup: false
+  core:
+    themes: [
+      "one-light-ui"
+      "one-light-syntax"
+    ]
+    ignoredNames: [
+      ".hg"
+      ".orig"
+      ".swp"
+      ".tmp"
+      "node_modules"
+    ]
+    disabledPackages: [
+      "highlight-css-color"
+    ]
+  editor:
+    invisibles: {}
+    fontFamily: "Fantasque Sans Mono"
+  linter: {}

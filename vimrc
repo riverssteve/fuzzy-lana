@@ -75,6 +75,27 @@ nmap \s :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 nmap \v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
+
+" Toggle Cursor line
+ map <silent> <Leader>tl      :set                  cursorline! <CR>
+imap <silent> <Leader>tl <Esc>:set                  cursorline! <CR>a
+
+" Toggle Cursor column
+ map <silent> <Leader>tc      :set   cursorcolumn!              <CR>
+imap <silent> <Leader>tc <Esc>:set   cursorcolumn!              <CR>a
+
+" Toggle Cursor column and cursor line
+ map <silent> <Leader>ta      :set   cursorcolumn!  cursorline! <CR>
+imap <silent> <Leader>ta <Esc>:set   cursorcolumn!  cursorline! <CR>a
+
+" Set Cursor column and cursor line
+ map <silent> <Leader>sa      :set   cursorcolumn   cursorline  <CR>
+imap <silent> <Leader>sa <Esc>:set   cursorcolumn   cursorline  <CR>a
+
+" Unset Cursor column and cursor line
+ map <silent> <Leader>ua      :set nocursorcolumn nocursorline  <CR>
+imap <silent> <Leader>ua <Esc>:set nocursorcolumn nocursorline  <CR>a
+
 " Leader maps
 nmap <leader>g :GundoToggle<CR>
 nmap <leader>n :bnext<CR>
@@ -362,7 +383,9 @@ let g:pymode_quickfix_maxheight = 6
 " Syntastic settings -----------------------------------------------------
 let g:syntastic_python_checkers=['flake8']
 let g:syntastic_coffee_checkers=['coffeelint']
-let g:syntastic_coffee_coffeelint_args = '--file $HOME/ice/config/coffeelint.json'
+let g:syntastic_javascript_checkers=['eslint']
+let g:syntastic_javascript_eslint_args = '-c $HOME/.config/eslintrc'
+"let g:syntastic_coffee_coffeelint_args = '--file $HOME/ice/config/coffeelint.json'
 let g:syntastic_enable_signs=1 " Mark buffer with 'signs'
 let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 

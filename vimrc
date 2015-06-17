@@ -213,7 +213,7 @@ fun! SetupVAM()
     call vam#ActivateAddons('editorconfig-vim')
     call vam#ActivateAddons('Python-mode-klen')
     call vam#ActivateAddons('github:dag/vim-fish')
-    call vam#ActivateAddons('vim-coffee-script')
+    "call vam#ActivateAddons('vim-coffee-script')
     call vam#ActivateAddons('vim-javascript')
     call vam#ActivateAddons('github:tpope/vim-haml')
     call vam#ActivateAddons('github:JulesWang/css.vim')
@@ -329,10 +329,6 @@ let g:ctrlp_custom_ignore = '\v\.(pyc|orig)'
 "
 "    Lorem ipsum dolor <cursor>sit amet.
 
-" indent-guides ----------------------------------------------------------
-"let g:indent_guides_guide_size = 2
-hi IndentGuidesEven ctermbg=234
-
 " LycosaExplorer ---------------------------------------------------------
 " Link - (http://www.vim.org/scripts/script.php?script_id=3659)
 "  <Leader>lf  - Opens the filesystem explorer.
@@ -392,11 +388,9 @@ let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 " YouCompleteMe ----------------------------------------------------------
 let g:ycm_autoclose_preview_window_after_completion=1
 
-" VIM-inden-guide --------------------------------------------------------
-"let g:indent_guides_guide_size = 1
-let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=8
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=0
+" vim-indent-guides ------------------------------------------------------
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=7
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=15
 
 " =============================================================================
 " CODING STYLE
@@ -410,10 +404,10 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal nocindent
     setlocal nosmartindent
 
-    " mark the 80th col to avoid overstepping programming style
+    " mark the 160th col to avoid overstepping programming style
     if a:show_col == 'on'
-        setlocal colorcolumn=80
-        setlocal textwidth=80
+        setlocal colorcolumn=160
+        setlocal textwidth=160
     endif
 
     " Set 'formatoptions' to break comment lines but not other lines,

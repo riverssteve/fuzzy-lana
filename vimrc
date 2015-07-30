@@ -227,6 +227,7 @@ fun! SetupVAM()
 
     " Themes
     call vam#ActivateAddons('Solarized')
+    call vam#ActivateAddons('github:daylerees/colour-schemes')
 
     " Addons are put into plugin_root_dir/plugin-name directory
     " unless those directories exist. Then they are activated.
@@ -251,7 +252,7 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 let g:solarized_italic=1
 
@@ -389,8 +390,9 @@ let g:syntastic_auto_loc_list=1 " Open location list if there are errors
 let g:ycm_autoclose_preview_window_after_completion=1
 
 " vim-indent-guides ------------------------------------------------------
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=7
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=15
+let g:indent_guides_auto_colors = 0
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=15
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=7
 
 " =============================================================================
 " CODING STYLE
@@ -406,8 +408,8 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
 
     " mark the 160th col to avoid overstepping programming style
     if a:show_col == 'on'
-        setlocal colorcolumn=160
-        setlocal textwidth=160
+        setlocal colorcolumn=80
+        setlocal textwidth=80
     endif
 
     " Set 'formatoptions' to break comment lines but not other lines,

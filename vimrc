@@ -252,7 +252,7 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=light
+set background=dark
 "let g:solarized_termcolors=256
 let g:solarized_italic=1
 
@@ -391,8 +391,10 @@ let g:ycm_autoclose_preview_window_after_completion=1
 
 " vim-indent-guides ------------------------------------------------------
 let g:indent_guides_auto_colors = 0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=15
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=7
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=15
+"autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=7
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
 
 " =============================================================================
 " CODING STYLE

@@ -252,7 +252,7 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 let g:solarized_italic=1
 
@@ -408,7 +408,7 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal nocindent
     setlocal nosmartindent
 
-    " mark the 160th col to avoid overstepping programming style
+    " mark the 80th col to avoid overstepping programming style
     if a:show_col == 'on'
         setlocal colorcolumn=80
         setlocal textwidth=80

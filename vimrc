@@ -1,20 +1,27 @@
+
+" Steve's .vimrc
+
+" Basic Settings {{{
 set nocompatible | filetype indent plugin on | syn on
 let g:skip_loading_mswin=1
 let mapleader = "," " Set <leader> to ,
 
+syntax on
 set fileencoding=utf-8
 set encoding=utf-8
 set shell=/bin/bash
 
-" Syntax highlighting
-syntax on
-
-" Options
+" }}}
+" Advanced Settings {{{
 set backspace=indent,eol,start    " Allow backspacing over autoindent, line breaks and start of insert
 set backup                        " enable backups
 set cpo+=J                        " Use double spacing after periods.
 set display=lastline,uhex         " Show the last line instead of '@'; show non-printable chars as <hex>
 set esckeys                       " Allow sane use of cursor keys in various modes
+set foldenable                    " Enable code folding
+set foldlevelstart=10             " Open most folds by default
+set foldnestmax=6                 " Set maximum number of nested folds
+set foldmethod=indent             " Set fold based on indent level
 set hidden                        " unsaved buffers allowed in the buffer list without saving
 set hlsearch                      " Highlight the current search
 set ignorecase                    " Usually I don't care about case when searching
@@ -64,9 +71,8 @@ if !isdirectory(expand(&directory))
     call mkdir(expand(&directory), "p")
 endif
 
-" Key Mappings ---------------------------------------------------------------
-
-" Backslash maps
+" }}}
+" Backslash Mappings {{{
 nmap \d :BD<CR>
 nmap \e :NERDTreeToggle<CR>
 nmap <silent> \g <Plug>IndentGuidesToggle
@@ -75,6 +81,7 @@ nmap \s :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 nmap \v <C-w><C-v><C-l>:e $MYVIMRC<cr>
 
+nmap <silent><C-w><S-n> :vnew<CR>
 
 " Toggle Cursor line
  map <silent> <Leader>tl      :set                  cursorline! <CR>
@@ -95,8 +102,8 @@ imap <silent> <Leader>sa <Esc>:set   cursorcolumn   cursorline  <CR>a
 " Unset Cursor column and cursor line
  map <silent> <Leader>ua      :set nocursorcolumn nocursorline  <CR>
 imap <silent> <Leader>ua <Esc>:set nocursorcolumn nocursorline  <CR>a
-
-" Leader maps
+" }}}
+" Leader mappings {{{
 nmap <leader>g :GundoToggle<CR>
 nmap <leader>n :bnext<CR>
 nmap <leader>p :bprevious<CR>
@@ -104,6 +111,9 @@ nmap <leader>r :registers<cr>
 
 " Last used buffer
 nmap <C-e> :e#<CR>
+
+" Highlight last inserted text
+nnoremap gV `[V`]
 
 " Bubble lines of text (Uses Tim Pope's "unimpaired" script)
 " Bubble single lines
@@ -129,8 +139,11 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
-" =============================================================================
-" VAM
+" Disable Ex mode
+noremap Q <nop>
+
+" }}}
+" VAM (VIM Addon Manager) {{{
 
 fun! EnsureVamIsOnDisk(plugin_root_dir)
     " windows users may want to use http://mawercer.de/~marc/vam/index.php
@@ -244,8 +257,8 @@ fun! SetupVAM()
 endfun
 call SetupVAM()
 
-" =============================================================================
-" UI
+" }}}
+" UI {{{
 
 " Theme
 if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == 'gnome-terminal'
@@ -280,8 +293,8 @@ if has("gui_running")
     set lines=55 columns=190
 endif
 
-" =============================================================================
-" PLUGIN SETTINGS
+" }}}
+" VIM Plugin Settings {{{
 
 " Airline ----------------------------------------------------------------
 
@@ -318,6 +331,9 @@ let g:airline#extensions#tabline#enabled = 1
 " Ctrl-p -----------------------------------------------------------------
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
 let g:ctrlp_custom_ignore = '\v\.(pyc|orig)'
+let g:ctrlp_switch_buffer = 0
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
 
 " EasyMotion -------------------------------------------------------------
 " Type <Leader><Leader>w to trigger the word motion w.  When the motion is
@@ -396,8 +412,8 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
 
-" =============================================================================
-" CODING STYLE
+" }}}
+" Coding Style Settings {{{
 
 function! s:AddKeyword()
     setlocal iskeyword+=-
@@ -425,34 +441,56 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal tabstop=8
 endfun
 
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+
 augroup myStartup
     autocmd!
 
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
+                \:call <SID>StripTrailingWhitespaces()
+
+    autocmd FileType python setlocal commentstring=#\ %s
+
+    " Set tab stops and whether to show ruler
     autocmd FileType css,less,scss,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType vim,zsh call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
     autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
+
+    " Special django surround tags
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
+    autocmd FileType htmldjango let b:surround_{char2nr("{")} = "{{ \r }}"
     autocmd FileType htmldjango let b:surround_{char2nr("b")} = "{% block \r %}{% endblock %}"
+
     au Filetype html,xml,xsl source ~/.vim/vim-addons/closetag/plugin/closetag.vim
 
     " Auto-reload .vimrc on changes
     autocmd BufWritePost ~/.vimrc source ~/.vimrc
 
     " * should match - as well as _ when searching under the cursor
-    autocmd FileType css,less,scss,vim,html,coffee call <SID>AddKeyword()
+    autocmd FileType css,less,scss,vim,html,htmldjango,,coffee call <SID>AddKeyword()
 augroup END
 
-au BufRead,BufNewFile *.tpml,*.vsml,*.vcml set filetype=xml
 au BufRead,BufNewFile *.zsh-theme          set filetype=zsh
 au BufRead,BufNewFile *.less               set filetype=less
-"au BufRead,BufNewFile *.html               set filetype=htmldjango
+au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
 au BufRead,BufNewFile *.fish               set filetype=fish
 
-" =============================================================================
-" OTHER
+" }}}
+" Custom Vim Settings {{{
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher --
 if executable("ag")
@@ -532,8 +570,8 @@ augroup JumpCursorOnEdit
     \   unlet b:doopenfold |
     \ endif
 augroup END
-
-" Nifty tricks -----------------------------------------------------------
+" }}}
+" Nifty tricks {{{
 " [I - list all matches for word found under the cursor
 
 " sudo write
@@ -541,3 +579,5 @@ cabbrev w!! w !sudo tee >/dev/null "%"
 
 " Press Space to turn off highlighting and clear any message already displayed.
 nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+" }}}
+" vim:foldmethod=marker:foldlevel=0

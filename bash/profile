@@ -1,0 +1,37 @@
+source $HOME/.bashrc
+
+# Use GNU unix utils
+export GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
+export GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
+export LOCALBIN="/usr/local/bin"
+export PYENV="$HOME/.pyenv"
+
+echo $PYENV
+
+if [ -d "$PYENV/shims" ]; then
+    export PYENVSHIMS="$PYENV/shims"
+    echo $PYENVSHIMS
+    case ":$PATH:" in
+        *":$PYENVSHIMS:"*) :;;
+        *) PATH="$PYENVSHIMS:$PATH";;
+    esac
+fi
+case ":$PATH:" in
+    *":$GNUBIN:"*) :;;
+    *) PATH="$GNUBIN:$PATH";;
+esac
+
+case ":$PATH:" in
+    *":$GNUBIN:"*) :;;
+    *) PATH="$GNUBIN:$PATH";;
+esac
+
+case ":$MANPATH:" in
+    *":$GNUMAN:"*) :;;
+    *) MANPATH="$GNUMAN:$MANPATH";;
+esac
+
+case ":$PATH:" in
+    *":$LOCALBIN:"*) :;;
+    *) PATH="$LOCALBIN:$PATH";;
+esac

@@ -1,4 +1,3 @@
-
 " Steve's .vimrc
 
 " Basic Settings {{{
@@ -198,17 +197,19 @@ fun! SetupVAM()
     call vam#ActivateAddons([])
 
     " UI
-    "call vam#ActivateAddons('powerline')
     call vam#ActivateAddons('Gundo')
     call vam#ActivateAddons('LycosaExplorer')
     call vam#ActivateAddons('Syntastic')
-    call vam#ActivateAddons('The_NERD_tree')
+    "call vam#ActivateAddons('The_NERD_tree')
     call vam#ActivateAddons('YouCompleteMe')
     call vam#ActivateAddons('bufkill')
     call vam#ActivateAddons('ctrlp')
+    call vam#ActivateAddons('fugitive')
     call vam#ActivateAddons('github:nathanaelkane/vim-indent-guides')
     call vam#ActivateAddons('github:valloric/MatchTagAlways')
+    call vam#ActivateAddons('github:vim-airline/vim-airline-themes')
     call vam#ActivateAddons('vim-airline')
+    call vam#ActivateAddons('vim-bufferline')
 
     " VIM movement addons
     call vam#ActivateAddons('AutoFenc')
@@ -240,6 +241,7 @@ fun! SetupVAM()
 
     " Themes
     call vam#ActivateAddons('Solarized')
+    call vam#ActivateAddons('github:reedes/vim-colors-pencil')
     call vam#ActivateAddons('github:daylerees/colour-schemes')
 
     " Addons are put into plugin_root_dir/plugin-name directory
@@ -265,12 +267,16 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=light
+set background=dark
 "let g:solarized_termcolors=256
-let g:solarized_italic=1
+"let g:solarized_italic=1
 
 " Matching brackets
 :hi MatchParen cterm=none ctermbg=5 ctermfg=7
+
+" Current line
+:hi CursorLine   cterm=NONE ctermbg=black guibg=black
+:set cursorline
 
 " Status bar
 "set statusline=
@@ -299,7 +305,8 @@ endif
 " Airline ----------------------------------------------------------------
 
 " Airline Theme
-let g:airline_theme='solarized'
+"let g:airline_theme="behelit"
+let g:airline_theme="solarized"
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
@@ -317,11 +324,16 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 let g:airline_symbols.branch = ''
 let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
+"let g:airline_symbols.branch = '⎇'
 let g:airline_symbols.paste = 'ρ'
 
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#syntastic#enabled = 0
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline_extensions = ['ctrlp']
+let g:airline_detect_modified=1
+let g:airline_detect_paste=1
+let g:airline_inactive_collapse=1
+let g:airline_skip_empty_sections = 1
 
 " Breeze -----------------------------------------------------------------
 "let g:breeze_highlight_curr_element = 0
@@ -329,7 +341,7 @@ let g:airline#extensions#tabline#enabled = 1
 "let g:breeze_hl_color_darkbg = "htmlTagHighlightGroup"
 
 " Ctrl-p -----------------------------------------------------------------
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:10'
 let g:ctrlp_custom_ignore = '\v\.(pyc|orig)'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
@@ -426,8 +438,8 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
 
     " mark the 80th col to avoid overstepping programming style
     if a:show_col == 'on'
-        setlocal colorcolumn=80
-        setlocal textwidth=80
+        setlocal colorcolumn=120
+        setlocal textwidth=120
     endif
 
     " Set 'formatoptions' to break comment lines but not other lines,
@@ -441,25 +453,9 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal tabstop=8
 endfun
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
-function! <SID>StripTrailingWhitespaces()
-    " save last search & cursor position
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
-    %s/\s\+$//e
-    let @/=_s
-    call cursor(l, c)
-endfunction
-
 
 augroup myStartup
     autocmd!
-
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md
-                \:call <SID>StripTrailingWhitespaces()
-
     autocmd FileType python setlocal commentstring=#\ %s
 
     " Set tab stops and whether to show ruler

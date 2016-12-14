@@ -3,16 +3,18 @@
 # zshrc
 
 # Startup {{{
-PATH=$PATH:/usr/local/bin
+
+# PyCharm doesn't source this file for some reason.
+source $HOME/.zprofile
+
+# Load antibody
 source <(antibody init)
 # }}}
 # Environment settings {{{
 
 export EDITOR='vim'
 
-# Use GNU unix utils
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # }}}
 # Options {{{
 
@@ -128,7 +130,6 @@ zstyle ':completion:*' completer _oldlist _expand _force_rehash _complete _match
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 # pasting with tabs doesn't perform completion
 zstyle ':completion:*' insert-tab pending
-
 # }}}
 # Aliases {{{
 alias ls='ls --color'
@@ -136,27 +137,23 @@ alias ls='ls --color'
 # Key bindings {{{
 bindkey "\e\e[D" backward-word
 bindkey "\e\e[C" forward-word
-bindkey "\e[1~" beginning-of-line
-bindkey "\e[4~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 bindkey "\e[5~" beginning-of-history
 bindkey "\e[6~" end-of-history
 bindkey "\e[3~" delete-char
-bindkey "\e[2~" quoted-insert
-bindkey "\e[3~" delete-char
 bindkey "\e[5C" forward-word
-bindkey "\eOc" emacs-forward-word
 bindkey "\e[5D" backward-word
-bindkey "\eOd" emacs-backward-word
-bindkey "\^H" backward-delete-word
-# for rxvt
-bindkey "\e[8~" end-of-line
-bindkey "\e[7~" beginning-of-line
-# for non RH/Debian xterm, can't hurt for RH/DEbian xterm
-bindkey "\eOH" beginning-of-line
-bindkey "\eOF" end-of-line
-# for freebsd console
-bindkey "\e[H" beginning-of-line
-bindkey "\e[F" end-of-line
+bindkey "^[w" backward-kill-word
+
+bindkey "^P" history-substring-search-up
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+
+# Disable HOME and END
+#bindkey -r "\e[H"
+#bindkey -r "\e[F"
+
 # completion in the middle of a line
 bindkey '^i' expand-or-complete-prefix
 # }}}
@@ -199,10 +196,27 @@ zsh_directory_name() {
         d) false;;
     esac
 }
+
+backward-kill-dir () {
+    local WORDCHARS=${WORDCHARS/\/}
+    zle backward-kill-word
+}
+zle -N backward-kill-dir
+bindkey '^[^?' backward-kill-dir
 # }}}
 # Antibody {{{
 antibody bundle mafredri/zsh-async
-antibody bundle < $HOME/.plugins.txt
 antibody bundle sindresorhus/pure
+antibody bundle < $HOME/.plugins.txt
 # }}}
+
+# These need to be cloned
+if [ -d $HOME/repos/zsh-history-substring-search ]; then
+    source $HOME/repos/zsh-history-substring-search/zsh-history-substring-search.zsh
+fi
+
+if [ -d $HOME/repos/zsh-syntax-highlighting ]; then
+    source $HOME/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
+
 # vim:foldmethod=marker:foldlevel=0

@@ -128,10 +128,14 @@ nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
 " To close syntastic window, :lcl
 
 " Disable cursor keys
-noremap <Up> <nop>
-noremap <Down> <nop>
-noremap <Left> <nop>
-noremap <Right> <nop>
+nnoremap <Up> <nop>
+nnoremap <Down> <nop>
+nnoremap <Left> <nop>
+nnoremap <Right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <Left> <nop>
+inoremap <Right> <nop>
 
 " Disable the help key
 inoremap <F1> <ESC>
@@ -267,15 +271,16 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=dark
+set background=light
 "let g:solarized_termcolors=256
 "let g:solarized_italic=1
 
 " Matching brackets
 :hi MatchParen cterm=none ctermbg=5 ctermfg=7
 
-" Current line
-:hi CursorLine   cterm=NONE ctermbg=black guibg=black
+" Set some highlights
+hi LineNr       ctermfg=14 ctermbg=7
+hi CursorLineNr term=bold  ctermfg=130 ctermbg=7
 :set cursorline
 
 " Status bar

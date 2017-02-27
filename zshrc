@@ -9,6 +9,7 @@ source $HOME/.zprofile
 
 # Load antibody
 source <(antibody init)
+eval $(docker-machine env local > /dev/null 2>&1)
 # }}}
 # Environment settings {{{
 
@@ -39,7 +40,6 @@ setopt ALIASES \
        LIST_TYPES \
        INTERACTIVECOMMENTS \
        APPEND_HISTORY \
-       SHARE_HISTORY \
        EXTENDED_HISTORY \
        HIST_REDUCE_BLANKS
 
@@ -159,56 +159,21 @@ bindkey '^i' expand-or-complete-prefix
 # }}}
 # Functions {{{
 
-# Preserve cd - across sessions. Saves dirstack to ~/.zdirs.
-# Also prints directory content after cd.
-DIRSTACKSIZE=9
-DIRSTACKFILE=~/.zdirs
-if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
-    dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
-    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
-fi
-
-chpwd() {
-    local -a dirs; dirs=( "$PWD" ${(f)"$(< $DIRSTACKFILE)"} )
-    print -l ${${(u)dirs}[0,$DIRSTACKSIZE]} >$DIRSTACKFILE
-    emulate -LR zsh
-    ls
-}
-
-# dirstack search ~[name]
-_mydirstack() {
-    local -a lines list
-    for d in $dirstack; do
-        lines+="$(($#lines+1)) -- $d"
-        list+="$#lines"
-    done
-    _wanted -V directory-stack expl 'directory stack' \
-        compadd "$@" -ld lines -S']/' -Q -a list
-}
-
-zsh_directory_name() {
-    case $1 in
-        c) _mydirstack;;
-        n) case $2 in
-            <0-9>) reply=($dirstack[$2]);;
-            *) reply=($dirstack[(r)*$2*]);;
-           esac;;
-        d) false;;
-    esac
-}
-
 backward-kill-dir () {
     local WORDCHARS=${WORDCHARS/\/}
     zle backward-kill-word
 }
 zle -N backward-kill-dir
 bindkey '^[^?' backward-kill-dir
+
 # }}}
 # Antibody {{{
 antibody bundle mafredri/zsh-async
 antibody bundle sindresorhus/pure
+antibody bundle rupa/z
 antibody bundle < $HOME/.plugins.txt
 # }}}
+
 
 # These need to be cloned
 if [ -d $HOME/repos/zsh-history-substring-search ]; then
@@ -218,5 +183,10 @@ fi
 if [ -d $HOME/repos/zsh-syntax-highlighting ]; then
     source $HOME/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+
+# Manually define a pattern highlighter so that comment strings
+# can be set to gray.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main pattern)
+ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=011')
 
 # vim:foldmethod=marker:foldlevel=0

@@ -107,6 +107,8 @@ nmap <leader>g :GundoToggle<CR>
 nmap <leader>n :bnext<CR>
 nmap <leader>p :bprevious<CR>
 nmap <leader>r :registers<cr>
+" }}}
+" Other mappings {{{
 
 " Last used buffer
 nmap <C-e> :e#<CR>
@@ -132,10 +134,12 @@ nnoremap <Up> <nop>
 nnoremap <Down> <nop>
 nnoremap <Left> <nop>
 nnoremap <Right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-inoremap <Left> <nop>
-inoremap <Right> <nop>
+
+" Disable cursor keys in insert mode
+"inoremap <up> <nop>
+"inoremap <down> <nop>
+"inoremap <Left> <nop>
+"inoremap <Right> <nop>
 
 " Disable the help key
 inoremap <F1> <ESC>
@@ -237,6 +241,7 @@ fun! SetupVAM()
     call vam#ActivateAddons('github:JulesWang/css.vim')
     call vam#ActivateAddons('vim-css3-syntax')
     call vam#ActivateAddons('github:genoma/vim-less')
+    call vam#ActivateAddons('github:chase/vim-ansible-yaml')
 
     " Tools
     "call vam#ActivateAddons('github:ap/vim-css-color')
@@ -271,7 +276,7 @@ if &term =~ '^\(xterm\|screen\|screen-color256-bce\|linux\)$' && $COLORTERM == '
     set t_Co=256
 endif
 colorscheme solarized
-set background=light
+set background=dark
 "let g:solarized_termcolors=256
 "let g:solarized_italic=1
 
@@ -279,8 +284,8 @@ set background=light
 :hi MatchParen cterm=none ctermbg=5 ctermfg=7
 
 " Set some highlights
-hi LineNr       ctermfg=14 ctermbg=7
-hi CursorLineNr term=bold  ctermfg=130 ctermbg=7
+"hi LineNr       ctermfg=14 ctermbg=7
+"hi CursorLineNr term=bold  ctermfg=130 ctermbg=7
 :set cursorline
 
 " Status bar
@@ -289,7 +294,7 @@ hi CursorLineNr term=bold  ctermfg=130 ctermbg=7
 
 " GVIM ------------------------------------------------------------------
 if has("gui_running")
-    set background=light
+    set background=dark
     set guioptions-=m  "remove menu bar
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
@@ -347,7 +352,10 @@ let g:airline_skip_empty_sections = 1
 
 " Ctrl-p -----------------------------------------------------------------
 let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:10,results:10'
-let g:ctrlp_custom_ignore = '\v\.(pyc|orig)'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](env)$',
+  \ 'file': '\v\.(pyc|orig|exe|so|dll)$',
+  \ }
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
@@ -466,9 +474,9 @@ augroup myStartup
     " Set tab stops and whether to show ruler
     autocmd FileType css,less,scss,javascript,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType vim,zsh call <SID>CodingStyleFiletypes(4, 'off')
-    autocmd FileType html,htmldjango call <SID>CodingStyleFiletypes(2, 'off')
+    autocmd FileType html,htmldjango,yml call <SID>CodingStyleFiletypes(2, 'off')
     autocmd FileType xml,coffee call <SID>CodingStyleFiletypes(2, 'on')
-    autocmd FileType fish call <SID>CodingStyleFiletypes(4, 'off')
+    autocmd FileType fish,groovy call <SID>CodingStyleFiletypes(4, 'off')
 
     " Special django surround tags
     autocmd FileType htmldjango let b:surround_{char2nr("%")} = "{% \r %}"
@@ -489,6 +497,7 @@ au BufRead,BufNewFile *.less               set filetype=less
 au BufRead,BufNewFile *.html               set filetype=htmldjango
 au BufRead,BufNewFile *.md                 set filetype=markdown
 au BufRead,BufNewFile *.fish               set filetype=fish
+au BufRead,BufNewFile Jenkinsfile          set filetype=groovy
 
 " }}}
 " Custom Vim Settings {{{

@@ -2,7 +2,7 @@
 " vimrc 2.1.0
 " Steve Rivers steve@futrli.com
 
-" Setup Vundle {{{
+" Setup Plug {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -49,9 +49,11 @@ call plug#begin('~/.vim/plugged')
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
-
+Plug 'sheerun/vim-polyglot'
+Plug 'mileszs/ack.vim'
+Plug 'qpkorr/vim-bufkill'
 Plug 'sjl/Gundo.vim'
-"Plug 'LycosaExplorer'
+Plug '~/repos/lycosaexplorer'
 Plug 'scrooloose/nerdcommenter'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
@@ -64,12 +66,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'valloric/MatchTagAlways'
 Plug 'w0rp/ale'
-Plug 'keith/swift'
+"Plug 'keith/swift'
 
-"Plug 'vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
-Plug 'liuchengxu/eleline.vim'
+"Plug 'liuchengxu/eleline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -147,8 +149,19 @@ set softtabstop=4                 " number of spaces in tab when editing
 " }}}
 " Plugin Settings {{{
 
+" Ack.vim {{{
+
+" If ag exists then use it 
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Search under cursor
+" https://github.com/mileszs/ack.vim/issues/33
+noremap <leader>a :Ack <cword><cr>
+" }}}
 " ALE {{{
-let g:ale_statusline_format = ['E•%d', 'W•%d', 'OK']
+let g:ale_statusline_format = ['ERROR:%d', 'WARNING:%d', 'OK']
 
 " For a more fancy ale statusline
 function! ALEGetError()
@@ -158,7 +171,7 @@ function! ALEGetError()
     else
         let l:e_w = split(l:res)
         if len(l:e_w) == 2 || match(l:e_w, 'E') > -1
-            return ' •' . matchstr(l:e_w[0], '\d\+') .' '
+            return ' ERROR ' . matchstr(l:e_w[0], '\d\+') .' '
         endif
     endif
 endfunction
@@ -170,20 +183,30 @@ function! ALEGetWarning()
     else
         let l:e_w = split(l:res)
         if len(l:e_w) == 2
-            return ' •' . matchstr(l:e_w[1], '\d\+')
+            return ' WARNING ' . matchstr(l:e_w[1], '\d\+')
         elseif match(l:e_w, 'W') > -1
-            return ' •' . matchstr(l:e_w[0], '\d\+')
+            return ' WARNING ' . matchstr(l:e_w[0], '\d\+')
         endif
     endif
 endfunction
 
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
 let g:ale_echo_msg_error_str = '✹ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
 
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_enter = 0
+
+let g:ale_linters = {
+\   'html': ['htmlhint'],
+\   'js': ['eslint']
+\}
+
 nmap <Leader>en <Plug>(ale_next)
 nmap <Leader>ep <Plug>(ale_previous)
+
 
 " }}}
 " CTRL-P {{{
@@ -243,6 +266,18 @@ let g:SuperTabDefaultCompletionType = "context"
 "    right side (,cr) or both side (,cb).
 " ,cu |NERDComUncommentLine| Uncomments the selected line(s)
 "}}}
+" NERDTree {{{
+
+let NERDTreeWinSize=40
+
+" Toggle NERDTree with \e
+nmap \n :NERDTreeToggle<CR>
+
+" Load NERDtree if no files specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" }}}
 " Python-mode-klen {{{
 let g:pymode_doc = 0
 let g:pymode_folding = 0
@@ -271,9 +306,6 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
 " Close current buffer
 nmap \d :BD<CR>
 
-" Toggle NERDTree with \e
-nmap \e :NERDTreeToggle<CR>
-
 " sudo write
 cabbrev w!! w !sudo tee >/dev/null "%"
 
@@ -285,6 +317,9 @@ nmap <silent><C-w><S-n> :vnew<CR>
 
 " Last used buffer
 nmap <C-e> :e#<CR>
+
+" Open FZF 
+nmap <C-p> :FZF<CR>
 
 " Highlight last inserted text
 nnoremap gV `[V`]

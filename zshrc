@@ -146,9 +146,9 @@ bindkey "\e[5C" forward-word
 bindkey "\e[5D" backward-word
 bindkey "^[w" backward-kill-word
 
-bindkey "^P" history-substring-search-up
-bindkey "^[[A" history-substring-search-up
-bindkey "^[[B" history-substring-search-down
+#bindkey "^P" history-substring-search-up
+#bindkey "^[[A" history-substring-search-up
+#bindkey "^[[B" history-substring-search-down
 
 # Disable HOME and END
 #bindkey -r "\e[H"
@@ -190,3 +190,5 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main pattern)
 ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=011')
 
 # vim:foldmethod=marker:foldlevel=0
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -4,16 +4,13 @@
 
 # Startup {{{
 
-# PyCharm doesn't source this file for some reason.
-source $HOME/.zprofile
-
 # Load antibody
 source <(antibody init)
-eval $(docker-machine env local > /dev/null 2>&1)
 # }}}
 # Environment settings {{{
 
 export EDITOR='vim'
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # }}}
@@ -27,21 +24,22 @@ HISTSIZE=10000
 # More info here: http://zsh.sourceforge.net/Doc/Release/Options.html
 unsetopt CORRECT_ALL
 
-setopt ALIASES \
-       AUTO_LIST \
-       COMPLETEINWORD \
-       CORRECT \
-       EQUALS \
-       EXTENDEDGLOB \
-       GLOB_COMPLETE \
-       HIST_SAVE_NO_DUPS \
-       HIST_EXPIRE_DUPS_FIRST \
-       HIST_FIND_NO_DUPS \
-       LIST_TYPES \
-       INTERACTIVECOMMENTS \
-       APPEND_HISTORY \
-       EXTENDED_HISTORY \
-       HIST_REDUCE_BLANKS
+setopt \
+    ALIASES \
+    APPEND_HISTORY \
+    AUTO_LIST \
+    COMPLETEINWORD \
+    CORRECT \
+    EQUALS \
+    EXTENDEDGLOB \
+    EXTENDED_HISTORY \
+    GLOB_COMPLETE \
+    HIST_EXPIRE_DUPS_FIRST \
+    HIST_FIND_NO_DUPS \
+    HIST_REDUCE_BLANKS \
+    INTERACTIVECOMMENTS \
+    LIST_TYPES \
+    SHARE_HISTORY
 
 # Even if there are commands inbetween commands that are the same,
 # still only save the last one
@@ -176,19 +174,23 @@ antibody bundle < $HOME/.plugins.txt
 
 
 # These need to be cloned
-if [ -d $HOME/repos/zsh-history-substring-search ]; then
-    source $HOME/repos/zsh-history-substring-search/zsh-history-substring-search.zsh
-fi
+#if [ -d $HOME/repos/zsh-history-substring-search ]; then
+    #source $HOME/repos/zsh-history-substring-search/zsh-history-substring-search.zsh
+#fi
 
-if [ -d $HOME/repos/zsh-syntax-highlighting ]; then
-    source $HOME/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+#if [ -d $HOME/repos/zsh-syntax-highlighting ]; then
+    #source $HOME/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#fi
 
 # Manually define a pattern highlighter so that comment strings
 # can be set to gray.
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main pattern)
 ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=011')
 
-# vim:foldmethod=marker:foldlevel=0
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# NVM setup
+#export NVM_DIR="$HOME/.nvm"
+#. "/usr/local/opt/nvm/nvm.sh"
+
+# vim:foldmethod=marker:foldlevel=0

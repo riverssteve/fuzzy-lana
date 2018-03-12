@@ -66,6 +66,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'valloric/MatchTagAlways'
 Plug 'w0rp/ale'
+Plug 'dracula/vim'
 "Plug 'keith/swift'
 
 Plug 'vim-airline/vim-airline'
@@ -95,7 +96,7 @@ let mapleader = "," " Set <leader> to ,
 set fileencoding=utf-8
 set encoding=utf-8
 
-colorscheme space-vim-dark
+colorscheme dracula
 "hi Comment term=italic cterm=italic
 " }}}
 " Advanced Settings {{{
@@ -146,6 +147,11 @@ set wildmode=longest:full,full    " Complete only up to the point of ambiguity
 set expandtab                     " tabs are spaces
 set tabstop=4                     " number of visual spaces per TAB
 set softtabstop=4                 " number of spaces in tab when editing
+
+" Change cursor shape
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 " }}}
 " Plugin Settings {{{
 
@@ -274,8 +280,8 @@ let NERDTreeWinSize=40
 nmap \n :NERDTreeToggle<CR>
 
 " Load NERDtree if no files specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " }}}
 " Python-mode-klen {{{

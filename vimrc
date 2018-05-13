@@ -1,5 +1,4 @@
-
-" vimrc 2.1.0
+" vimrc
 " Steve Rivers steve@futrli.com
 
 " Setup Plug {{{
@@ -49,24 +48,27 @@ call plug#begin('~/.vim/plugged')
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
-Plug 'sheerun/vim-polyglot'
-Plug 'mileszs/ack.vim'
-Plug 'qpkorr/vim-bufkill'
-Plug 'sjl/Gundo.vim'
-Plug '~/repos/lycosaexplorer'
-Plug 'scrooloose/nerdcommenter'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
-Plug 'junegunn/vim-emoji'
+Plug 'ekalinin/Dockerfile.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/vim-emoji'
 Plug 'liuchengxu/space-vim-dark'
+Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'qpkorr/vim-bufkill'
+Plug 'tomasr/molokai'
+Plug 'scrooloose/nerdcommenter'
 Plug 'scrooloose/nerdtree'
+Plug 'sheerun/vim-polyglot'
+Plug 'sjl/Gundo.vim'
+"Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+"Plug 'vim-scripts/LycosaExplorer'
+Plug 'tpope/vim-unimpaired'
 Plug 'valloric/MatchTagAlways'
 Plug 'w0rp/ale'
-Plug 'dracula/vim'
 "Plug 'keith/swift'
 
 Plug 'vim-airline/vim-airline'
@@ -96,7 +98,7 @@ let mapleader = "," " Set <leader> to ,
 set fileencoding=utf-8
 set encoding=utf-8
 
-colorscheme dracula
+colorscheme molokai
 "hi Comment term=italic cterm=italic
 " }}}
 " Advanced Settings {{{
@@ -326,6 +328,9 @@ nmap <C-e> :e#<CR>
 
 " Open FZF 
 nmap <C-p> :FZF<CR>
+
+nmap <leader>an :ALENext<CR>
+nmap <leader>ap :ALEPrevious<CR>
 
 " Highlight last inserted text
 nnoremap gV `[V`]

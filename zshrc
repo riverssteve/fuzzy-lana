@@ -11,6 +11,7 @@ source <(antibody init)
 
 export EDITOR='vim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
+export GEMFURY_TOKEN='iFqUs6qXKz4Qh4HKypE4'
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # }}}
@@ -167,27 +168,34 @@ bindkey '^[^?' backward-kill-dir
 # }}}
 # Antibody {{{
 antibody bundle mafredri/zsh-async
-antibody bundle sindresorhus/pure
+#antibody bundle sindresorhus/pure
 antibody bundle rupa/z
-antibody bundle < $HOME/.plugins.txt
+antibody bundle denysdovhan/spaceship-prompt
+# }}}
+# Theme {{{
+
+SPACESHIP_PROMPT_ORDER=(
+  time          # Time stampts section
+  user          # Username section
+  dir           # Current directory section
+  host          # Hostname section
+  git           # Git section (git_branch + git_status)
+  aws           # Amazon Web Services section
+  venv          # virtualenv section
+  node          # node version
+  pyenv         # Pyenv section
+  exec_time     # Execution time
+  line_sep      # Line break
+  jobs          # Backgound jobs indicator
+  exit_code     # Exit code section
+  char          # Prompt character
+)
+SPACESHIP_DIR_TRUNC='0'
 # }}}
 
-
-# These need to be cloned
-#if [ -d $HOME/repos/zsh-history-substring-search ]; then
-    #source $HOME/repos/zsh-history-substring-search/zsh-history-substring-search.zsh
-#fi
-
-#if [ -d $HOME/repos/zsh-syntax-highlighting ]; then
-    #source $HOME/repos/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#fi
-
-# Manually define a pattern highlighter so that comment strings
-# can be set to gray.
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main pattern)
-ZSH_HIGHLIGHT_PATTERNS+=('\#*' 'fg=011')
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $HOME/.local/bin/aws_zsh_completer.sh ] && source $HOME/.local/bin/aws_zsh_completer.sh
+eval "$(pyenv init -)"
 
 # NVM setup
 #export NVM_DIR="$HOME/.nvm"

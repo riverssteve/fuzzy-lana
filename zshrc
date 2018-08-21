@@ -11,7 +11,7 @@ source <(antibody init)
 
 export EDITOR='vim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
-export GEMFURY_TOKEN='iFqUs6qXKz4Qh4HKypE4'
+source $HOME/.config/secrets
 
 WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
 # }}}

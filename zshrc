@@ -131,7 +131,16 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' insert-tab pending
 # }}}
 # Aliases {{{
+
+# Note: To use non-alias version prefix command with \
 alias ls='ls --color'
+alias cat='bat --style plain'
+alias preview="fzf --preview 'bat --color \"always\" {}'"
+alias ping='prettyping --nolegend'
+
+alias antlr='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias grun='java org.antlr.v4.gui.TestRig'
+#alias k='k --no-vcs'
 # }}}
 # Key bindings {{{
 bindkey "\e\e[D" backward-word
@@ -170,6 +179,8 @@ bindkey '^[^?' backward-kill-dir
 antibody bundle mafredri/zsh-async
 #antibody bundle sindresorhus/pure
 antibody bundle rupa/z
+#antibody bundle hlissner/zsh-autopair
+antibody bundle supercrabtree/k > /dev/null
 antibody bundle denysdovhan/spaceship-prompt
 # }}}
 # Theme {{{
@@ -191,10 +202,12 @@ SPACESHIP_PROMPT_ORDER=(
   char          # Prompt character
 )
 SPACESHIP_DIR_TRUNC='0'
+SPACESHIP_CHAR_SYMBOL='$ '
 # }}}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -f $HOME/.local/bin/aws_zsh_completer.sh ] && source $HOME/.local/bin/aws_zsh_completer.sh
+[ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 eval "$(pyenv init -)"
 
 # NVM setup

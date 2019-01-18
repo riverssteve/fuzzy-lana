@@ -1,16 +1,7 @@
-# Fish Config
-set TERM xterm-256color
-set PATH $HOME/.bin $HOME/.local/bin $PATH
-set -l fish_config $HOME/.config/fish
-
-if [ -e $fish_config/prompt.fish ]
-    . $fish_config/prompt.fish
+if [ -e $HOME/.config/fish/shell_theme.fish ]
+    source $HOME/.config/fish/shell_theme.fish
 end
 
-if [ -e $fish_config/colors.fish ]
-    . ~/.config/fish/colors.fish
-end
-
-if [ -e $fish_config/completion-colors.fish ]
-    . ~/.config/fish/completion-colors.fish
+if [ -e $HOME/.config/fish/prompt.fish ]
+    source $HOME/.config/fish/prompt.fish
 end

@@ -2,6 +2,7 @@
 " Steve Rivers steve@futrli.com
 
 " Setup Plug {{{
+
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -13,6 +14,12 @@ fun! EnsureVundleIsOnDisk(plugin_root_dir)
         echo "vim-plug not installed, see https://github.com/junegunn/vim-plug#unix"
     endif
 endfun
+
+" temporary fix
+" https://github.com/vim/vim/issues/3117
+"if has('python3')
+    "silent! python3 1
+"endif
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -48,33 +55,41 @@ call plug#begin('~/.vim/plugged')
 " Unmanaged plugin (manually installed and updated)
 "Plug '~/my-prototype-plugin'
 
+Plug '~/code/next/idl.vim'
+Plug '~/code/repos/LycosaExplorer'
+
 Plug 'Valloric/YouCompleteMe'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
+Plug 'dylon/vim-antlr'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/vim-emoji'
-Plug 'liuchengxu/space-vim-dark'
+Plug 'koalaman/shellcheck'
 Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'qpkorr/vim-bufkill'
-Plug 'tomasr/molokai'
+"Plug 'rosstimson/bats.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'scrooloose/nerdtree'
 Plug 'sheerun/vim-polyglot'
-Plug 'sjl/Gundo.vim'
+"Plug 'sjl/Gundo.vim'
+"Plug 'keith/swift'
 "Plug 'stephpy/vim-yaml'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
-"Plug 'vim-scripts/LycosaExplorer'
 Plug 'tpope/vim-unimpaired'
-Plug 'valloric/MatchTagAlways'
-Plug 'w0rp/ale'
-"Plug 'keith/swift'
-
+"Plug 'valloric/MatchTagAlways'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'w0rp/ale'
 
+" Themes
+"Plug 'AlessandroYorba/Alduin'
 "Plug 'liuchengxu/eleline.vim'
+"Plug 'liuchengxu/space-vim-dark'
+"Plug 'notpratheek/vim-luna'
+"Plug 'sickill/vim-monokai'
+"Plug 'tomasr/molokai'
+Plug 'nightsense/snow'
+Plug 'nightsense/cosmic_latte'
 
 " Initialize plugin system
 call plug#end()
@@ -86,7 +101,7 @@ call plug#end()
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 
 " see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
+" Put your non-Plugin stmy-prototype-pluginuff after this line
 " }}}
 " Basic Settings {{{
 filetype plugin indent on    " required
@@ -98,16 +113,21 @@ let mapleader = "," " Set <leader> to ,
 set fileencoding=utf-8
 set encoding=utf-8
 
-colorscheme molokai
-"hi Comment term=italic cterm=italic
+set background=dark
+colorscheme cosmic_latte
 " }}}
 " Advanced Settings {{{
 
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 
+" TODO: These need to be selectively enabled. Neovim doesn't support these
+if !has('nvim')
+    set esckeys                       " Allow sane use of cursor keys in various modes
+    set notextmode                    " Don't append bloody carriage returns.
+endif
+
 set backspace=indent,eol,start    " Allow backspacing over autoindent, line breaks and start of insert
 set display=lastline,uhex         " Show the last line instead of '@'; show non-printable chars as <hex>
-set esckeys                       " Allow sane use of cursor keys in various modes
 set foldenable                    " Enable code folding
 set foldlevelstart=10             " Open most folds by default
 set foldnestmax=6                 " Set maximum number of nested folds
@@ -122,20 +142,21 @@ set list                          " display leading tabs as >· and trailing spa
 set listchars=tab:»·,trail:·
 set modeline                      " Look for embedded modelines at the top of the file.
 set modelines=10                  " Don't look any further than this number of lines
+set mouse=a
 set mousehide                     " Hide the mouse pointer while typing
 set noerrorbells                  " enough with the beeping already!
 set noshowmode                    " Hide mode text under powerbar
 set nostartofline                 " keep cursor's column
-set noswapfile                    " it's 2013, Vim.
-set notextmode                    " Don't append bloody carriage returns.
+set noswapfile                    " it's 2019, Vim.
 set ruler                         " Enable ruler on status line.
 set shiftround                    " Round indent to shiftwidth multiple, applies to < and >
 set shortmess=atI                 " Shorter status messages.
-set showcmd                       " Show (partial) command in status line.
+"set showcmd                       " Show (partial) command in status line.
 set showmatch                     " Show matching ()'s []'s {}'s
 set smartcase                     " only search case sensitively when not doing al all-lowercase search
 set splitbelow                    " Split horizontally below.
 set splitright                    " Split vertically to the right.
+set termguicolors                 " Nicer colours
 set title                         " Better xterm titles
 set ttyfast                       " Terminal connection is fast
 set ttimeoutlen=50                " Faster exit from insert mode
@@ -154,12 +175,21 @@ set softtabstop=4                 " number of spaces in tab when editing
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
 let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Set-up italics
+set t_ZH=[3m
+set t_ZR=[23m
+hi Comment term=italic cterm=italic
+
 " }}}
 " Plugin Settings {{{
 
+" Airline {{{
+let g:airline_theme='cosmic_latte_dark'
+" }}}
 " Ack.vim {{{
 
-" If ag exists then use it 
+" If ag exists then use it
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
@@ -167,6 +197,9 @@ endif
 " Search under cursor
 " https://github.com/mileszs/ack.vim/issues/33
 noremap <leader>a :Ack <cword><cr>
+" }}}
+" Alduin {{{
+let g:alduin_Shout_Become_Ethereal = 1
 " }}}
 " ALE {{{
 let g:ale_statusline_format = ['ERROR:%d', 'WARNING:%d', 'OK']
@@ -211,6 +244,9 @@ let g:ale_linters = {
 \   'html': ['htmlhint'],
 \   'js': ['eslint']
 \}
+
+" Python Settings
+let g:ale_python_pylint_options = '--load-plugins pylint_django --rc-file ~/.config/pylintrc'
 
 nmap <Leader>en <Plug>(ale_next)
 nmap <Leader>ep <Plug>(ale_previous)
@@ -326,7 +362,7 @@ nmap <silent><C-w><S-n> :vnew<CR>
 " Last used buffer
 nmap <C-e> :e#<CR>
 
-" Open FZF 
+" Open FZF
 nmap <C-p> :FZF<CR>
 
 nmap <leader>an :ALENext<CR>
@@ -394,7 +430,7 @@ nmap <leader>r :registers<cr>
 " Functions {{{
 
 " LINE NUMBERS
-set relativenumber " have line numbers show as relative to current line
+"set relativenumber " have line numbers show as relative to current line
 set number         " also show current line number
 let s:color_column_old = 0
 function! s:ToggleColorColumn()
@@ -420,7 +456,7 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal nocindent
     setlocal nosmartindent
 
-    " mark the 80th col to avoid overstepping programming style
+    " Mark max column width
     if a:show_col == 'on'
         setlocal colorcolumn=120
         setlocal textwidth=120
@@ -442,6 +478,7 @@ augroup myStartup
     autocmd FileType python setlocal commentstring=#\ %s
 
     " Set tab stops and whether to show ruler
+    autocmd FileType css,less,scss,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType css,less,scss,python,sh call <SID>CodingStyleFiletypes(4, 'on')
     autocmd FileType fish,groovy,vim,zsh call <SID>CodingStyleFiletypes(4, 'off')
     autocmd FileType javascript,xml,html,htmldjango,yml,yaml call <SID>CodingStyleFiletypes(2, 'off')

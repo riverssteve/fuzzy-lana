@@ -330,6 +330,10 @@ let g:pymode_trim_whitespaces = 0
 let g:pymode_quickfix_minheight = 3
 let g:pymode_quickfix_maxheight = 6
 " }}}
+" undotree {{{
+nnoremap \u :UndotreeToggle<cr>
+let g:undotree_SplitWidth=44
+" }}}
 " YouCompleteMe {{{
 let g:ycm_autoclose_preview_window_after_completion=1
 " }}}

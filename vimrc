@@ -2,7 +2,6 @@
 " Steve Rivers steve@futrli.com
 
 " Setup Plug {{{
-
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
@@ -14,12 +13,6 @@ fun! EnsureVundleIsOnDisk(plugin_root_dir)
         echo "vim-plug not installed, see https://github.com/junegunn/vim-plug#unix"
     endif
 endfun
-
-" temporary fix
-" https://github.com/vim/vim/issues/3117
-"if has('python3')
-    "silent! python3 1
-"endif
 
 " Specify a directory for plugins
 " - For Neovim: ~/.local/share/nvim/plugged
@@ -59,27 +52,30 @@ Plug '~/code/next/idl.vim'
 Plug '~/code/repos/LycosaExplorer'
 
 Plug 'Valloric/YouCompleteMe'
-"Plug 'airblade/vim-gitgutter'
-Plug 'dylon/vim-antlr'
+Plug 'airblade/vim-gitgutter'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'koalaman/shellcheck'
+Plug 'mbbill/undotree'
 Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'qpkorr/vim-bufkill'
-"Plug 'rosstimson/bats.vim'
 Plug 'scrooloose/nerdcommenter'
-Plug 'sheerun/vim-polyglot'
-"Plug 'sjl/Gundo.vim'
-"Plug 'keith/swift'
-"Plug 'stephpy/vim-yaml'
+"Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-"Plug 'valloric/MatchTagAlways'
+Plug 'valloric/MatchTagAlways'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
+
+" Syntax
+"Plug 'keith/swift'
+"Plug 'rosstimson/bats.vim'
+"Plug 'stephpy/vim-yaml'
+Plug 'dylon/vim-antlr'
+Plug 'sheerun/vim-polyglot'
 
 " Themes
 "Plug 'AlessandroYorba/Alduin'
@@ -88,8 +84,9 @@ Plug 'w0rp/ale'
 "Plug 'notpratheek/vim-luna'
 "Plug 'sickill/vim-monokai'
 "Plug 'tomasr/molokai'
-Plug 'nightsense/snow'
 Plug 'nightsense/cosmic_latte'
+Plug 'nightsense/snow'
+Plug 'nightsense/stellarized'
 
 " Initialize plugin system
 call plug#end()

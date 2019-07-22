@@ -49,8 +49,9 @@ call plug#begin('~/.vim/plugged')
 "Plug '~/my-prototype-plugin'
 
 Plug '~/code/next/idl.vim'
-Plug '~/code/repos/LycosaExplorer'
+"Plug '~/code/repos/LycosaExplorer'
 
+"Plug 'scrooloose/nerdtree'
 Plug 'Valloric/YouCompleteMe'
 Plug 'airblade/vim-gitgutter'
 Plug 'ekalinin/Dockerfile.vim'
@@ -61,7 +62,7 @@ Plug 'mileszs/ack.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'qpkorr/vim-bufkill'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'scrooloose/nerdtree'
+Plug 'sjbach/lusty'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -81,12 +82,12 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'AlessandroYorba/Alduin'
 "Plug 'liuchengxu/eleline.vim'
 "Plug 'liuchengxu/space-vim-dark'
+"Plug 'nightsense/stellarized'
 "Plug 'notpratheek/vim-luna'
 "Plug 'sickill/vim-monokai'
 "Plug 'tomasr/molokai'
 Plug 'nightsense/cosmic_latte'
 Plug 'nightsense/snow'
-Plug 'nightsense/stellarized'
 
 " Initialize plugin system
 call plug#end()
@@ -139,7 +140,7 @@ set list                          " display leading tabs as >· and trailing spa
 set listchars=tab:»·,trail:·
 set modeline                      " Look for embedded modelines at the top of the file.
 set modelines=10                  " Don't look any further than this number of lines
-set mouse=a
+set mouse=n
 set mousehide                     " Hide the mouse pointer while typing
 set noerrorbells                  " enough with the beeping already!
 set noshowmode                    " Hide mode text under powerbar
@@ -193,7 +194,7 @@ endif
 
 " Search under cursor
 " https://github.com/mileszs/ack.vim/issues/33
-noremap <leader>a :Ack <cword><cr>
+noremap <leader>a :Ack! <cword><cr>
 " }}}
 " Alduin {{{
 let g:alduin_Shout_Become_Ethereal = 1
@@ -201,6 +202,30 @@ let g:alduin_Shout_Become_Ethereal = 1
 " ALE {{{
 let g:ale_statusline_format = ['ERROR:%d', 'WARNING:%d', 'OK']
 
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
+
+let g:ale_echo_msg_error_str = '✹ Error'
+let g:ale_echo_msg_warning_str = '⚠ Warning'
+
+let g:ale_sign_column_always = 1
+let g:ale_lint_on_enter = 0
+
+let g:ale_linters = {
+\   'sh': ['shellcheck'],
+\   'html': ['htmlhint'],
+\   'js': ['eslint']
+\}
+
+" Equivalent to the above.
+let b:ale_fixers = {
+\   'sh': ['trim_whitespace']
+\}
+
+" Python Settings
+let g:ale_python_pylint_options = '--load-plugins pylint_django --rc-file ~/.config/pylintrc'
+
+" Ale Custom Function
 " For a more fancy ale statusline
 function! ALEGetError()
     let l:res = ale#statusline#Status()
@@ -228,26 +253,9 @@ function! ALEGetWarning()
     endif
 endfunction
 
-let g:ale_sign_error = '>>'
-let g:ale_sign_warning = '--'
-
-let g:ale_echo_msg_error_str = '✹ Error'
-let g:ale_echo_msg_warning_str = '⚠ Warning'
-
-let g:ale_sign_column_always = 1
-let g:ale_lint_on_enter = 0
-
-let g:ale_linters = {
-\   'html': ['htmlhint'],
-\   'js': ['eslint']
-\}
-
-" Python Settings
-let g:ale_python_pylint_options = '--load-plugins pylint_django --rc-file ~/.config/pylintrc'
-
-nmap <Leader>en <Plug>(ale_next)
-nmap <Leader>ep <Plug>(ale_previous)
-
+nmap <Leader>an <Plug>(ale_next)
+nmap <Leader>ap <Plug>(ale_previous)
+nmap <Leader>af :ALEFix<CR>
 
 " }}}
 " CTRL-P {{{

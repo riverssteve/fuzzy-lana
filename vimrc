@@ -63,6 +63,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'qpkorr/vim-bufkill'
 Plug 'scrooloose/nerdcommenter'
 Plug 'sjbach/lusty'
+Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -154,6 +155,7 @@ set showmatch                     " Show matching ()'s []'s {}'s
 set smartcase                     " only search case sensitively when not doing al all-lowercase search
 set splitbelow                    " Split horizontally below.
 set splitright                    " Split vertically to the right.
+set tabstop=4                     " Set the default tab indent size
 set termguicolors                 " Nicer colours
 set title                         " Better xterm titles
 set ttyfast                       " Terminal connection is fast
@@ -164,11 +166,6 @@ set wildmenu                      " Better filename completion etc.
 set wildmode=longest:full,full    " Complete only up to the point of ambiguity
                                   " (while still showing you what your options are)
 
-" Special Area for Tab Settings
-set expandtab                     " tabs are spaces
-set tabstop=4                     " number of visual spaces per TAB
-set softtabstop=4                 " number of spaces in tab when editing
-
 " Change cursor shape
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -178,6 +175,7 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 set t_ZH=[3m
 set t_ZR=[23m
 hi Comment term=italic cterm=italic
+hi SpecialKey ctermfg=137 guifg=#4c5764
 
 " }}}
 " Plugin Settings {{{
@@ -352,6 +350,48 @@ let g:indent_guides_auto_colors = 0
 autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=8
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
 " }}}
+" vim-multiple-cursors {{{
+"
+" =========================
+" normal mode / visual mode
+" =========================
+"
+"      start: <C-n> start multicursor and add a virtual cursor + selection on the
+"             match
+"       next: <C-n> add a new virtual cursor + selection on the next match
+"       skip: <C-x> skip the next match
+"       prev: <C-p> remove current virtual cursor + selection and go back on
+"             previous match
+" select all: <A-n> start multicursor and directly select all matches
+"
+" You can now change the virtual cursors + selection with visual mode commands.
+" For instance: c, s, I, A work without any issues. You could also go to normal
+" mode by pressing v and use normal commands there.
+"
+" At any time, you can press <Esc> to exit back to regular Vim.
+"
+" NOTE: start with g<C-n> to match without boundaries (behaves like g* instead of *)
+" visual mode when multiple lines are selected
+"
+"      start: <C-n> add virtual cursors on each line
+"
+" You can now change the virtual cursors with normal mode commands.
+" For instance: ciw.
+"
+" =========================
+"                   command
+" =========================
+"
+" The command MultipleCursorsFind accepts a range and a pattern (regexp), it
+" creates a visual cursor at the end of each match. If no range is passed in,
+" then it defaults to the entire buffer.
+
+" =========================
+"                  Mappings
+" =========================
+" See https://github.com/terryma/vim-multiple-cursors#mapping
+"
+" }}}
 
 " }}}
 " Commands {{{
@@ -479,7 +519,7 @@ function! s:CodingStyleFiletypes(tabstop_length, show_col)
     setlocal smarttab " unsure about this for now?
     let &l:shiftwidth = a:tabstop_length
     let &l:softtabstop = a:tabstop_length
-    setlocal tabstop=8
+    setlocal tabstop=4
 endfun
 
 augroup myStartup

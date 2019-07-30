@@ -396,42 +396,44 @@ autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=0
 " }}}
 " Commands {{{
 
-" Close current buffer
-nmap \d :BD<CR>
-
-" sudo write
-cabbrev w!! w !sudo tee >/dev/null "%"
-
-" Press Space to turn off highlighting and clear any message already displayed.
-nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
-
-" Ctrl-w Shift-n to open new vertical split
-nmap <silent><C-w><S-n> :vnew<CR>
-
-" Last used buffer
-nmap <C-e> :e#<CR>
-
-" Open FZF
+" Plugins {{{
+" FZF - Toggle
 nmap <C-p> :FZF<CR>
 
+" ALE - Next and Previous
 nmap <leader>an :ALENext<CR>
 nmap <leader>ap :ALEPrevious<CR>
 
-" Highlight last inserted text
-nnoremap gV `[V`]
-
-" Bubble lines of text (Uses Tim Pope's "unimpaired" script)
+" unimpared
+" Bubble lines of text
 " Bubble single lines
 nmap <silent><C-k> [e
 nmap <silent><C-j> ]e
 " Bubble visual lines
-vmap <silent><C-j> ]egv
 vmap <silent><C-k> [egv
+vmap <silent><C-j> ]egv
+" }}}
+" VIM {{{
+" Sudo write
+cabbrev w!! w !sudo tee >/dev/null "%"
+
+" Ctrl-w Shift-n to open new vertical split
+nmap <silent><C-w><S-n> :vnew<CR>
+
+" Close current buffer
+nmap \d :BD<CR>
+
+" Press Space to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Last used buffer
+nmap <C-e> :e#<CR>
+
+" Highlight last inserted text
+nnoremap gV `[V`]
 
 " Select previously pasted text
 nnoremap <expr> gp '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-" To close syntastic window, :lcl
 
 " Disable cursor keys
 nnoremap <Up> <nop>
@@ -447,33 +449,10 @@ vnoremap <F1> <ESC>
 " Disable Ex mode
 noremap Q <nop>
 
-
-" LEADER SETTINGS
-
-" Toggle Cursor line
- map <silent> <Leader>tl      :set                  cursorline! <CR>
-imap <silent> <Leader>tl <Esc>:set                  cursorline! <CR>a
-
-" Toggle Cursor column
- map <silent> <Leader>tc      :set   cursorcolumn!              <CR>
-imap <silent> <Leader>tc <Esc>:set   cursorcolumn!              <CR>a
-
-" Toggle Cursor column and cursor line
- map <silent> <Leader>ta      :set   cursorcolumn!  cursorline! <CR>
-imap <silent> <Leader>ta <Esc>:set   cursorcolumn!  cursorline! <CR>a
-
-" Set Cursor column and cursor line
- map <silent> <Leader>sa      :set   cursorcolumn   cursorline  <CR>
-imap <silent> <Leader>sa <Esc>:set   cursorcolumn   cursorline  <CR>a
-
-" Unset Cursor column and cursor line
- map <silent> <Leader>ua      :set nocursorcolumn nocursorline  <CR>
-imap <silent> <Leader>ua <Esc>:set nocursorcolumn nocursorline  <CR>a
-
-nmap <leader>g :GundoToggle<CR>
 nmap <leader>n :bnext<CR>
 nmap <leader>p :bprevious<CR>
 nmap <leader>r :registers<cr>
+" }}}
 
 " }}}
 " Functions {{{

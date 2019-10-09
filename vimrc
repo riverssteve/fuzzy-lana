@@ -1,6 +1,11 @@
 " vimrc
 " Steve Rivers steve@futrli.com
 
+" A note on Python3:
+" There are plugins that require python3 and pynvim to be installed.
+" pynvim needs to be installed using the _system_ pip3 rather than
+" the pip3 that pyenv makes available.
+
 " Setup Plug {{{
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -52,8 +57,8 @@ Plug '~/code/next/idl.vim'
 "Plug '~/code/repos/LycosaExplorer'
 
 "Plug 'scrooloose/nerdtree'
-Plug 'Valloric/YouCompleteMe'
-Plug 'airblade/vim-gitgutter'
+"Plug 'Valloric/YouCompleteMe'
+"Plug 'airblade/vim-gitgutter'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'koalaman/shellcheck'
@@ -89,6 +94,16 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'tomasr/molokai'
 Plug 'nightsense/cosmic_latte'
 Plug 'nightsense/snow'
+
+" Completion
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'deoplete-plugins/deoplete-jedi'
 
 " Initialize plugin system
 call plug#end()
@@ -268,6 +283,11 @@ let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|.git'
 let g:ctrlp_switch_buffer = 0
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor --hidden -g ""'
+" }}}
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#auto_complete_delay = 0
+let g:deoplete#auto_refresh_delay = 100
 " }}}
 " FZF {{{
 

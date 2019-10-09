@@ -1,11 +1,19 @@
 # Steve Rivers
-# steve@crunchboards.com
+# steve@futrli.com
 # zshrc
 
 # Startup {{{
 
+# Emacs mode please
+bindkey -e
+
 # Load antibody
 source <(antibody init)
+
+# Load custom scripts
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f $HOME/.local/bin/aws_zsh_completer.sh ] && source $HOME/.local/bin/aws_zsh_completer.sh
+[ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # }}}
 # Environment settings {{{
 
@@ -13,9 +21,9 @@ export EDITOR='vim'
 export FZF_DEFAULT_COMMAND='ag -g ""'
 source $HOME/.config/secrets
 
-WORDCHARS='*?_-.[]~=&;!#$%^(){}<>'
+WORDCHARS='*?_[]~&;!#$%^(){}<>'
 # }}}
-# Options {{{
+# ZSH Options {{{
 
 # History Settings
 HISTFILE=~/.zhistory
@@ -54,7 +62,8 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 # }}}
 # UI {{{
-eval `dircolors ~/.dircolors`
+#eval `dircolors ~/.dircolors`
+eval `dircolors ~/.dircolors_cl`
 
 autoload -U compinit && {
     compinit
@@ -134,12 +143,12 @@ zstyle ':completion:*' insert-tab pending
 
 # Note: To use non-alias version prefix command with \
 alias ls='ls --color'
-alias cat='bat --style plain'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias ping='prettyping --nolegend'
 
-alias antlr='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.1-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
+alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
 alias grun='java org.antlr.v4.gui.TestRig'
+alias reportlogs='docker-compose logs -f $(docker ps --format "{{.Names}}" | grep -v "logs" | tr "\n" " ")'
 #alias k='k --no-vcs'
 # }}}
 # Key bindings {{{
@@ -159,11 +168,11 @@ bindkey "^[w" backward-kill-word
 #bindkey "^[[B" history-substring-search-down
 
 # Disable HOME and END
-#bindkey -r "\e[H"
-#bindkey -r "\e[F"
+bindkey -r "\e[H"
+bindkey -r "\e[F"
 
 # completion in the middle of a line
-bindkey '^i' expand-or-complete-prefix
+#bindkey '^i' expand-or-complete-prefix
 # }}}
 # Functions {{{
 
@@ -179,39 +188,59 @@ bindkey '^[^?' backward-kill-dir
 antibody bundle mafredri/zsh-async
 #antibody bundle sindresorhus/pure
 antibody bundle rupa/z
-#antibody bundle hlissner/zsh-autopair
-antibody bundle supercrabtree/k > /dev/null
+antibody bundle zsh-users/zsh-syntax-highlighting
 antibody bundle denysdovhan/spaceship-prompt
 # }}}
 # Theme {{{
-
 SPACESHIP_PROMPT_ORDER=(
-  time          # Time stampts section
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
   git           # Git section (git_branch + git_status)
   aws           # Amazon Web Services section
   venv          # virtualenv section
-  node          # node version
   pyenv         # Pyenv section
-  exec_time     # Execution time
   line_sep      # Line break
   jobs          # Backgound jobs indicator
   exit_code     # Exit code section
   char          # Prompt character
 )
 SPACESHIP_DIR_TRUNC='0'
-SPACESHIP_CHAR_SYMBOL='$ '
+SPACESHIP_CHAR_SYMBOL='> '
+# }}}
+# Plugin Options {{{
+# ZSH Autosuggestions {{{
+
+# Use cat > /dev/null to get keycode
+bindkey '^[[1;2C' forward-word  # <S-Right>
+# See https://upload.wikimedia.org/wikipedia/commons/1/15/Xterm_256color_chart.svg
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=242'
+#ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#c0af9c'
+
+# Requires zsh-users/zsh-history-substring-search
+#bindkey '^[[1;2A' history-substring-search-up  # <S-Up>
+#bindkey '^[[1;2B' history-substring-search-down  # <S-Down>
+
+# }}}
+# ZSH Syntax Highlighting {{{
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#898f9e'
+ZSH_HIGHLIGHT_STYLES[precommand]='fg=208,underline'
+ZSH_HIGHLIGHT_STYLES[single-quoted-argument]='fg=magenta,underline'
+ZSH_HIGHLIGHT_STYLES[double-quoted-argument]='fg=magenta'
+ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=blue'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[command]='fg=green'
+
+ZSH_HIGHLIGHT_REGEXP=('(^| )(ls|cd)($| )' 'fg=green')
+# }}}
 # }}}
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f $HOME/.local/bin/aws_zsh_completer.sh ] && source $HOME/.local/bin/aws_zsh_completer.sh
-[ -d /usr/local/share/zsh-autosuggestions ] && source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-eval "$(pyenv init -)"
-
-# NVM setup
-#export NVM_DIR="$HOME/.nvm"
-#. "/usr/local/opt/nvm/nvm.sh"
-
+nvm() {
+    NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    nvm "$@"
+}
 # vim:foldmethod=marker:foldlevel=0

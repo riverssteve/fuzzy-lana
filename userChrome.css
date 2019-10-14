@@ -32,7 +32,7 @@
   list-style-image: url('bookmarks.svg') !important;
 }
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar-header {
-    visibility: collapse !important;
+  visibility: collapse !important;
 }
 
 /* Shadow above content */
@@ -41,20 +41,30 @@
 }
 
 #nav-bar-customization-target {
-    padding-left: 10px !important;
+  padding-top: 3px !important;
+  padding-left: 10px !important;
 }
 
 #sidebar-header {
   display: none !important;
 }
 
-#personal-bookmarks .bookmark-item:not(.subviewbutton){
-    margin: 1px 2px !important;
-    padding: 3px 6px !important;
+#personal-bookmarks toolbarbutton.bookmark-item:not(.subviewbutton){
+  margin: 1px 2px !important;
+  padding: 1px 5px !important;
+}
+
+menuitem.bookmark-item {
+  padding-top: 2px !important;
+  padding-bottom: 2px !important;
+}
+
+menuitem.bookmark-item > .menu-iconic-text {
+  padding: 1px 0 !important;
 }
 
 #personal-bookmarks .bookmark-item:not(.subviewbutton) .toolbarbutton-icon {
-    display: none !important;
+  display: none !important;
 }
 
 /* Hide/re-order the menu button. */
@@ -86,6 +96,10 @@
 }
 
 /* URL Bar */
+#urlbar-container {
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
 #urlbar[focused="true"],
 #urlbar:hover,
 .searchbar-textbox:hover {
@@ -112,7 +126,7 @@
 }
 
 #urlbar:-moz-lwtheme {
-    background-color: transparent !important;
+  background-color: #464648 !important;
 }
 
 /* Hide bookmark button, page actions, security labels and extension icons */
@@ -159,12 +173,6 @@
   display: none;
 }
 
-
-/* White GitHub favicon */
-.tabbrowser-tab[image^="data:image/x-icon;base64,AAABAAIAEBAAAAEAIAAoBQAAJgAAACAgAAABACAAKBQAAE4FAAAoAAAAEAAAACAAAAABACAAAAAAAAAFAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABERE3YTExPFDg4OEgAAAAAAAAAADw8PERERFLETExNpAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQUFJYTExT8ExMU7QAAABkAAAAAAAAAAAAAABgVFRf/FRUX/xERE4UAAAAAAAAAAAAAAAAAAAAAAAAAABEREsETExTuERERHhAQEBAAAAAAAAAAAAAAAAAAAAANExMU9RUVF/8VFRf/EREUrwAAAAAAAAAAAAAAABQUFJkVFRf/BgYRLA4ODlwPDw/BDw8PIgAAAAAAAAAADw8PNBAQEP8VFRf/FRUX/xUVF/8UFBSPAAAAABAQEDAPDQ//AAAA"] .tab-icon-image {
-  filter: invert(1.0) !important;
-}
-
 /* Put tabs below the nav bar. */
 #titlebar {
   -moz-box-ordinal-group: 1 !important;
@@ -180,17 +188,24 @@
 /* Collapse the toolbar elements */
 #TabsToolbar > .titlebar-spacer,
 #TabsToolbar > .toolbar-items {
-    visibility: collapse !important;
+  visibility: collapse !important;
+}
+
+.private-browsing-indicator {
+  position: absolute !important;
+  top: 0 !important;
+  margin-top: -33px !important;
+  margin-left: 74px !important;
 }
 
 /* And the height of the toolbar itself */
 toolbar#TabsToolbar {
-    min-height: 0 !important;
-    min-width: 0 !important;
+  min-height: 0 !important;
+  min-width: 0 !important;
 }
 
 /* Move traffic lights in the space carved above. */
 .titlebar-buttonbox-container {
   position: absolute;
-  margin-top: -36px
+  margin-top: -40px
 }

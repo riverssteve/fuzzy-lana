@@ -62,8 +62,7 @@ setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 # }}}
 # UI {{{
-#eval `dircolors ~/.dircolors`
-eval `dircolors ~/.dircolors_cl`
+eval `dircolors ~/.dircolors`
 
 autoload -U compinit && {
     compinit
@@ -145,11 +144,8 @@ zstyle ':completion:*' insert-tab pending
 alias ls='ls --color'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias ping='prettyping --nolegend'
-
-alias antlr4='java -Xmx500M -cp "/usr/local/lib/antlr-4.7.2-complete.jar:$CLASSPATH" org.antlr.v4.Tool'
-alias grun='java org.antlr.v4.gui.TestRig'
-alias reportlogs='docker-compose logs -f $(docker ps --format "{{.Names}}" | grep -v "logs" | tr "\n" " ")'
-#alias k='k --no-vcs'
+alias vi='nvim'
+alias vim='nvim'
 # }}}
 # Key bindings {{{
 bindkey "\e\e[D" backward-word
@@ -243,4 +239,6 @@ nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     nvm "$@"
 }
+~/.iterm2/it2setkeylabel set status "I'm a status boy"
+
 # vim:foldmethod=marker:foldlevel=0

@@ -29,7 +29,7 @@ if [[ ! -d $HOME/.nvm ]] ; then
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 fi
 
-brew install vim bash zsh git pyenv tree ag fzf prettyping gnupg pinentry-mac jq tidy-html5
+brew install vim bash zsh git pyenv tree ag fzf prettyping gnupg pinentry-mac jq tidy-html5 fd
 
 echo ""
 printf "%s\n" "Remember to set up GPG keys for git usage"

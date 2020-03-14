@@ -1,0 +1,27 @@
+.DS_Store
+.xcuserstate
+.code-workspace
+Thumbs.db
+tags
+project.xcworkspace/
+xcuserdata/
+
+.idea/
+.vscode/
+
+.env
+.envrc
+
+.envfiles/
+.envfiles
+envfiles/
+envfiles
+.scratchfiles/
+.cache/
+
+# Work specific
+flake8.txt
+.flake8.txt
+.version.txt
+etc/personal/
+etc/environments/personal/

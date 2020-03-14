@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+pinfo() {
+	# shellcheck disable=SC2059
+	printf "\r[ \033[00;34mINFO\033[0m ] $1\n"
+}
+
+puser() {
+	# shellcheck disable=SC2059
+	printf "\r[ \033[0;33mUSER\033[0m ] $1\n"
+}
+
+psuccess() {
+	# shellcheck disable=SC2059
+	printf "\r\033[2K[ \033[00;32m  OK\033[0m ] $1\n"
+}
+
+pwarn() {
+	# shellcheck disable=SC2059
+	printf "\r\033[2K[ \033[00;33mWARN\033[0m ] $1\n"
+}
+
+pfail() {
+	# shellcheck disable=SC2059
+	printf "\r\033[2K[ \033[0;31mFAIL\033[0m ] $1\n"
+	echo ''
+	exit
+}

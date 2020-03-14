@@ -1,27 +1,20 @@
 cask_args appdir: '/Applications'
 
-vim bash zsh git pyenv tree ag fzf prettyping gnupg pinentry-mac jq tidy-html5 fd
-
-
+   
+tap "getantibody/tap"
 tap "github/gh"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-fonts"
+tap "homebrew/cask-versions"
 tap "homebrew/core"
-
-tap 'caskroom/cask'
-tap 'caskroom/fonts'
-tap 'caskroom/versions'
-tap 'kaos/shell'
-tap 'getantibody/tap'
-
-# Maybe
-brew 'direnv'
-brew 'fasd'
-brew 'mas'
+tap "kaos/shell"
 
 brew "antibody"
 brew "ctags"
+brew "direnv"
+brew "fasd"
+brew "fd"
 brew "fzf"
 brew "gawk"
 brew "gcc"
@@ -35,7 +28,6 @@ brew "rename"
 brew "screen"
 brew "the_silver_searcher"
 brew "tree"
-brew "vim"
 brew "watch"
 brew "wdiff"
 brew "wget"
@@ -46,11 +38,6 @@ brew "coreutils"
 brew "binutils"
 brew "diffutils"
 brew "findutils"
-brew "gnu-indent"
-brew "gnu-sed"
-brew "gnu-tar"
-brew "gnu-which"
-brew "gnutls"
 
 brew "awscli"
 brew 'fswatch'
@@ -79,4 +66,20 @@ brew "rbenv"
 # Python
 brew "pyenv"
 
-cask "insomnia"
+cask "1password-cli"
+cask "discord"
+cask "firefox"
+cask "fork"
+cask "karabiner-elements"
+cask "iterm2"
+cask "paw"
+cask "rectangle"
+cask "sensiblesidebuttons"
+cask "spotify"
+cask "viscosity"
+cask "visual-studio-code"
+
+# Work-specific casks
+cask "docker"
+cask "pycharm"
+cask "slack"

@@ -61,6 +61,9 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
 setopt HIST_NO_STORE
 # }}}
+# Completions {{{
+fpath+=~/.zfunc
+# }}}
 # UI {{{
 eval `dircolors ~/.dircolors`
 
@@ -186,23 +189,42 @@ antibody bundle mafredri/zsh-async
 antibody bundle rupa/z
 antibody bundle zsh-users/zsh-syntax-highlighting
 antibody bundle denysdovhan/spaceship-prompt
+# antibody bundle geometry-zsh/geometry
 # }}}
 # Theme {{{
 SPACESHIP_PROMPT_ORDER=(
   user          # Username section
   dir           # Current directory section
   host          # Hostname section
-  git           # Git section (git_branch + git_status)
+  pyenv         # Pyenv section
   aws           # Amazon Web Services section
   venv          # virtualenv section
-  pyenv         # Pyenv section
-  line_sep      # Line break
   jobs          # Backgound jobs indicator
   exit_code     # Exit code section
+  line_sep
   char          # Prompt character
 )
-SPACESHIP_DIR_TRUNC='0'
+SPACESHIP_RPROMPT_ORDER=(
+  git           # Git section (git_branch + git_status)
+)
+SPACESHIP_PROMPT_ADD_NEWLINE=true
+SPACESHIP_PROMPT_SEPARATE_LINE=true
+
+SPACESHIP_DIR_TRUNC="1"
 SPACESHIP_CHAR_SYMBOL='> '
+
+# Git
+SPACESHIP_GIT_PREFIX=''
+
+# Pyenv
+SPACESHIP_PYENV_PREFIX=''
+SPACESHIP_PYENV_SUFFIX=' '
+SPACESHIP_PYENV_SYMBOL=''
+
+# Venv
+SPACESHIP_VENV_SYMBOL=''
+SPACESHIP_VENV_PREFIX='in venv '
+
 # }}}
 # Plugin Options {{{
 # ZSH Autosuggestions {{{
@@ -233,12 +255,14 @@ ZSH_HIGHLIGHT_STYLES[command]='fg=green'
 ZSH_HIGHLIGHT_REGEXP=('(^| )(ls|cd)($| )' 'fg=green')
 # }}}
 # }}}
-
+# Shell Plugin init {{{
 nvm() {
     NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     nvm "$@"
 }
 ~/.iterm2/it2setkeylabel set status "I'm a status boy"
+eval "$(direnv hook zsh)"
+# }}}
 
 # vim:foldmethod=marker:foldlevel=0

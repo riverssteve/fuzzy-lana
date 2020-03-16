@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+pdebug() {
+	# shellcheck disable=SC2059
+	if [[ ${DEBUG} =~ (on|1) ]] ; then
+		printf "\r[ \033[00;34mDBUG\033[0m ] $1\n"
+	fi
+}
+
 pinfo() {
 	# shellcheck disable=SC2059
 	printf "\r[ \033[00;34mINFO\033[0m ] $1\n"

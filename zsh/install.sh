@@ -10,6 +10,7 @@ if ! grep -q '/usr/local/bin/zsh' /etc/shells ; then
     sudo chsh -s "$(command -v zsh)" "$(whoami)"
 fi
 
+
 pinfo "Adding antibody bundles"
 antibody bundle <"$DOTFILES/zsh/bundles.txt" >~/.zsh_plugins.sh
 antibody update

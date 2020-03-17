@@ -4,10 +4,17 @@
 local GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
 local GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
 local GNU_GETOPT="/usr/local/opt/gnu-getopt/bin"
-local LOCALBIN="/usr/local/bin"
 local HOMEBIN="$HOME/.local/bin"
 
-export GPG_TTY=$(tty)
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES="$HOME/.dotfiles"
+
+# project folder that we can `c [tab]` to
+export PROJECTS="$HOME/code"
+
+# Set editor defaults
+export EDITOR='vim'
+export VEDITOR='code'
 
 if hash go 2>/dev/null ; then
     export GOBIN="$HOME/code/go/bin"
@@ -19,6 +26,7 @@ fi
 path=(
     $GNUBIN
     $GNU_GETOPT
+    $DOTFILES/bin
     /usr/local/bin
     /usr/bin
     /bin
@@ -41,7 +49,6 @@ for file in ${(M)config_files:#*/profile.zsh} ; do
     source "${file}"
 done
 
-path=("$DOTFILES/bin" $path)
 export PATH
 export MANPATH
 

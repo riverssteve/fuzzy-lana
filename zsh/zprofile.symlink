@@ -16,12 +16,6 @@ export PROJECTS="$HOME/code"
 export EDITOR='vim'
 export VEDITOR='code'
 
-if hash go 2>/dev/null ; then
-    export GOBIN="$HOME/code/go/bin"
-    export GOPATH="$HOME/code/go"
-    export GO111MODULE=on
-fi
-
 # Construct path
 path=(
     $GNUBIN

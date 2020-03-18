@@ -1,0 +1,57 @@
+#!/usr/bin/env zsh
+
+# Use GNU unix utils
+local GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
+local GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
+local GNU_GETOPT="/usr/local/opt/gnu-getopt/bin"
+local HOMEBIN="$HOME/.local/bin"
+
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES="$HOME/.dotfiles"
+
+# project folder that we can `c [tab]` to
+export PROJECTS="$HOME/code"
+
+# Set editor defaults
+export EDITOR='vim'
+export VEDITOR='code'
+
+if hash go 2>/dev/null ; then
+    export GOBIN="$HOME/code/go/bin"
+    export GOPATH="$HOME/code/go"
+    export GO111MODULE=on
+fi
+
+# Construct path
+path=(
+    $GNUBIN
+    $GNU_GETOPT
+    $DOTFILES/bin
+    /usr/local/bin
+    /usr/bin
+    /bin
+    /usr/local/sbin
+    /usr/sbin
+    /sbin
+)
+manpath=($GNUMAN)
+
+typeset -U config_files
+config_files=($DOTFILES/*/*.zsh)
+
+# load the path files
+for file in ${(M)config_files:#*/path.zsh} ; do
+    source "${file}"
+done
+
+# load the path files
+for file in ${(M)config_files:#*/profile.zsh} ; do
+    source "${file}"
+done
+
+export PATH
+export MANPATH
+
+ssh-add -K > /dev/null 2>&1
+ssh-add ~/.ssh/DevOps-20170413.pem > /dev/null 2>&1
+ssh-add ~/.config/futrli/BuildkiteAgent.pem > /dev/null 2>&1

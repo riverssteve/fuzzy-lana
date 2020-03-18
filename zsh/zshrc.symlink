@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+
+# uncomment this and the last line for zprof info
+# zmodload zsh/zprof
+
+# all of our zsh files
+typeset -U config_files
+config_files=($DOTFILES/*/*.zsh)
+
+# load zsh, antibody and plugins
+source ~/.zsh_plugins.sh
+source $DOTFILES/zsh/pure.zsh
+
+# load everything but the path and completion files
+for file in ${${${config_files:#*/path.zsh}:#*/completion.zsh}:#*/profile.zsh} ; do
+    source "$file"
+done
+
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+    compinit
+done
+compinit -C
+
+eval "$(dircolors $HOME/.dircolors)"
+eval "$(direnv hook zsh)"
+
+[ -f "$DOTFILES/zsh/zstyle.zsh" ] && {
+    source "$DOTFILES/zsh/zstyle.zsh"
+}
+
+# load every completion after autocomplete loads
+for file in ${(M)config_files:#*/completion.zsh} ; do
+    source "$file"
+done
+
+unset config_files
+
+# use .config/secrets for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+# shellcheck disable=SC1090
+[ -f ~/.config/secrets ] && . ~/.config/secrets
+
+# zprof

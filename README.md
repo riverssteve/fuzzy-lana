@@ -10,7 +10,7 @@
 To install:
 
 ```
-git clone https://github.com/lox/dotfiles.git
+git clone https://github.com/riverssteve/dotfiles.git
 cd dotfiles
 ./bootstrap.sh
 ```

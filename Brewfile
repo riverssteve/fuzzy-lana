@@ -1,6 +1,6 @@
 cask_args appdir: '/Applications'
 
-   
+
 tap "getantibody/tap"
 tap "github/gh"
 tap "homebrew/bundle"
@@ -20,6 +20,7 @@ brew "gawk"
 brew "gcc"
 brew "git"
 brew "github/gh/gh"
+brew "go"
 brew "grep"
 brew "jq"
 brew "neovim"

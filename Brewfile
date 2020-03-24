@@ -2,6 +2,7 @@ cask_args appdir: '/Applications'
 
 
 tap "getantibody/tap"
+tap "golangci/tap"
 tap "github/gh"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -10,6 +11,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "kaos/shell"
 
+cask "1password-cli"
 brew "antibody"
 brew "ctags"
 brew "direnv"
@@ -61,13 +63,16 @@ brew "gnupg"
 brew "pinentry"
 brew "pinentry-mac"
 
+# go
+brew "golangci-lint"
+
 # Ruby
 brew "rbenv"
 
 # Python
 brew "pyenv"
 
-cask "1password-cli"
+cask "proxyman"
 cask "discord"
 cask "firefox"
 cask "fork"

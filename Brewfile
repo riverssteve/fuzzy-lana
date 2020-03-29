@@ -1,17 +1,16 @@
 cask_args appdir: '/Applications'
 
+tap "homebrew/cask"
+tap "homebrew/bundle"
 
 tap "getantibody/tap"
 tap "golangci/tap"
 tap "github/gh"
-tap "homebrew/bundle"
-tap "homebrew/cask"
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "kaos/shell"
 
-cask "1password-cli"
 brew "antibody"
 brew "ctags"
 brew "direnv"
@@ -19,7 +18,6 @@ brew "fasd"
 brew "fd"
 brew "fzf"
 brew "gawk"
-brew "gcc"
 brew "git"
 brew "github/gh/gh"
 brew "go"
@@ -35,6 +33,9 @@ brew "watch"
 brew "wdiff"
 brew "wget"
 brew "zsh"
+
+# Honking big ones
+brew "gcc"
 
 # GNU Tools
 brew "coreutils"
@@ -72,6 +73,7 @@ brew "rbenv"
 # Python
 brew "pyenv"
 
+cask "1password-cli"
 cask "proxyman"
 cask "discord"
 cask "firefox"
@@ -86,6 +88,6 @@ cask "viscosity"
 cask "visual-studio-code"
 
 # Work-specific casks
-cask "docker"
-cask "pycharm"
-cask "slack"
+#cask "docker"
+#cask "pycharm"
+#cask "slack"

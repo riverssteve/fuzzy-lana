@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Path to this script
 dirpath="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
-source "${dirpath}/utils.sh"
+source "${dirpath}/../utils.sh"
 
 pinfo "Installing spacevim"
 curl -sLf https://spacevim.org/install.sh | bash

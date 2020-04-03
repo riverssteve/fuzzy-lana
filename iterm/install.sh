@@ -2,6 +2,7 @@
 
 set -euo pipefail
 
+# https://www.nordtheme.com/docs/colors-and-palettes
 version="v0.2.0"
 nord_dircolors="https://raw.githubusercontent.com/arcticicestudio/nord-dircolors/${version}/src/dir_colors"
 nord_theme="https://raw.githubusercontent.com/arcticicestudio/nord-iterm2/${version}/src/xml/Nord.itermcolors"
@@ -38,3 +39,12 @@ fi
 if [[ -f "${iterm_data_path}/Nord.itermcolors" ]] ; then
     pinfo "Run the following to import the theme into iterm: \"open ${iterm_data_path}/Nord.itermcolors\""
 fi
+
+# Italics
+if [[ $(command -v ) ]] ; then
+    # See https://stackoverflow.com/a/48512956
+    # and https://github.com/tmux/tmux/issues/696
+    tic "${DOTFILES}/iterm/xterm-256color-italic.terminfo"
+    echo "New TERM 'xterm-256color-italic' available"
+fi
+

@@ -53,6 +53,7 @@ bindkey "\e[5C"  forward-word
 bindkey "\e[5D"  backward-word
 bindkey "^[w"    backward-kill-word
 
+WORDCHARS='*?_[]~&;!#$%^(){}<>'
 backward-kill-dir () {
     local WORDCHARS=${WORDCHARS/\/}
     zle backward-kill-word

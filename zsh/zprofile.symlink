@@ -28,7 +28,6 @@ path=(
     /usr/sbin
     /sbin
 )
-manpath=($GNUMAN)
 
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)
@@ -43,8 +42,15 @@ for file in ${(M)config_files:#*/profile.zsh} ; do
     source "${file}"
 done
 
+function add_to_manpath {
+  case ":$PATH:" in
+    *":$1:"*) :;;              # already there
+    *) MANPATH="$1:$MANPATH";; # or prepend
+  esac
+}
+
 export PATH
-export MANPATH
+add_to_manpath "${GNUMAN}"
 
 ssh-add -K > /dev/null 2>&1
 ssh-add ~/.ssh/DevOps-20170413.pem > /dev/null 2>&1

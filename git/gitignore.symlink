@@ -11,6 +11,7 @@ xcuserdata/
 
 .env
 .envrc
+.env.private
 
 .envfiles/
 .envfiles

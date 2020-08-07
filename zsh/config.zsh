@@ -13,6 +13,7 @@ setopt INTERACTIVECOMMENTS     # Allow comments even in interactive shells.
 # History
 setopt APPEND_HISTORY          # Append history list to the history file, rather than replace it.
 setopt EXTENDED_HISTORY        # Save each command’s beginning timestamp.
+setopt INC_APPEND_HISTORY      # Save command immediately
 setopt HIST_EXPIRE_DUPS_FIRST  # Expire oldest dups before unique commands
 setopt HIST_FIND_NO_DUPS       # When searching don't display dups of a line previously found.
 setopt HIST_IGNORE_ALL_DUPS    # Only save last item in duplicate history entries.
@@ -24,6 +25,7 @@ setopt HIST_REDUCE_BLANKS      # Remove superfluous blanks from history.
 export HISTFILESIZE=1000000000
 export HISTSIZE=1000000000
 export HISTFILE=~/.zsh_history
+export HISTTIMEFORMAT="[%F %T] "
 
 # Completion
 setopt ALWAYS_TO_END           # Move cursor to the end of a completed word.

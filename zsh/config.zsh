@@ -21,6 +21,10 @@ setopt HIST_IGNORE_SPACE       # If a line starts with a space, don't save it.
 setopt HIST_NO_STORE           # Remove the history command from the history list when invoked.
 setopt HIST_REDUCE_BLANKS      # Remove superfluous blanks from history.
 
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
+export HISTFILE=~/.zsh_history
+
 # Completion
 setopt ALWAYS_TO_END           # Move cursor to the end of a completed word.
 setopt AUTO_LIST               # Automatically list choices on an ambiguous completion.

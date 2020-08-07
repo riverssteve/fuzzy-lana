@@ -8,7 +8,5 @@
   },
   "credsStore": "desktop",
   "stackOrchestrator": "swarm",
-  "experimental": "disabled",
-  "imagesFormat" : "table {{.Repository}}\\t{{.Tag}}\\t{{.ID}}\\t{{.Size}}",
-  "psFormat" : "table {{.Names}}\\t{{.Image}}\\t{{.RunningFor}}\\t{{.Status}}\\t{{.Command}}"
+  "experimental": "disabled"
 }

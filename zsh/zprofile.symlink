@@ -4,6 +4,7 @@
 local GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
 local GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
 local GNU_GETOPT="/usr/local/opt/gnu-getopt/bin"
+local GNU_SED="/usr/local/opt/gnu-sed/bin"
 local HOMEBIN="$HOME/.local/bin"
 
 # shortcut to this dotfiles path is $DOTFILES
@@ -19,6 +20,7 @@ export VEDITOR='code'
 # Construct path
 path=(
     $GNUBIN
+    $GNU_SED
     $GNU_GETOPT
     $DOTFILES/bin
     /usr/local/bin

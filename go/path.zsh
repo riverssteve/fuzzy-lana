@@ -1,5 +1,5 @@
-export GOBIN="$HOME/code/go/bin"
-export GOPATH="$HOME/code/go"
+export GOBIN="$HOME/go/bin"
+export GOPATH="$HOME/go"
 export GO111MODULE=on
 
 path=( $path "$GOBIN" )

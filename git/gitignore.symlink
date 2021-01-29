@@ -9,6 +9,7 @@ xcuserdata/
 .idea/
 .nova/
 .vscode/
+.run
 
 .env
 .envrc

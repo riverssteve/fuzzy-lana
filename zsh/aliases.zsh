@@ -2,6 +2,6 @@
 
 alias ls='ls --color'
 alias preview="fzf --preview 'bat --color \"always\" {}'"
-alias ping='prettyping --nolegend'
+alias pping='prettyping --nolegend'
 alias vi='nvim'
 alias vim='nvim'

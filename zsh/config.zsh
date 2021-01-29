@@ -1,7 +1,11 @@
 # Use emac mode
 bindkey -e
 
-fpath=($DOTFILES/functions $fpath)
+fpath=(
+  $DOTFILES/functions
+  $HOME/.config/zsh/functions
+  $fpath
+)
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 

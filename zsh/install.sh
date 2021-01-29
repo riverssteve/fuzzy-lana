@@ -10,6 +10,11 @@ if ! grep -q '/usr/local/bin/zsh' /etc/shells ; then
     sudo chsh -s "$(command -v zsh)" "$(whoami)"
 fi
 
+if [ ! -d "$HOME/.config/zsh/functions" ] ; then
+    pinfo "Creating custom zsh functions directory"
+    mkdir -p "$HOME/.config/zsh/functions"
+fi
+
 
 pinfo "Adding antibody bundles"
 antibody bundle <"$DOTFILES/zsh/bundles.txt" >~/.zsh_plugins.sh

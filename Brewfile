@@ -22,7 +22,6 @@ brew "github/gh/gh"
 brew "go"
 brew "grep"
 brew "jq"
-brew "neovim"
 brew "prettyping"
 brew "rename"
 brew "ripgrep"
@@ -32,6 +31,7 @@ brew "tree"
 brew "watch"
 brew "wdiff"
 brew "wget"
+brew "vim"
 brew "zsh"
 
 # Honking big ones
@@ -53,8 +53,6 @@ brew "pgcli"
 # bash
 brew "bash"
 brew "shellcheck"
-brew "bats-assert",  args: ["ignore-dependencies"]
-brew "bats-file",  args: ["ignore-dependencies"]
 brew "shfmt"
 
 # GPG

@@ -23,7 +23,7 @@ done
 
 if is_mac ; then
     pinfo "Installing homebrew bundle"
-    brew bundle install
+    brew bundle install || pwarn "bundle encoutered errors, continuing"
 elif is_ubuntu ; then
     bash -eu -o pipefail ubuntu/packages.sh
 fi

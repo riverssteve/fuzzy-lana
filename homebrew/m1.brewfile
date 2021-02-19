@@ -1,0 +1,67 @@
+cask_args appdir: '/Applications'
+
+tap "homebrew/cask"
+tap "homebrew/bundle"
+
+tap "gh"
+tap "homebrew/core"
+tap "kaos/shell"
+
+brew "antibody"
+brew "bash"
+brew "direnv"
+brew "fasd"
+brew "fd"
+brew "fzf"
+brew "gawk"
+brew "git"
+brew "gh"
+brew "go"
+brew "jq"
+brew "prettyping"
+brew "rename"
+brew "ripgrep"
+brew "screen"
+brew "the_silver_searcher"
+brew "tree"
+brew "watch"
+brew "wdiff"
+brew "wget"
+brew "vim"
+brew "zsh"
+
+# Honking big ones
+brew "gcc"
+
+# GNU Tools
+brew 'watchman'
+
+# bash
+brew "shfmt"
+
+# GPG
+# brew "gpg-agent"
+# brew "gpg2"
+brew "gnupg"
+brew "pinentry"
+brew "pinentry-mac"
+
+# go
+brew "golangci-lint"
+
+# Python
+brew "pyenv"
+
+cask "1password-cli"
+cask "proxyman"
+cask "discord"
+cask "firefox"
+cask "fork"
+cask "karabiner-elements"
+cask "iterm2"
+cask "paw"
+cask "rectangle"
+cask "sensiblesidebuttons"
+cask "spotify"
+cask "viscosity"
+cask "visual-studio-code"

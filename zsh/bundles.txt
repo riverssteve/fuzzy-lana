@@ -1,4 +1,2 @@
-denysdovhan/spaceship-prompt
 mafredri/zsh-async
 rupa/z
-zsh-users/zsh-syntax-highlighting

@@ -27,8 +27,6 @@ fi
 zplug load
 # }}}
 
-source $DOTFILES/zsh/pure.zsh
-
 # use .config/secrets for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 # shellcheck disable=SC1090
@@ -61,6 +59,12 @@ unset config_files
 
 # Load custom work stuff
 [ -f ~/.config/work.zsh ] && . ~/.config/work.zsh
+eval "$(starship init zsh)"
+
+# use .config/secrets for SUPER SECRET CRAP that you don't
+# want in your public, versioned repo.
+# shellcheck disable=SC1090
+[ -f ~/.config/secrets ] && . ~/.config/secrets
 
 # pyenv needs to be manually defined at the end since it manipulates path
 if command -v pyenv 1>/dev/null 2>&1; then

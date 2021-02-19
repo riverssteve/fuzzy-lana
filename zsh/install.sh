@@ -21,3 +21,7 @@ test -d "$HOME/.zplug" || {
     pinfo "Installing zplug"
     curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 }
+
+hash starship || {
+    curl -fsSL https://starship.rs/install.sh | bash
+}

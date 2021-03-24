@@ -15,7 +15,7 @@ extensions=(
     jolaleye.horizon-theme-vscode
     ms-azuretools.vscode-docker
     ms-python.python
-    ms-vscode.Go
+    golang.go
     timonwong.shellcheck
     tinkertrain.theme-panda
     vscodevim.vim

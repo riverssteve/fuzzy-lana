@@ -1,0 +1,213 @@
+" vimrc
+" Steve Rivers steve@rivers.dev
+" Package Manager {{{
+
+" Automatically installs vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source ~/.vimrc
+endif
+
+" For a full explanation and examples see
+" https://github.com/junegunn/vim-plug#example
+call plug#begin('~/.vim/plugged')
+
+" UI
+Plug 'mbbill/undotree'
+Plug 'tpope/vim-vinegar'
+Plug 'mg979/vim-visual-multi'
+
+"if has('nvim')
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "let g:deoplete#enable_at_startup = 1
+"endif
+
+" Editor
+Plug 'scrooloose/nerdcommenter'
+Plug 'Yggdroot/indentLine'
+Plug 'sheerun/vim-polyglot'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+
+" Theme
+Plug 'arcticicestudio/nord-vim'
+
+" Initialize plugin system
+call plug#end()
+" }}}
+" Basic Settings {{{
+filetype plugin indent on    " required
+syntax on                    " we want syntax highlighting!
+
+let g:skip_loading_mswin=1
+let mapleader = ","          " Set <leader> to ,
+
+set fileencoding=utf-8
+set encoding=utf-8
+set number                   " show line numbers
+
+colorscheme nord
+" }}}
+" Advanced Settings {{{
+" TODO: These need to be selectively enabled. Neovim doesn't support these
+if !has('nvim')
+    set esckeys                   " Allow sane use of cursor keys in various modes
+    set notextmode                " Don't append bloody carriage returns.
+endif
+
+if has('nvim')
+    let g:python_host_prog = '/Users/srivers/.local/share/virtualenvs/neovim2/bin/python'
+    let g:python3_host_prog = '/Users/srivers/.local/share/virtualenvs/neovim3.7/bin/python'
+endif
+
+set backspace=indent,eol,start    " Allow backspacing over autoindent, line breaks and start of insert
+set display=lastline,uhex         " Show the last line instead of '@'; show non-printable chars as <hex>
+set foldenable                    " Enable code folding
+set foldlevelstart=10             " Open most folds by default
+set foldnestmax=6                 " Set maximum number of nested folds
+set foldmethod=indent             " Set fold based on indent level
+set hidden                        " unsaved buffers allowed in the buffer list without saving
+set hlsearch                      " Highlight the current search
+set ignorecase                    " Usually I don't care about case when searching
+set incsearch                     " Show matches as you type
+set laststatus=2                  " Always show a status line.
+set lazyredraw                    " Don't redraw during macros etc.
+set list                          " Show problematic characters.
+set listchars=tab:»·,trail:·,extends:>,precedes:<
+                                  " display leading tabs as >· and trailing spaces as ·
+set modeline                      " Look for embedded modelines at the top of the file.
+set modelines=10                  " Don't look any further than this number of lines
+set mouse=n
+set mousehide                     " Hide the mouse pointer while typing
+set noerrorbells                  " enough with the beeping already!
+set noshowmode                    " Hide mode text under powerbar
+set nostartofline                 " keep cursor's column
+set noswapfile                    " it's 2019, Vim.
+set ruler                         " Enable ruler on status line.
+set shiftround                    " Round indent to shiftwidth multiple, applies to < and >
+set shortmess=atI                 " Shorter status messages.
+set showcmd                       " Show (partial) command in status line.
+set showmatch                     " Show matching ()'s []'s {}'s
+set smartcase                     " only search case sensitively when not doing al all-lowercase search
+set splitbelow                    " Split horizontally below.
+set splitright                    " Split vertically to the right.
+set tabstop=4                     " Set the default tab indent size
+set termguicolors                 " Nicer colours
+set title                         " Better xterm titles
+set ttyfast                       " Terminal connection is fast
+set ttimeoutlen=50                " Faster exit from insert mode
+set whichwrap=b,s,h,l,<,>,[,],~   " Wrap to the previous/next line on all keys and ~ command
+set wildignore+=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,*.orig
+set wildmenu                      " Better filename completion etc.
+set wildmode=longest:full,full    " Complete only up to the point of ambiguity
+				  " (while still showing you what your options are)
+
+" Change cursor shape
+let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+
+" Set-up italics
+if has('nvim')
+    set t_ZH=[3m
+    set t_ZR=[23m
+endif
+
+hi Comment term=italic cterm=italic
+hi SpecialKey ctermfg=137 guifg=#4c5764
+" }}}
+" Plugin Setting {{{
+" indentLine {{{
+let g:indentLine_char = '⦙'
+" }}}
+" netRW {{{
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+" }}}
+" vim-markdown {{{
+let g:vim_markdown_conceal = 0
+" }}}
+" }}}
+" File Settings {{{
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+function! s:AddKeyword()
+  setlocal iskeyword+=-
+endfun
+
+" Set up coding styles - ruler and indent size
+function! s:CodingStyleFiletypes(tabstop_length, show_col)
+  " Let filetype indentation do its own thing
+  setlocal nocindent
+  setlocal nosmartindent
+
+  " Mark max column width
+  if a:show_col == 'on'
+    setlocal colorcolumn=120
+    setlocal textwidth=120
+  endif
+
+  " Set 'formatoptions' to break comment lines but not other lines,
+  " and insert the comment leader when hitting <CR> or using 'o'.
+  setlocal formatoptions-=t formatoptions+=croql
+
+  setlocal expandtab
+  setlocal smarttab " unsure about this for now?
+  let &l:shiftwidth = a:tabstop_length
+  let &l:softtabstop = a:tabstop_length
+  setlocal tabstop=4
+endfun
+
+augroup codeSettings
+  autocmd!
+  autocmd FileType python setlocal commentstring=#\ %s
+
+  " Auto-reload .vimrc on changes
+  autocmd BufWritePost ~/.vimrc source ~/.vimrc
+
+  " * should match - as well as _ when searching under the cursor
+  autocmd FileType css,html,htmldjango call <SID>AddKeyword()
+
+  autocmd FileType python,sh call <SID>CodingStyleFiletypes(4, 'on')
+augroup END
+
+" File types {{{
+au BufRead,BufNewFile Dockerfile.*         set filetype=dockerfile
+au BufRead,BufNewFile *.dockerfile         set filetype=dockerfile
+" }}}
+
+" }}}
+" Mappings {{{
+" Sudo write
+cabbrev w!! w !sudo tee >/dev/null "%"
+
+" Ctrl-w Shift-n to open new vertical split
+nmap <silent><C-w><S-n> :vnew<CR>
+
+" Press Space to turn off highlighting and clear any message already displayed.
+nnoremap <silent> <Space> :nohlsearch<Bar>:echo<CR>
+
+" Disable cursor keys
+nnoremap <Up> <nop>
+nnoremap <Down> <nop>
+nnoremap <Left> <nop>
+nnoremap <Right> <nop>
+
+" Disable the help key
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
+" Disable Ex mode
+noremap Q <nop>
+
+nmap <leader>n :bnext<CR>
+nmap <leader>p :bprevious<CR>
+nmap <leader>r :registers<cr>
+" }}}
+
+" vim:foldmethod=marker:foldlevel=0

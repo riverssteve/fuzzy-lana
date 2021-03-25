@@ -15,7 +15,7 @@ call plug#begin('~/.vim/plugged')
 
 " UI
 Plug 'mbbill/undotree'
-Plug 'tpope/vim-vinegar'
+Plug 'preservim/nerdtree'
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-airline/vim-airline'
 
@@ -43,7 +43,7 @@ filetype plugin indent on    " required
 syntax on                    " we want syntax highlighting!
 
 let g:skip_loading_mswin=1
-let mapleader = ","          " Set <leader> to ,
+let mapleader = " "          " Set <leader> to space
 
 set fileencoding=utf-8
 set encoding=utf-8
@@ -103,7 +103,7 @@ set whichwrap=b,s,h,l,<,>,[,],~   " Wrap to the previous/next line on all keys a
 set wildignore+=.svn,CVS,.git,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,*.pyc,*.pyo,*.orig
 set wildmenu                      " Better filename completion etc.
 set wildmode=longest:full,full    " Complete only up to the point of ambiguity
-				  " (while still showing you what your options are)
+                                  " (while still showing you what your options are)
 
 " Change cursor shape
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
@@ -129,6 +129,8 @@ let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_winsize = 25
+" }}}
+" NERDtree {{{
 " }}}
 " vim-markdown {{{
 let g:vim_markdown_conceal = 0
@@ -207,9 +209,15 @@ vnoremap <F1> <ESC>
 " Disable Ex mode
 noremap Q <nop>
 
-nmap <leader>n :bnext<CR>
-nmap <leader>p :bprevious<CR>
+nmap <leader>bn :bnext<CR>
+nmap <leader>bp :bprevious<CR>
 nmap <leader>r :registers<cr>
+
+" NERDtree mappings
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

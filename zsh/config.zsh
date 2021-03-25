@@ -7,6 +7,9 @@ fpath=(
   $fpath
 )
 
+autoload -U "$DOTFILES"/functions/*(:t)
+autoload -U "$HOME"/.config/zsh/functions/*(:t)
+
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 
 # Input/ Output

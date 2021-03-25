@@ -1,0 +1,5 @@
+generate-uuid-hex() {
+  _id=$( python -c "import uuid; print(uuid.uuid4().hex, end='')" )
+  echo "${_id}"
+  [[ $(uname) == "Darwin" ]] && echo "${_id}" | pbcopy ; echo "Copied to clipboard"
+}

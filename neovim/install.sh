@@ -6,12 +6,10 @@ set -euo pipefail
 dirpath="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)"
 source "${dirpath}/../utils.sh"
 
-pinfo "Installing spacevim"
-curl -sLf https://spacevim.org/install.sh | bash
+nvim_config="${HOME}/.config/nvim"
 
-pinfo "Linking SpaceVim init.toml"
-if [ -d ~/.SpaceVim.d ] ; then
-    ln -sfv "$PWD/neovim/init.toml" "$HOME/.SpaceVim.d/init.toml"
+pinfo "Setting up neovim"
+if [[ ! -d "${nvim_config}" ]] ; then
+    mkdir -pv "${nvim_config}"
 fi
-
-
+ln -sfv "$PWD/neovim/init.vim" "$HOME/.config/nvim/init.vim"

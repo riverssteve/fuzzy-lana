@@ -30,6 +30,10 @@ if [[ ! -d $HOME/.nvm ]] ; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 fi
 
+echo "[Bootstrap] Install a newer bash"
+brew install bash
+
+
 echo ""
 printf "%s\n" "Remember to set up GPG keys for git usage"
 printf "%s\n" "See https://stackoverflow.com/questions/41052538/git-error-gpg-failed-to-sign-data"

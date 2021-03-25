@@ -2,6 +2,18 @@
 
 set -euo pipefail
 
+if ! command -v curl ; then
+    if [[ $( uname ) == "Linux" ]] && [[ -n $( command -v apt-get ) ]] ; then
+        sudo apt-get update && sudo apt-get install curl
+    fi
+fi
+
+if ! command -v git ; then
+    if [[ $( uname ) == "Linux" ]] && [[ -n $( command -v apt-get ) ]] ; then
+        sudo apt-get update && sudo apt-get install git
+    fi
+fi
+
 if [ ! -d "$HOME/.dotfiles" ] ; then
     echo "[Bootstrap] Cloning dotfiles"
     git clone --recursive https://github.com/riverssteve/dotfiles.git "$HOME/.dotfiles"

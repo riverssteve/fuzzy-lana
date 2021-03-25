@@ -24,6 +24,8 @@ done
 if is_mac ; then
     pinfo "Installing homebrew bundle"
     brew bundle install
+elif is_ubuntu ; then
+    bash -eu -o pipefail ubuntu/packages.sh
 fi
 
 find "${DOTFILES}" -name 'install.sh' -mindepth 2 -print0 | while read -rd $'\0' file; do

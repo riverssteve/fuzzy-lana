@@ -2,24 +2,24 @@
 
 set -euo pipefail
 
-function is_mac {
+is_mac() {
     if [[ $(uname) == "Darwin" ]]; then
-        echo 1
+        return 0  # true
     else
-        echo 0
+        return 1  # false
     fi
 }
 
-function is_ubuntu {
+is_ubuntu() {
     if [[ $(uname) == "Linux" ]] && [[ -n $(command -v apt-get) ]]; then
-        echo 1
+        return 0  # true
     else
-        echo 0
+        return 1  # false
     fi
 }
 
 if ! command -v git; then
-    if [[ $(is_ubuntu) -eq 1 ]]; then
+    if is_ubuntu ; then
         sudo apt-get update && sudo apt-get install -y git
     fi
 fi
@@ -31,7 +31,7 @@ fi
 
 # install homebrew
 if ! command -v brew; then
-    if [[ $(is_mac) -eq 1 ]]; then
+    if is_mac ; then
         echo "[Bootstrap] Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi

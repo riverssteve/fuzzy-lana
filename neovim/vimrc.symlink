@@ -17,6 +17,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'mbbill/undotree'
 Plug 'tpope/vim-vinegar'
 Plug 'mg979/vim-visual-multi'
+Plug 'vim-airline/vim-airline'
 
 "if has('nvim')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -29,6 +30,7 @@ Plug 'Yggdroot/indentLine'
 Plug 'sheerun/vim-polyglot'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
+Plug 'dense-analysis/ale'
 
 " Theme
 Plug 'arcticicestudio/nord-vim'

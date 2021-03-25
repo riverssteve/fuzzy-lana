@@ -2,9 +2,8 @@
 
 set -euo pipefail
 
-
 function is_mac {
-    if [[ $( uname ) == "Darwin" ]] ; then 
+    if [[ $(uname) == "Darwin" ]]; then
         echo 1
     else
         echo 0
@@ -12,27 +11,27 @@ function is_mac {
 }
 
 function is_ubuntu {
-    if [[ $( uname ) == "Linux" ]] && [[ -n $( command -v apt-get ) ]] ; then
+    if [[ $(uname) == "Linux" ]] && [[ -n $(command -v apt-get) ]]; then
         echo 1
     else
         echo 0
     fi
 }
 
-if ! command -v git ; then
-    if [[ $( is_ubuntu ) -eq 1 ]] ; then
+if ! command -v git; then
+    if [[ $(is_ubuntu) -eq 1 ]]; then
         sudo apt-get update && sudo apt-get install -y git
     fi
 fi
 
-if [ ! -d "$HOME/.dotfiles" ] ; then
+if [ ! -d "$HOME/.dotfiles" ]; then
     echo "[Bootstrap] Cloning dotfiles"
     git clone --recursive https://github.com/riverssteve/dotfiles.git "$HOME/.dotfiles"
 fi
 
 # install homebrew
-if ! command -v brew ; then
-    if [[ $( is_mac ) -eq 1 ]] ; then
+if ! command -v brew; then
+    if [[ $(is_mac) -eq 1 ]]; then
         echo "[Bootstrap] Installing Homebrew"
         /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     fi
@@ -44,18 +43,18 @@ if [[ ! -d $HOME/.config ]]; then
 fi
 
 secrets="$HOME/.config/secrets"
-if [[ ! -f "${secrets}" ]] ; then
+if [[ ! -f "${secrets}" ]]; then
     echo "[Bootstrap] Generating secrets directory and applying permissions"
     touch "${secrets}"
     chmod 600 "${secrets}"
 fi
 
-if [[ ! -d $HOME/.nvm ]] ; then
+if [[ ! -d $HOME/.nvm ]]; then
     echo "[Bootstrap] Downloading nvm..."
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 fi
 
-if [[ $( is_mac ) -eq 1 ]] ; then
+if [[ $(is_mac) -eq 1 ]]; then
     echo "[Bootstrap] Install a newer bash"
     brew install bash
 fi

@@ -33,3 +33,19 @@ pfail() {
 	echo ''
 	exit
 }
+
+is_mac() {
+    if [[ $(uname) == "Darwin" ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}
+
+is_ubuntu() {
+    if [[ $(uname) == "Linux" ]] && [[ -n $(command -v apt-get) ]]; then
+        echo 1
+    else
+        echo 0
+    fi
+}

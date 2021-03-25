@@ -19,8 +19,10 @@ do
     ln -sfv "${file}" "$HOME/.$(basename "${file%.*}")"
 done
 
-pinfo "Installing homebrew bundle"
-brew bundle install
+if [[ $( is_mac ) ]] ; then
+    pinfo "Installing homebrew bundle"
+    brew bundle install
+fi
 
 find "${DOTFILES}" -name 'install.sh' -mindepth 2 -print0 | while read -d $'\0' file; do
     pinfo "Running installer ${file}"

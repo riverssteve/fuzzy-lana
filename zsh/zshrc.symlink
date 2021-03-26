@@ -12,7 +12,7 @@ source ~/.zplug/init.zsh
 
 zplug "denysdovhan/spaceship-prompt"
 zplug "mafredri/zsh-async"
-zplug "rupa/z"
+zplug "rupa/z", use:"z.sh"
 zplug "zsh-users/zsh-syntax-highlighting"
 
 # Install plugins if there are plugins that have not been installed

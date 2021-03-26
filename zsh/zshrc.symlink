@@ -7,8 +7,26 @@
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)
 
-# load zsh, antibody and plugins
-source ~/.zsh_plugins.sh
+# {{{ zplug: Zsh Plugin Manager
+source ~/.zplug/init.zsh
+
+zplug "denysdovhan/spaceship-prompt"
+zplug "mafredri/zsh-async"
+zplug "rupa/z"
+zplug "zsh-users/zsh-syntax-highlighting"
+
+# Install plugins if there are plugins that have not been installed
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# Then, source plugins and add commands to $PATH
+zplug load
+# }}}
+
 source $DOTFILES/zsh/pure.zsh
 
 # use .config/secrets for SUPER SECRET CRAP that you don't
@@ -50,3 +68,5 @@ if command -v pyenv 1>/dev/null 2>&1; then
 fi
 
 # zprof
+
+# vim:foldmethod=marker:foldlevel=0

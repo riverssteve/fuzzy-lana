@@ -9,6 +9,10 @@ source "${dirpath}/../utils.sh"
 # shellcheck disable=SC2086
 cd "$(dirname ${0})"
 
+if ! is_ubuntu ; then
+    exit
+fi
+
 pinfo "Installing packages"
 
 apt_packages=(

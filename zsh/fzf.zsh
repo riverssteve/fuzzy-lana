@@ -1,17 +1,21 @@
+# Path to this script
+dirpath="$(cd "$( dirname "${BASH_SOURCE[0]:-$0}" )" && pwd)"
+source "${dirpath}/utils.zsh"
+
+# shellcheck disable=SC2086
+cd "$(dirname ${0})"
+
 # Setup fzf
-# ---------
-if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
-    export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+if is_mac ; then
+    if [[ ! "$PATH" == */usr/local/opt/fzf/bin* ]]; then
+        export PATH="${PATH:+${PATH}:}/usr/local/opt/fzf/bin"
+    fi
+    # Auto-completion
+    [[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
+
+    # Key bindings
+    source "/usr/local/opt/fzf/shell/key-bindings.zsh"
 fi
-
-# Auto-completion
-# ---------------
-[[ $- == *i* ]] && source "/usr/local/opt/fzf/shell/completion.zsh" 2> /dev/null
-
-# Key bindings
-# ------------
-source "/usr/local/opt/fzf/shell/key-bindings.zsh"
-
 
 export FZF_DEFAULT_OPTS='
     --color fg:#D8DEE9,bg:#2E3440,hl:#A3BE8C,fg+:#D8DEE9,bg+:#434C5E,hl+:#A3BE8C

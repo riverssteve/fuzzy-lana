@@ -3,7 +3,6 @@ cask_args appdir: '/Applications'
 tap "homebrew/cask"
 tap "homebrew/bundle"
 
-tap "getantibody/tap"
 tap "golangci/tap"
 tap "github/gh"
 tap "homebrew/cask-fonts"
@@ -11,7 +10,6 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "kaos/shell"
 
-brew "antibody"
 brew "bat"
 brew "ctags"
 brew "direnv"

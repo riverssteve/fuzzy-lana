@@ -8,7 +8,10 @@ fpath=(
 )
 
 autoload -U "$DOTFILES"/functions/*(:t)
-autoload -U "$HOME"/.config/zsh/functions/*(:t)
+# https://stackoverflow.com/a/17902999/13227290
+if (f=(*); ((${#f[@]}))); then
+  autoload -U "$HOME"/.config/zsh/functions/*(:t)
+fi
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 

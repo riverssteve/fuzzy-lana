@@ -16,6 +16,7 @@ fi
 pinfo "Installing packages"
 
 apt_packages=(
+    fzf
     zsh
     tmux
 )

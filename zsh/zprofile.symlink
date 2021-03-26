@@ -1,5 +1,21 @@
 #!/usr/bin/env zsh
 
+is_mac() {
+    if [[ $(uname) == "Darwin" ]]; then
+        return 0  # true
+    else
+        return 1  # false
+    fi
+}
+
+is_ubuntu() {
+    if [[ $(uname) == "Linux" ]] && [[ -n $(command -v apt-get) ]]; then
+        return 0  # true
+    else
+        return 1  # false
+    fi
+}
+
 # Use GNU unix utils
 local GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
 local GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
@@ -18,18 +34,20 @@ export EDITOR='vim'
 export VEDITOR='code'
 
 # Construct path
-path=(
-    $GNUBIN
-    $GNU_SED
-    $GNU_GETOPT
-    $DOTFILES/bin
-    /usr/local/bin
-    /usr/bin
-    /bin
-    /usr/local/sbin
-    /usr/sbin
-    /sbin
-)
+if is_mac ; then
+    path=(
+        $GNUBIN
+        $GNU_SED
+        $GNU_GETOPT
+        $DOTFILES/bin
+        /usr/local/bin
+        /usr/bin
+        /bin
+        /usr/local/sbin
+        /usr/sbin
+        /sbin
+    )
+fi
 
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)

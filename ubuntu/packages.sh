@@ -12,9 +12,10 @@ cd "$(dirname ${0})"
 pinfo "Installing packages"
 
 apt_packages=(
+    zsh
     tmux
 )
 
 sudo snap install --beta nvim --classic
 
-sudo apt-get update && sudo apt-get install "${apt_packages[@]}"
+sudo apt-get update && sudo apt-get install -y "${apt_packages[@]}"

@@ -45,15 +45,17 @@ for file in ${(M)config_files:#*/profile.zsh} ; do
 done
 
 function add_to_manpath {
-  case ":$PATH:" in
-    *":$1:"*) :;;              # already there
-    *) MANPATH="$1:$MANPATH";; # or prepend
-  esac
+    case ":$PATH:" in
+        *":$1:"*) :;;              # already there
+        *) MANPATH="$1:$MANPATH";; # or prepend
+    esac
 }
 
 export PATH
 add_to_manpath "${GNUMAN}"
 
-ssh-add -K > /dev/null 2>&1
-ssh-add ~/.ssh/DevOps-20170413.pem > /dev/null 2>&1
-ssh-add ~/.config/futrli/BuildkiteAgent.pem > /dev/null 2>&1
+if [[ $( uname ) == "Darwin" ]] ; then
+    ssh-add -K > /dev/null 2>&1
+else
+    ssh-add > /dev/null 2>&1
+fi

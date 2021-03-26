@@ -16,6 +16,7 @@ fi
 pinfo "Installing packages"
 
 apt_packages=(
+    direnv
     fzf
     zsh
     tmux

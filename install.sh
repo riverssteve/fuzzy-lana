@@ -23,7 +23,22 @@ done
 
 if is_mac ; then
     pinfo "Installing homebrew bundle"
-    brew bundle install
+
+    proc=$(uname -p)
+
+    if [[ "${proc}" == "arm" ]] ; then
+        # M1 Mac
+        pinfo "M1 Mac detected"
+        brewfile_path="${dirpath}/homebrew/m1.brewfile"
+    else
+        # Intel Mac
+        pinfo "Intel Mac detected"
+        brewfile_path="${dirpath}/homebrew/intel.brewfile"
+    fi
+
+    pinfo "Installing brewfile from ${brewfile_path}"
+    pwarn "Some commands may require sudo priviledges"
+    # brew bundle --file="${brewfile_path}" -v --no-lock install || pwarn "bundle encoutered errors, continuing"
 elif is_ubuntu ; then
     bash -eu -o pipefail ubuntu/packages.sh
 fi

@@ -1,8 +1,14 @@
 #!/usr/bin/env zsh
 
+# Set up brew
+test -d "/opt/homebrew" && {
+    eval $(/opt/homebrew/bin/brew shellenv)
+}
+
 # Use GNU unix utils
-local GNUBIN="/usr/local/opt/coreutils/libexec/gnubin"
-local GNUMAN="/usr/local/opt/coreutils/libexec/gnuman"
+local BREW="$(brew --prefix)"
+local GNUBIN="$BREW/opt/coreutils/libexec/gnubin"
+local GNUMAN="$BREW/opt/coreutils/libexec/gnuman"
 local GNU_GETOPT="/usr/local/opt/gnu-getopt/bin"
 local GNU_SED="/usr/local/opt/gnu-sed/bin"
 local HOMEBIN="$HOME/.local/bin"
@@ -23,6 +29,7 @@ path=(
     $GNU_SED
     $GNU_GETOPT
     $DOTFILES/bin
+    $BREW/bin
     /usr/local/bin
     /usr/bin
     /bin

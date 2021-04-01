@@ -18,6 +18,7 @@ Plug 'mbbill/undotree'
 Plug 'preservim/nerdtree'
 Plug 'mg979/vim-visual-multi'
 Plug 'vim-airline/vim-airline'
+Plug 'mhinz/vim-startify'
 
 "if has('nvim')
   "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -176,7 +177,7 @@ augroup codeSettings
   " * should match - as well as _ when searching under the cursor
   autocmd FileType css,html,htmldjango call <SID>AddKeyword()
 
-  autocmd FileType python,sh call <SID>CodingStyleFiletypes(4, 'on')
+  autocmd FileType python,sh,bash,zsh call <SID>CodingStyleFiletypes(4, 'on')
 augroup END
 
 " File types {{{
@@ -218,6 +219,9 @@ nnoremap <leader>n :NERDTreeFocus<CR>
 "nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-t> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
+
+" Startify
+nnoremap <leader>s :Startify<CR>
 " }}}
 
 " vim:foldmethod=marker:foldlevel=0

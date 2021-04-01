@@ -21,11 +21,8 @@ setopt INTERACTIVECOMMENTS     # Allow comments even in interactive shells.
 setopt APPEND_HISTORY          # Append history list to the history file, rather than replace it.
 setopt EXTENDED_HISTORY        # Save each command’s beginning timestamp.
 setopt INC_APPEND_HISTORY      # Save command immediately
-setopt HIST_EXPIRE_DUPS_FIRST  # Expire oldest dups before unique commands
 setopt HIST_FIND_NO_DUPS       # When searching don't display dups of a line previously found.
 setopt HIST_IGNORE_ALL_DUPS    # Only save last item in duplicate history entries.
-setopt HIST_IGNORE_DUPS        # If I type cd and then cd again, only save the last one.
-setopt HIST_IGNORE_SPACE       # If a line starts with a space, don't save it.
 setopt HIST_NO_STORE           # Remove the history command from the history list when invoked.
 setopt HIST_REDUCE_BLANKS      # Remove superfluous blanks from history.
 
@@ -45,8 +42,6 @@ setopt LIST_TYPES              # When listing files that are possible completion
 
 # Expansion and Globbing
 setopt EQUALS                  # Perform = filename expansion.
-setopt EXTENDEDGLOB            # Treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for
-                               # filename generation.
 
 setopt SHARE_HISTORY           # This option both imports new commands from the history file, and
                                # also causes your typed commands to be appended to the history file

@@ -54,3 +54,7 @@ zstyle ':completion:*:*:cd:*' tag-order local-directories path-directories
 # kill style.
 zstyle ':completion:*:*:kill:*' command 'ps -a -w -w -u $USER -o pid,cmd --sort=-pid'
 zstyle ':completion:*:*:kill:*:processes' list-colors "=(#b) #([0-9]#)*=39=32"
+
+# Plugins
+# history-search-multi-word: highlight current search
+zstyle ":history-search-multi-word" highlight-color "bg=8" 

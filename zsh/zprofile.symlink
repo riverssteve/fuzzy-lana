@@ -24,19 +24,32 @@ export EDITOR='vim'
 export VEDITOR='code'
 
 # Construct path
-path=(
-    $GNUBIN
-    $GNU_SED
-    $GNU_GETOPT
-    $DOTFILES/bin
-    $BREW/bin
-    /usr/local/bin
-    /usr/bin
-    /bin
-    /usr/local/sbin
-    /usr/sbin
-    /sbin
-)
+if [[ $( uname ) == "Darwin" ]] && [[ $( arch ) == "arm64" ]]; then
+    path=(
+        $DOTFILES/bin
+        $BREW/bin
+        /usr/local/bin
+        /usr/bin
+        /bin
+        /usr/local/sbin
+        /usr/sbin
+        /sbin
+    )
+else
+    path=(
+        $GNUBIN
+        $GNU_SED
+        $GNU_GETOPT
+        $DOTFILES/bin
+        $BREW/bin
+        /usr/local/bin
+        /usr/bin
+        /bin
+        /usr/local/sbin
+        /usr/sbin
+        /sbin
+    )
+fi
 
 typeset -U config_files
 config_files=($DOTFILES/*/*.zsh)

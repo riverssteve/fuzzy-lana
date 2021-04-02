@@ -41,10 +41,11 @@ if [[ -f "${iterm_data_path}/Nord.itermcolors" ]] ; then
 fi
 
 # Italics
-if [[ $(command -v ) ]] ; then
+if [[ $( command -v tic ) ]] ; then
     # See https://stackoverflow.com/a/48512956
     # and https://github.com/tmux/tmux/issues/696
     tic "${DOTFILES}/iterm/xterm-256color-italic.terminfo"
     echo "New TERM 'xterm-256color-italic' available"
+    echo "Modify the 'Report terminal type' field in Profiles > Terminal"
 fi
 

@@ -17,9 +17,8 @@ if [ ! -d "$HOME/.config/zsh/functions" ] ; then
     mkdir -p "$HOME/.config/zsh/functions"
 fi
 
-test -d "$HOME/.zplug" || {
-    pinfo "Installing zplug"
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+hash zinit || {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 }
 
 hash starship || {

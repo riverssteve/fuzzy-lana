@@ -5,7 +5,6 @@ tap "homebrew/bundle"
 
 tap "gh"
 tap "homebrew/core"
-tap "kaos/shell"
 
 brew "antibody"
 brew "bash"

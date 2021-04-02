@@ -1,6 +1,6 @@
 # Note: To use non-alias version prefix command with \
 
-if [[ $(uname -s) == "Darwin" ]] && [[ $(arch) == "amd64" ]]; then
+if [[ $( uname ) == "Darwin" ]] && [[ $( arch ) == "arm64" ]]; then
     # M1 doesn't use GNU tools 
     alias ls='ls -G'
 else

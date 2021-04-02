@@ -9,3 +9,4 @@ fi
 alias preview="fzf --preview 'bat --color \"always\" {}'"
 alias pping='prettyping --nolegend'
 alias vi='vim'
+alias ssh="TERM=xterm-256color ssh"

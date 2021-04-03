@@ -1,0 +1,16 @@
+function activate-venv() {
+    venv_dir=$HOME/.local/share/virtualenvs
+    if [[ -d "${venv_dir}" ]]; then
+        local selected_env
+        selected_env=$(ls "${venv_dir}" | fzf)
+
+        if [ -n "$selected_env" ]; then
+            source "${venv_dir}/${selected_env}/bin/activate"
+        fi
+    else
+        # Codes: https://gist.github.com/Prakasaka/219fe5695beeb4d6311583e79933a009
+        # \e[0;33m -> yellow
+        # \e[0m -> clear
+        printf "\e[0;33m%s\e[0m\n" "Warning: Virtualenv directory not found"
+    fi
+}

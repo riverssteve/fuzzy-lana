@@ -8,7 +8,11 @@ fpath=(
 )
 
 autoload -U "$DOTFILES"/functions/*(:t)
-autoload -U "$HOME"/.config/zsh/functions/*(:t)
+
+local_functions=$( ls .config/zsh/functions | wc -l )
+if [[ $local_functions -gt 0 ]]; then
+    autoload -U "$HOME"/.config/zsh/functions/*(:t)
+fi
 
 # http://zsh.sourceforge.net/Doc/Release/Options.html
 

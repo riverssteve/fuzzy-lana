@@ -1,0 +1,16 @@
+function delete-branches() {
+    if [[ -d .git ]]; then
+        git branch |
+            grep --invert-match '\*' |
+            grep -v "main" |
+            grep -v "master" |
+            cut -c 3- |
+            fzf --height "40%" --preview-window "right:60%" --reverse --multi --preview="git log {} --" |
+            xargs -r git branch --delete --force 2>/dev/null
+    else
+        # Codes: https://gist.github.com/Prakasaka/219fe5695beeb4d6311583e79933a009
+        # \e[0;33m -> yellow
+        # \e[0m -> clear
+        printf "\e[0;33m%s\e[0m\n" "Warning: Not a git directory"
+    fi
+}

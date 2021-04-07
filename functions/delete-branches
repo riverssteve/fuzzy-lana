@@ -1,5 +1,5 @@
 function delete-branches() {
-    if [[ -d .git ]]; then
+    if [[ -d .git ]] || [[ -f .git ]]; then
         git branch |
             grep --invert-match '\*' |
             grep -v "main" |

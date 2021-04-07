@@ -9,7 +9,7 @@ fpath=(
 
 autoload -U "$DOTFILES"/functions/*(:t)
 
-local_functions=$( ls .config/zsh/functions | wc -l )
+local_functions=$( ls $HOME/.config/zsh/functions | wc -l )
 if [[ $local_functions -gt 0 ]]; then
     autoload -U "$HOME"/.config/zsh/functions/*(:t)
 fi

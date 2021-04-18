@@ -54,7 +54,7 @@ if [[ ! -d $HOME/.nvm ]]; then
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.0/install.sh | bash
 fi
 
-if [[ $(is_mac) -eq 1 ]]; then
+if is_mac ; then
     echo "[Bootstrap] Install a newer bash"
     brew install bash
 fi

@@ -9,11 +9,7 @@
 
 To install:
 
-```
-git clone https://github.com/riverssteve/dotfiles.git
-cd dotfiles
-./bootstrap.sh
-```
+curl https://raw.githubusercontent.com/riverssteve/dotfiles/master/bootstrap.sh | bash
 
 Thanks to:
  - [caarlos0](https://github.com/caarlos0/dotfiles)

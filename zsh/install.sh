@@ -17,7 +17,7 @@ if [ ! -d "$HOME/.config/zsh/functions" ] ; then
     mkdir -p "$HOME/.config/zsh/functions"
 fi
 
-hash zinit || {
+hash zinit 2>/dev/null || {
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 }
 

@@ -3,8 +3,8 @@
     editor = /usr/local/bin/vim
 
 [user]
-    email = steve@futrli.com
-    name = Steve Rivers
+	email = steve.rivers@krakentechnologies.ltd
+	name = Steve Rivers
     signingkey = 2645CA390FB46823
 
 [color]

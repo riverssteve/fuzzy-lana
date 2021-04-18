@@ -71,3 +71,6 @@ fi
 
 # vim:foldmethod=marker:foldlevel=0
 
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
